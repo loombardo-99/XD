@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos e Assinaturas</title>
+    <!-- Link para o CSS do Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos para o corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(../midia/backgourd.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgba(226, 226, 226, 0.105); 
+            background-blend-mode: overlay; 
+        }
+        /* Estilos para os cards de planos */
+        .plan-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">XD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/informacao-conta.html">Informações</a></li>
+                <li class="nav-item"><a class="nav-link" href="/planos.html">Planos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/index.html">Conta</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sobre-nos.html">Sobre Nós</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Seção de planos -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card plan-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plano Prata</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">R$ 29,90/mês</h6>
+                        <ul class="card-text">
+                            <li>Acesso a funcionalidades básicas</li>
+                            <li>Suporte via email</li>
+                            <li>5 GB de armazenamento</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Assinar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card plan-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plano Ouro</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">R$ 59,90/mês</h6>
+                        <ul class="card-text">
+                            <li>Acesso a todas as funcionalidades</li>
+                            <li>Suporte via email e chat</li>
+                            <li>50 GB de armazenamento</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Assinar</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card plan-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Plano Diamante</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">R$ 99,90/mês</h6>
+                        <ul class="card-text">
+                            <li>Acesso a todas as funcionalidades premium</li>
+                            <li>Suporte 24/7</li>
+                            <li>Armazenamento ilimitado</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Assinar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de newsletter minimalista -->
+    <div class="newsletter mt-5 text-center">
+        <h2>Assine nossa Newsletter</h2>
+        <form>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Assinar</button>
+        </form>
+    </div>
+
+    <!-- Scripts do Bootstrap e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
