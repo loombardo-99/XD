@@ -19,33 +19,20 @@
             height: 100vh;
             color: #ffffff;
         }
-        .chat-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px;
-            padding: 20px;
-            background-color: #ffffff00;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            color: #000000;
-        }
         nav {
             width: 80%;
             background-color: rgb(0, 0, 0);
             box-shadow: 0 2px 2px rgb(255, 255, 255);
             border-radius: 8px;
-            margin-bottom: px;
             margin-top: 15px;
             display: none;
         }
-        
         nav ul {
             display: flex;
             justify-content: space-around;
             padding: 0;
             margin: 0;
         }
-        
         nav ul li a {
             text-decoration: none;
             color: #ffffff;
@@ -53,60 +40,6 @@
         nav ul li a:hover {
             text-decoration: none;
             color: #ffff24;
-        }
-      
-        
-        .chat-header {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            text-align: center;
-            margin-bottom: 0px;
-            color: #ffffff;
-        }
-        .chat-header h1 {
-            border: 1px solid #ffffff71;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: rgb(0, 0, 0);
-    
-        }
-        .chat-messages {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid #000000;
-            padding: 10px;
-            border-radius: 8px;
-            background-color: #000000;
-        }
-        .chat-messages div {
-            background-color: #ffff24b5;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .chat-input {
-            display: flex;
-            margin-top: 20px;
-        }
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #000000;
-            border-radius: 8px 0 0 8px;
-            outline: none;
-        }
-        .chat-input button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #ffffff;
-            color: #000000;
-            border-radius: 0 8px 8px 0;
-            cursor: pointer;
-        }
-        .chat-input button:hover {
-            background-color: #faf556;
-            color: #000000;
-            border: 1px solid #666666;
         }
         .menu-icon {
             display: block;
@@ -116,29 +49,58 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            
         }
         .menu-icon:hover + nav ul,
         nav ul:hover {
             display: flex;
         }
+        .main-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px;
+            gap: 20px;
+        }
+        .online-users {
+            width: 25%;
+            background-color: #323232d2;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+        }
+        .online-users h2 {
+            margin-top: 0;
+        }
+        .online-users ul {
+            list-style: none;
+            padding: 0;
+        }
+        .online-users ul li {
+            margin-bottom: 10px;
+        }
+        .feed {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            height: 400px;
+        }
+        .feed .post {
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
         @media (max-width: 768px) {
-            nav ul {
+            .main-container {
                 flex-direction: column;
+            }
+            .online-users {
                 width: 100%;
-                background-color: #000000;
-                position: absolute;
-                top: 50px;
-                left: 0;
-                padding: 0;
-            }
-            nav ul li {
-                text-align: center;
-                padding: 10px 0;
-                border-bottom: 1px solid #ffffff;
-            }
-            nav ul li:last-child {
-                border-bottom: none;
             }
         }
     </style>
@@ -154,16 +116,18 @@
             <li><a href="login.html"><strong>voltar login</strong></a></li>
         </ul>
     </nav>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1><strong>COMUNIDADE</strong></h1>
+    <div class="main-container">
+        <div class="online-users">
+            <h2>Usuários Online</h2>
+            <ul id="online-users-list">
+                <li>Fernando</li>
+                <li>Yasmin</li>
+                <li>Leonardo</li>
+                <!-- Mais usuários podem ser adicionados dinamicamente -->
+            </ul>
         </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Messages will appear here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
-            <button onclick="sendMessage()"><strong>Enviar</strong></button>
+        <div class="feed" id="feed">
+            <!-- Postagens da comunidade serão carregadas aqui -->
         </div>
     </div>
     <script>
@@ -180,19 +144,28 @@
             }
         });
 
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const messages = document.getElementById('chat-messages');
-            const message = input.value.trim();
+        // Simulação de carregamento de postagens
+        const feed = document.getElementById('feed');
+        let postCount = 0;
 
-            if (message) {
-                const messageElement = document.createElement('div');
-                messageElement.textContent = message;
-                messages.appendChild(messageElement);
-                input.value = '';
-                messages.scrollTop = messages.scrollHeight;
+        function loadPosts() {
+            for (let i = 0; i < 5; i++) {
+                const post = document.createElement('div');
+                post.className = 'post';
+                post.textContent = `Postagem ${++postCount}`;
+                feed.appendChild(post);
             }
         }
+
+        // Carregar postagens iniciais
+        loadPosts();
+
+        // Rolagem infinita
+        feed.addEventListener('scroll', function() {
+            if (feed.scrollTop + feed.clientHeight >= feed.scrollHeight) {
+                loadPosts();
+            }
+        });
     </script>
 </body>
 </html>
