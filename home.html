@@ -16,66 +16,64 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             color: #ffffff;
         }
         .chat-container {
-            width: 100%;
+            width: 90%;
             max-width: 800px;
             margin: 20px;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.239);
+            background-color: rgba(0, 0, 0, 0.8);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-            color: #000000;
         }
         nav {
-            width: 80%;
-            background-color: rgb(0, 0, 0);
-            box-shadow: 0 2px 2px rgb(255, 255, 255);
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            margin-bottom: px;
-            margin-top: 15px;
+            margin-bottom: 20px;
             display: none;
         }
-        
         nav ul {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
-            padding: 0;
+            padding: 10px;
             margin: 0;
+            list-style: none;
         }
-        
+        nav ul li {
+            margin: 5px 0;
+        }
         nav ul li a {
             text-decoration: none;
             color: #ffffff;
+            font-weight: bold;
         }
         nav ul li a:hover {
-            text-decoration: none;
             color: #ffff24;
         }
-      
-        
         .chat-header {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             text-align: center;
-            margin-bottom: 0px;
+            margin-bottom: 20px;
             color: #ffffff;
         }
         .chat-header h1 {
             border: 1px solid #ffffff71;
             padding: 15px;
             border-radius: 8px;
-            background-color: rgb(0, 0, 0);
-    
+            background-color: rgba(0, 0, 0, 0.8);
         }
         .chat-messages {
-            height: 400px;
+            height: 300px;
             overflow-y: auto;
-            border: 1px solid #000000;
+            border: 1px solid #ffffff;
             padding: 10px;
             border-radius: 8px;
-            background-color: #000000;
+            background-color: rgba(0, 0, 0, 0.9);
         }
         .chat-messages div {
             background-color: #ffff24b5;
@@ -91,7 +89,7 @@
         .chat-input input {
             flex: 1;
             padding: 10px;
-            border: 1px solid #000000;
+            border: 1px solid #ffffff;
             border-radius: 8px 0 0 8px;
             outline: none;
         }
@@ -116,29 +114,14 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            
-        }
-        .menu-icon:hover + nav ul,
-        nav ul:hover {
-            display: flex;
         }
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
-                width: 100%;
-                background-color: #000000;
-                position: absolute;
-                top: 50px;
-                left: 0;
-                padding: 0;
+                align-items: center;
             }
-            nav ul li {
-                text-align: center;
-                padding: 10px 0;
-                border-bottom: 1px solid #ffffff;
-            }
-            nav ul li:last-child {
-                border-bottom: none;
+            .chat-messages {
+                height: 200px;
             }
         }
     </style>
@@ -146,24 +129,24 @@
 <body>
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
     <nav>
-        <ul style="list-style: none; padding:15px; justify-content: space-around; background-color: #000000a6; border-radius: 0px; margin-bottom: 0px;">
-            <li><a href="home.html"><strong>Assistente</strong></a></li>
-            <li><a href="previsoes.html"><strong>Serviços</strong></a></li>
-            <li><a href="comunidade.html"><strong>Comunidade</strong></a></li>
-            <li><a href="#configuration"><strong>Configuração</strong></a></li>
-            <li><a href="login.html"><strong>voltar login</strong></a></li>
+        <ul>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Serviços</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="#configuration">Configuração</a></li>
+            <li><a href="login.html">Voltar Login</a></li>
         </ul>
     </nav>
     <div class="chat-container">
         <div class="chat-header">
-            <h1><strong>Assistente virtual</strong></h1>
+            <h1>Assistente Virtual</h1>
         </div>
         <div class="chat-messages" id="chat-messages">
             <!-- Messages will appear here -->
         </div>
         <div class="chat-input">
             <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
-            <button onclick="sendMessage()"><strong>Enviar</strong></button>
+            <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
     <script>

@@ -56,58 +56,29 @@
         }
       
         
-        .chat-header {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            text-align: center;
-            margin-bottom: 0px;
-            color: #ffffff;
-        }
-        .chat-header h1 {
-            border: 1px solid #ffffff71;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: rgb(0, 0, 0);
-    
-        }
-        .chat-messages {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid #000000;
-            padding: 10px;
-            border-radius: 8px;
-            background-color: #000000;
-        }
-        .chat-messages div {
-            background-color: #ffff24b5;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        .chat-input {
-            display: flex;
-            margin-top: 20px;
-        }
-        .chat-input input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #000000;
-            border-radius: 8px 0 0 8px;
-            outline: none;
-        }
-        .chat-input button {
-            padding: 10px 20px;
-            border: none;
-            background-color: #ffffff;
-            color: #000000;
-            border-radius: 0 8px 8px 0;
-            cursor: pointer;
-        }
-        .chat-input button:hover {
-            background-color: #faf556;
-            color: #000000;
-            border: 1px solid #666666;
-        }
+        .group-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        width: 90%;
+        max-width: 800px;
+        margin: 20px auto;
+    }
+    .group-grid button {
+        padding: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #000000;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+    }
+    .group-grid button:hover {
+        background-color: #ffff24;
+        color: #000000;
+    }
         .menu-icon {
             display: block;
             font-size: 30px;
@@ -154,17 +125,14 @@
             <li><a href="login.html"><strong>voltar login</strong></a></li>
         </ul>
     </nav>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1><strong>SERVIÇOS</strong></h1>
-        </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Messages will appear here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
-            <button onclick="sendMessage()"><strong>Enviar</strong></button>
-        </div>
+
+    <div class="group-grid">
+        <button>Esportes</button>
+        <button>Educação</button>
+        <button>Entretenimento</button>
+        <button>Tecnologia</button>
+        <button>Saúde</button>
+        <button>Viagens</button>
     </div>
     <script>
         function toggleMenu() {

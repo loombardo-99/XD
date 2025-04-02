@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XD</title>
     <style>
+        /* Estilo geral do corpo */
         body {
             font-family: Arial, sans-serif;
-            background-image: url(midia/backgourd.jpg);
+            background-color: #000000;
             background-size: cover;
             background-position: center;
             margin: 0;
@@ -16,31 +17,105 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             color: #ffffff;
         }
-        nav {
-            width: 80%;
-            background-color: rgb(0, 0, 0);
-            box-shadow: 0 2px 2px rgb(255, 255, 255);
+
+        /* Contêiner do chat */
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-            margin-top: 15px;
-            display: none;
         }
+
+        /* Estilo do menu de navegação */
+        nav {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none; /* Menu oculto por padrão */
+        }
+
         nav ul {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
-            padding: 0;
+            padding: 10px;
             margin: 0;
+            list-style: none;
         }
+
         nav ul li a {
             text-decoration: none;
             color: #ffffff;
+            font-weight: bold;
         }
+
         nav ul li a:hover {
-            text-decoration: none;
             color: #ffff24;
         }
+
+        /* Cabeçalho do chat */
+        .chat-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .chat-header h1 {
+            border: 1px solid #ffffff71;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Área de mensagens do chat */
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        /* Entrada de texto do chat */
+        .chat-input {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ffffff;
+            border-radius: 8px 0 0 8px;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #faf556;
+            color: #000000;
+            border: 1px solid #666666;
+        }
+
+        /* Ícone do menu */
         .menu-icon {
             display: block;
             font-size: 30px;
@@ -50,92 +125,57 @@
             top: 15px;
             left: 15px;
         }
-        .menu-icon:hover + nav ul,
-        nav ul:hover {
-            display: flex;
-        }
-        .main-container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            margin: 20px;
-            gap: 20px;
-        }
-        .online-users {
-            width: 25%;
-            background-color: #323232d2;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            color: #ffffff;
-        }
-        .online-users h2 {
-            margin-top: 0;
-        }
-        .online-users ul {
-            list-style: none;
-            padding: 0;
-        }
-        .online-users ul li {
-            margin-bottom: 10px;
-        }
-        .feed {
-            flex: 1;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            height: 400px;
-        }
-        .feed .post {
-            background-color: #f4f4f4;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
+
+        /* Estilo responsivo */
         @media (max-width: 768px) {
-            .main-container {
+            nav ul {
                 flex-direction: column;
+                align-items: center;
             }
-            .online-users {
-                width: 100%;
+            .chat-messages {
+                height: 200px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Ícone para abrir/fechar o menu -->
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
-    <nav>
-        <ul style="list-style: none; padding:15px; justify-content: space-around; background-color: #000000a6; border-radius: 0px; margin-bottom: 0px;">
-            <li><a href="home.html"><strong>Assistente</strong></a></li>
-            <li><a href="previsoes.html"><strong>Serviços</strong></a></li>
-            <li><a href="comunidade.html"><strong>Comunidade</strong></a></li>
-            <li><a href="#configuration"><strong>Configuração</strong></a></li>
-            <li><a href="login.html"><strong>voltar login</strong></a></li>
+
+    <!-- Menu de navegação -->
+    <nav style="position: fixed; top: 0; width: 100%; z-index: 100;">
+        <ul>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Serviços</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="#configuration">Configuração</a></li>
+            <li><a href="login.html">Voltar Login</a></li>
         </ul>
     </nav>
-    <div class="main-container">
-        <div class="online-users">
-            <h2>Usuários Online</h2>
-            <ul id="online-users-list">
-                <li>Fernando</li>
-                <li>Yasmin</li>
-                <li>Leonardo</li>
-                <!-- Mais usuários podem ser adicionados dinamicamente -->
-            </ul>
+
+    <!-- Feed de vídeos -->
+    <div class="video-feed">
+        <!-- Item de vídeo -->
+        <div class="video-item" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative;">
+            <video src="midia/Gravação de Tela 2025-03-11 231232.mp4" controls loop style="width: 100%; height: 100%; object-fit: cover;"></video>
+            <div class="video-actions" style="position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: space-around; background: rgba(0, 0, 0, 0.5);">
+                <button onclick="likeVideo(this)">Curtir</button>
+                <button onclick="commentVideo()">Comentar</button>
+                <button onclick="shareVideo()">Compartilhar</button>
+                <button onclick="saveVideo()">Salvar</button>
+            </div>
         </div>
-        <div class="feed" id="feed">
-            <!-- Postagens da comunidade serão carregadas aqui -->
-        </div>
+        <!-- Outros vídeos omitidos para brevidade -->
     </div>
+
     <script>
+        // Alternar exibição do menu
         function toggleMenu() {
             const nav = document.querySelector('nav');
             nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
         }
 
+        // Fechar menu ao clicar fora
         document.addEventListener('click', function(event) {
             const nav = document.querySelector('nav');
             const menuIcon = document.querySelector('.menu-icon');
@@ -144,28 +184,28 @@
             }
         });
 
-        // Simulação de carregamento de postagens
-        const feed = document.getElementById('feed');
-        let postCount = 0;
+        // Função para curtir vídeo
+        function likeVideo(button) {
+            button.textContent = button.textContent === 'Curtir' ? 'Curtido' : 'Curtir';
+        }
 
-        function loadPosts() {
-            for (let i = 0; i < 5; i++) {
-                const post = document.createElement('div');
-                post.className = 'post';
-                post.textContent = `Postagem ${++postCount}`;
-                feed.appendChild(post);
+        // Função para comentar vídeo
+        function commentVideo() {
+            const comment = prompt('Digite seu comentário:');
+            if (comment) {
+                alert('Comentário enviado!');
             }
         }
 
-        // Carregar postagens iniciais
-        loadPosts();
+        // Função para compartilhar vídeo
+        function shareVideo() {
+            alert('Link do vídeo copiado para a área de transferência!');
+        }
 
-        // Rolagem infinita
-        feed.addEventListener('scroll', function() {
-            if (feed.scrollTop + feed.clientHeight >= feed.scrollHeight) {
-                loadPosts();
-            }
-        });
+        // Função para salvar vídeo
+        function saveVideo() {
+            alert('Vídeo salvo!');
+        }
     </script>
 </body>
 </html>
