@@ -10,13 +10,14 @@
         /* Estilos para o corpo da página */
         body {
             font-family: Arial, sans-serif;
-            background-image: url(midia/linhas.jpg);
+            background-image: url(midia/menino-galaxy2.jpg);
             background-size: cover;
             background-position: center;
             height: 100vh;
             margin: 0;
             background-color: rgb(93, 97, 22); 
             background-blend-mode: overlay; 
+            background-attachment: fixed; /* Torna a imagem de fundo estática */
         }
         /* Estilos para os cards de planos */
         .plan-card {
@@ -106,36 +107,37 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <!-- Rodapé -->
-    <footer class="bg-dark text-white mt-5 py-4">
-        <div class="container">
-            <div class="row">
-                <!-- Sobre -->
-                <div class="col-md-4">
-                    <h5 class="font-weight-bold">Sobre Nós</h5>
-                    <p>Somos uma empresa dedicada a oferecer os melhores planos e serviços para atender às suas necessidades.</p>
-                </div>
-                <!-- Links Rápidos -->
-                <div class="col-md-4">
-                    <h5 class="font-weight-bold">Links Rápidos</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white">Início</a></li>
-                        <li><a href="planos.html" class="text-white">Planos</a></li>
-                        <li><a href="login.html" class="text-white">Conta</a></li>
-                        <li><a href="sobre-nos.html" class="text-white">Sobre Nós</a></li>
-                    </ul>
-                </div>
-                <!-- Contato -->
-                <div class="col-md-4">
-                    <h5 class="font-weight-bold">Contato</h5>
-                    <p>Email: contato@xd.com</p>
-                    <p>Telefone: (11) 1234-5678</p>
-                    <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
-                </div>
+    <footer style="background-color: black; color: white; margin-top: 50px; padding: 20px 0;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+            <!-- Sobre -->
+            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+            <h5 style="font-weight: bold; color: #ffff24;">Sobre Nós</h5>
+            <p>Somos uma plataforma inovadora, conectando pessoas e promovendo crescimento pessoal e profissional.</p>
             </div>
-            <div class="text-center mt-3">
-                <p class="mb-0">&copy; 2023 XD. Todos os direitos reservados.</p>
+            <!-- Links Rápidos -->
+            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+            <h5 style="font-weight: bold; color: #ffff24;">Links Rápidos</h5>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="index.html" style="color: white; text-decoration: none;">Início</a></li>
+                <li><a href="planos.html" style="color: white; text-decoration: none;">Planos</a></li>
+                <li><a href="login.html" style="color: white; text-decoration: none;">Conta</a></li>
+                <li><a href="sobre-nos.html" style="color: white; text-decoration: none;">Sobre Nós</a></li>
+            </ul>
             </div>
+            <!-- Contato -->
+            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+            <h5 style="font-weight: bold; color: #ffff24;">Contato</h5>
+            <p>Email: contato@xd.com</p>
+            <p>Telefone: (11) 1234-5678</p>
+            <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;"></div>
+            <p style="margin: 0; color: #ffff24;">&copy; 2023 XD. Todos os direitos reservados.</p>
+        </div>
         </div>
     </footer>
 

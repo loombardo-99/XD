@@ -10,8 +10,8 @@
         /* Estilos para o corpo da página */
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f3ff12, #a6a5a56f);
-            color: rgb(0, 0, 0);
+            background: linear-gradient(135deg, #0000003f, #a6a5a5a9);
+            color: rgb(255, 255, 255);
             margin: 0;
             padding: 0;
         }
@@ -23,8 +23,8 @@
             filter: brightness(0.9);
         }
         .testimonials {
-            background: linear-gradient(135deg, #ffffff, #faffc8);
-            color: black;
+            background: linear-gradient(135deg, #ffffff, #daed08);
+            color: rgb(255, 255, 255);
             padding: 15px;
             border-radius: 12px;
             margin-top: 20px;
@@ -53,6 +53,7 @@
         h1, h2, h5 {
             font-weight: bold;
             text-transform: uppercase;
+            
         }
         /* Inputs */
         input[type="email"] {
@@ -65,6 +66,13 @@
             border-color: #e0a800;
             outline: none;
         }
+    /* Borda e sombra para as seções com classe row mb-5 align-items-center */
+    .row.mb-5.align-items-center {
+        border: 2px solid #ffc107;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
     </style>
 </head>
 <body>
@@ -124,24 +132,24 @@
         <!-- Apresentação do Chat Generativo -->
         <div class="row mb-5 align-items-center">
             <div class="col-md-6">
-                <img src="midia/Captura-chat.png" class="img-fluid rounded shadow" alt="Chat Generativo">
+                <img src="midia/Captura-chat.png" class="img-fluid rounded shadow" alt="Chat Generativo Frente">
             </div>
             <div class="col-md-6">
                 <h2 class="text-dark">Chat Generativo</h2>
                 <p class="text-dark">Explore um ambiente interativo com o Chat Generativo, permitindo a criação de um chat personalizado com base nos seus interesses e necessidades.</p>
-                <a href="#" class="btn btn-warning btn-lg shadow">Saiba Mais</a>
+                <a href="#" class="btn btn-warning btn-lg shadow" onclick="showVideo('midia/Gravação de Tela 2025-03-11 231232.mp4')">Saiba Mais</a>
             </div>
         </div>
 
         <!-- Apresentação da Comunidade -->
         <div class="row mb-5 align-items-center">
-            <div class="col-md-6 order-md-2">
+            <div class="col-md-6">
                 <img src="midia/ceupintura.jpg" class="img-fluid rounded shadow" alt="Comunidade">
             </div>
-            <div class="col-md-6 order-md-1">
+            <div class="col-md-6">
                 <h2 class="text-dark">Comunidade</h2>
                 <p class="text-dark">Participe de um espaço colaborativo onde ideias para um mundo melhor ganham vida, conectando pessoas e promovendo realizações através da tecnologia.</p>
-                <a href="#" class="btn btn-warning btn-lg shadow">Saiba Mais</a>
+                <a href="#" class="btn btn-warning btn-lg shadow" onclick="showVideo('midia/video-comunidade.mp4')">Saiba Mais</a>
             </div>
         </div>
 
@@ -153,54 +161,40 @@
             <div class="col-md-6">
                 <h2 class="text-dark">Funcionalidade</h2>
                 <p class="text-dark">Descubra uma variedade de funcionalidades, como anotações, agenda e galeria, projetadas para atender diferentes tipos de usos e necessidades.</p>
-                <a href="#" class="btn btn-warning btn-lg shadow">Saiba Mais</a>
+                <a href="#" class="btn btn-warning btn-lg shadow" onclick="showVideo('midia/video-funcionalidade.mp4')">Saiba Mais</a>
             </div>
         </div>
-    </div>
 
-    <!-- Seção de Newsletter -->
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
-                <h2 class="text-dark">Inscreva-se na nossa Newsletter</h2>
-                <p class="text-dark">Receba as últimas novidades e atualizações diretamente no seu e-mail.</p>
-                <form>
-                    <div class="form-row align-items-center">
-                        <div class="col-sm-9 my-1">
-                            <input type="email" class="form-control shadow" placeholder="Digite seu e-mail" required>
-                        </div>
-                        <div class="col-sm-3 my-1">
-                            <button type="submit" class="btn btn-warning btn-block btn-lg shadow">Inscrever-se</button>
-                        </div>
-                    </div>
-                </form>
+        <!-- Modal de Vídeo -->
+        <div id="videoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center;">
+            <div style="position: relative; width: 80%; max-width: 800px;">
+                <video id="videoContent" autoplay loop style="width: 100%; border-radius: 10px;"></video>
+                <button onclick="closeVideo()" style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Fechar</button>
             </div>
         </div>
-    </div>
 
-    <!-- Seção de Serviços -->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card testimonials shadow-lg">
-                    <img src="midia/xd-logo-5.jpg" class="card-img-top rounded-top" alt="Serviços de Desenvolvimento">
-                    <div class="card-body">
-                        <h5 class="card-title text-dark"><strong>Serviços de Desenvolvimento</strong></h5>
-                        <p class="card-text text-dark">Oferecemos soluções personalizadas de desenvolvimento de software para atender às suas necessidades específicas, garantindo inovação e eficiência.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-6 mb-4">
-                <div class="card testimonials shadow-lg">
-                    <img src="midia/xd-logo-5.jpg" class="card-img-top rounded-top" alt="Serviços de Automatização">
-                    <div class="card-body">
-                        <h5 class="card-title text-dark"><strong>Serviços de Automatização</strong></h5>
-                        <p class="card-text text-dark">Transforme processos manuais em automáticos com nossas soluções de automatização, otimizando tempo e recursos para sua empresa.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <script>
+            let scrollPosition = 0;
+
+            function showVideo(videoSrc) {
+                scrollPosition = window.scrollY; // Save the current scroll position
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollPosition}px`;
+                const videoElement = document.getElementById('videoContent');
+                videoElement.src = videoSrc;
+                document.getElementById('videoModal').style.display = 'flex';
+            }
+
+            function closeVideo() {
+                const videoElement = document.getElementById('videoContent');
+                videoElement.pause();
+                videoElement.src = '';
+                document.getElementById('videoModal').style.display = 'none';
+                document.body.style.position = '';
+                document.body.style.top = '';
+                window.scrollTo(0, scrollPosition); // Restore the scroll position
+            }
+        </script>
     </div>
 
     <!-- Scripts do Bootstrap e dependências -->
@@ -208,37 +202,37 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <!-- Rodapé -->
-        <footer class="bg-dark text-white mt-5 py-4">
-            <div class="container">
-                <div class="row">
-                    <!-- Sobre -->
-                    <div class="col-md-4">
-                        <h5 class="font-weight-bold">Sobre Nós</h5>
-                        <p>Somos uma empresa dedicada a oferecer os melhores planos e serviços para atender às suas necessidades.</p>
-                    </div>
-                    <!-- Links Rápidos -->
-                    <div class="col-md-4">
-                        <h5 class="font-weight-bold">Links Rápidos</h5>
-                        <ul class="list-unstyled">
-                            <li><a href="index.html" class="text-white">Início</a></li>
-                            <li><a href="planos.html" class="text-white">Planos</a></li>
-                            <li><a href="login.html" class="text-white">Conta</a></li>
-                            <li><a href="sobre-nos.html" class="text-white">Sobre Nós</a></li>
-                        </ul>
-                    </div>
-                    <!-- Contato -->
-                    <div class="col-md-4">
-                        <h5 class="font-weight-bold">Contato</h5>
-                        <p>Email: contato@xd.com</p>
-                        <p>Telefone: (11) 1234-5678</p>
-                        <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
-                    </div>
-                </div>
-                <div class="text-center mt-3">
-                    <p class="mb-0">&copy; 2023 XD. Todos os direitos reservados.</p>
-                </div>
-            </div>
-        </footer>
+  <!-- Rodapé -->
+  <footer style="background-color: black; color: white; margin-top: 50px; padding: 20px 0;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+        <!-- Sobre -->
+        <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+        <h5 style="font-weight: bold; color: #ffff24;">Sobre Nós</h5>
+        <p>Somos uma plataforma inovadora, conectando pessoas e promovendo crescimento pessoal e profissional.</p>
+        </div>
+        <!-- Links Rápidos -->
+        <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+        <h5 style="font-weight: bold; color: #ffff24;">Links Rápidos</h5>
+        <ul style="list-style: none; padding: 0;">
+            <li><a href="index.html" style="color: white; text-decoration: none;">Início</a></li>
+            <li><a href="planos.html" style="color: white; text-decoration: none;">Planos</a></li>
+            <li><a href="login.html" style="color: white; text-decoration: none;">Conta</a></li>
+            <li><a href="sobre-nos.html" style="color: white; text-decoration: none;">Sobre Nós</a></li>
+        </ul>
+        </div>
+        <!-- Contato -->
+        <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
+        <h5 style="font-weight: bold; color: #ffff24;">Contato</h5>
+        <p>Email: contato@xd.com</p>
+        <p>Telefone: (11) 1234-5678</p>
+        <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;"></div>
+        <p style="margin: 0; color: #ffff24;">&copy; 2023 XD. Todos os direitos reservados.</p>
+    </div>
+    </div>
+</footer>
 </body>
 </html>
