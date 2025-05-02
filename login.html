@@ -7,9 +7,27 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url(midia/usuarios-conexao.jpg);
-            padding: 20px;
+            background-image: url(midia/fundo-estrelado2.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            animation: moveBackground 50s infinite linear;
+            color: #ffffff;
+            margin: 0;
         }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 50% 50%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -18,86 +36,102 @@
             background-color: black;
             box-shadow: 0 2px 5px rgba(255, 255, 255, 0.411);
         }
+
         .navbar-brand {
             color: #ffff24;
             font-weight: bold;
             text-decoration: none;
         }
+
         .navbar-nav {
             display: flex;
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .nav-item {
             margin-left: 15px;
         }
+
         .nav-link {
             color: white;
             font-weight: bold;
             text-decoration: none;
         }
+
         .nav-link.active {
             color: #ffff24;
         }
+
         .nav-link:hover {
             color: #efe816;
         }
+
         .login-container {
             color: #ffffff;
             background-color: #000000c7;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.993);
-            width: 100%;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.993);
+            width: 90%;
             max-width: 400px;
-            margin: 50px auto;
+            margin: 80px auto;
             box-sizing: border-box;
         }
+
         .login-container h2 {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-align: center;
             color: rgb(255, 255, 255);
         }
+
         .login-container input {
             background-color: #00000077;
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 12px 0;
             border: 1px solid #ffffff;
-            border-radius: 4px;
+            border-radius: 5px;
             box-sizing: border-box;
             font-size: 16px;
             color: #ffffff;
         }
+
         .login-container button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #ffffff;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             color: #000000;
             font-size: 16px;
             box-sizing: border-box;
             border: 1px solid #ffffff29;
+            margin-top: 10px;
         }
+
         .login-container button:hover {
             background-color: #efe816;
             color: rgb(0, 0, 0);
         }
+
         .login-container a {
             display: block;
             text-align: left;
-            margin-top: 10px;
+            margin-top: 15px;
             color: #ffffff99;
             text-decoration: none;
         }
+
         .login-container a:hover {
             color: rgb(255, 255, 255);
         }
+
         .login-container .links {
             display: flex;
             justify-content: space-between;
+            margin-top: 20px;
         }
     </style>
 </head>

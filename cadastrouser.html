@@ -7,8 +7,25 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url(midia/interligados-1.jpg);
-            padding: 20px;
+            background-image: url(midia/fundo-estrelado2.jpg);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            animation: moveBackground 50s infinite linear;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 50% 50%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
         }
         .navbar {
             display: flex;

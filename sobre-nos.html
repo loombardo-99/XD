@@ -10,8 +10,10 @@
         body {
             font-family: Arial, sans-serif;
             background-image: url(midia/fumaca-tinta-5.jpg);
-            color: #ffffff; 
-            margin: 0;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: white;
         }
         .section {
             background-color: rgba(0, 0, 0, 0.625);
@@ -47,63 +49,112 @@
             </ul>
         </div>
     </nav>
-
     <div class="container">
         <!-- Seção de informações sobre o sistema -->
         <div class="section mt-5">
-            <h2>Sobre o Sistema</h2>
-            <p>Nosso sistema é voltado para jovens e adultos de 24 a 40 anos que buscam informações para estudar e se conectar com eventos, mensagens, discussões e muito mais.</p>
-            <h2 class="text-center">Explore Seu Potencial Conosco!</h2>
+            <h2 class="text-center">Sobre o Sistema</h2>
+            <p class="text-center">Nosso sistema é voltado para jovens e adultos de 24 a 40 anos que buscam informações para estudar e se conectar com eventos, mensagens, discussões e muito mais.</p>
+            <h3 class="text-center text-warning">Explore Seu Potencial Conosco!</h3>
             <p class="text-center">Criamos este espaço pensando em você, jovem ou adulto (24-40 anos), que busca mais do que informação: busca conexão, aprendizado e crescimento. Mergulhe em um universo de eventos, debates e trocas valiosas!</p>
         </div>
 
         <!-- Seção de eventos -->
         <div class="section mt-5">
-            <h2>Eventos</h2>
-            <p>Fique por dentro dos eventos mais recentes e participe de discussões interativas.</p>
-            <h2 class="text-center">Agenda Exclusiva de Eventos</h2>
+            <h2 class="text-center">Eventos</h2>
+            <p class="text-center">Fique por dentro dos eventos mais recentes e participe de discussões interativas.</p>
+            <h3 class="text-center text-warning">Agenda Exclusiva de Eventos</h3>
             <p class="text-center">Não perca as melhores oportunidades! Fique por dentro de workshops, palestras e encontros que vão turbinar seu conhecimento e networking. Participe e conecte-se!</p>
         </div>
 
         <!-- Seção de mensagens -->
         <div class="section mt-5">
-            <h2>Mensagens</h2>
-            <p>Envie e receba mensagens de outros usuários e mantenha-se conectado.</p>
-            <h2 class="text-center">Conecte-se e Colabore</h2>
+            <h2 class="text-center">Mensagens</h2>
+            <p class="text-center">Envie e receba mensagens de outros usuários e mantenha-se conectado.</p>
+            <h3 class="text-center text-warning">Conecte-se e Colabore</h3>
             <p class="text-center">Aproxime-se de outros membros! Troque ideias, tire dúvidas e construa relacionamentos significativos através de mensagens diretas. A colaboração começa aqui.</p>
         </div>
 
         <!-- Seção de discussões -->
         <div class="section mt-5">
-            <h2>Discussões</h2>
-            <p>Participe de discussões sobre diversos temas e compartilhe suas opiniões.</p>
-            <h2 class="text-center">Debates que Inspiram</h2>
+            <h2 class="text-center">Discussões</h2>
+            <p class="text-center">Participe de discussões sobre diversos temas e compartilhe suas opiniões.</p>
+            <h3 class="text-center text-warning">Debates que Inspiram</h3>
             <p class="text-center">Sua opinião faz a diferença! Entre em fóruns vibrantes, compartilhe seu ponto de vista sobre temas atuais e aprenda com a diversidade de ideias da nossa comunidade.</p>
         </div>
 
         <!-- Seção de chat -->
         <div class="section mt-5">
-            <h2>Chat</h2>
-            <p>Tire suas dúvidas sobre o sistema e os assuntos de seu interesse através do nosso chat interativo.</p>
-            <h2 class="text-center">Ajuda Rápida e Interativa</h2>
+            <h2 class="text-center">Chat</h2>
+            <p class="text-center">Tire suas dúvidas sobre o sistema e os assuntos de seu interesse através do nosso chat interativo.</p>
+            <h3 class="text-center text-warning">Ajuda Rápida e Interativa</h3>
             <p class="text-center">Tem alguma dúvida ou só quer bater um papo sobre seus interesses? Nosso chat está sempre pronto para te ajudar a navegar pela plataforma e encontrar o que você precisa. Simples e direto!</p>
         </div>
 
-         <!-- Seção de newsletter -->
+        <!-- Seção de newsletter -->
         <div class="chat mt-5">
-            <h2>Assine nossa Newsletter</h2>
+            <h2 class="text-center">Assine nossa Newsletter</h2>
             <form>
                 <div class="form-group">
                     <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Assinar</button>
+                <button type="submit" class="btn btn-primary btn-block">Assinar</button>
             </form>
         </div>
     </div>
+
+    <style>
+        .section h2, .section h3 {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .section h2:hover, .section h3:hover {
+            transform: scale(1.1);
+            color: #ffc107;
+        }
+        .btn-primary {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
 
     <!-- Scripts do Bootstrap e dependências -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- Rodapé -->
+        <footer class="bg-dark text-white mt-5 py-4">
+            <div class="container">
+                <div class="row">
+                    <!-- Sobre -->
+                    <div class="col-md-4">
+                        <h5 class="font-weight-bold">Sobre Nós</h5>
+                        <p>Somos uma empresa dedicada a oferecer os melhores planos e serviços para atender às suas necessidades.</p>
+                    </div>
+                    <!-- Links Rápidos -->
+                    <div class="col-md-4">
+                        <h5 class="font-weight-bold">Links Rápidos</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="index.html" class="text-white">Início</a></li>
+                            <li><a href="planos.html" class="text-white">Planos</a></li>
+                            <li><a href="login.html" class="text-white">Conta</a></li>
+                            <li><a href="sobre-nos.html" class="text-white">Sobre Nós</a></li>
+                        </ul>
+                    </div>
+                    <!-- Contato -->
+                    <div class="col-md-4">
+                        <h5 class="font-weight-bold">Contato</h5>
+                        <p>Email: contato@xd.com</p>
+                        <p>Telefone: (11) 1234-5678</p>
+                        <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <p class="mb-0">&copy; 2023 XD. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
 </body>
 </html>
