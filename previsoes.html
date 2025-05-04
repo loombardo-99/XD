@@ -10,6 +10,9 @@
             background-image: url(midia/backgourd.jpg);
             background-size: cover;
             background-position: center;
+            background-color: rgb(93, 97, 22); 
+            background-blend-mode: overlay; 
+            background-attachment: fixed; /* Torna a imagem de fundo estática */
             margin: 0;
             padding: 0;
             display: flex;
@@ -117,8 +120,8 @@
 <body>
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
     <nav>
-        <ul style="list-style: none; padding:15px; justify-content: space-around; background-color: #000000a6; border-radius: 0px; margin-bottom: 0px;">
-            <li><a href="home.html"><strong>Assistente</strong></a></li>
+        <ul>
+            <li><a href="index.html"><strong>Início</strong></a></li>
             <li><a href="previsoes.html"><strong>Serviços</strong></a></li>
             <li><a href="comunidade.html"><strong>Comunidade</strong></a></li>
             <li><a href="#configuration"><strong>Configuração</strong></a></li>
@@ -126,23 +129,106 @@
         </ul>
     </nav>
 
-    <div class="group-grid">
-        <button>Sustentabilidade</button>
-        <button>Financeiro</button>
-        <button>Física</button>
-        <button>Tecnologia</button>
-        <button>Saúde</button>
-        <button>Administração</button>
-        <button>História</button>
-        <button>Geografia</button>
-        <button>Matemática</button>
-        <button>Química</button>
-        <button>Biologia</button>
-        <button>Artes</button>
-        <button>Literatura</button>
-        <button>Psicologia</button>
-        <button>Engenharia</button>
+<div style="margin-top: 20px; text-align: center;">
+    <input type="text" id="search-input" placeholder="Buscar estudo..." style="padding: 10px; width: 60%; border-radius: 8px; border: 2px solid #ffffff; background-color: #000000; color: #ffffff; font-size: 16px;">
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
+        <button onclick="searchStudy()" style="padding: 12px 25px; font-size: 16px; font-weight: bold; color: #ffffff; background: linear-gradient(90deg, #ff8c00, #ff0080); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+            Buscar
+        </button>
+        <button onclick="createStudy()" style="padding: 12px 25px; font-size: 16px; font-weight: bold; color: #ffffff; background: linear-gradient(90deg, #00c6ff, #0072ff); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+            Criar Estudo
+        </button>
     </div>
+</div>
+<script>
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.addEventListener('mouseover', () => {
+            button.style.transform = 'scale(1.05)';
+            button.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.3)';
+        });
+        button.addEventListener('mouseout', () => {
+            button.style.transform = 'scale(1)';
+            button.style.boxShadow = 'none';
+        });
+    });
+
+    function createStudy() {
+        const studyName = prompt('Digite o nome do novo estudo:');
+        if (studyName) {
+            alert(`Estudo "${studyName}" criado com sucesso!`);
+        } else {
+            alert('Nome do estudo não pode estar vazio.');
+        }
+    }
+</script>
+
+<script>
+    function searchStudy() {
+        const searchInput = document.getElementById('search-input').value.trim();
+        if (searchInput) {
+            alert(`Buscando por: ${searchInput}`);
+        } else {
+            alert('Por favor, insira um termo para buscar.');
+        }
+    }
+
+    function createStudy() {
+        alert('Função de criar estudo ainda não implementada.');
+    }
+</script>
+    <div id="options-display" style="margin-top: 20px; color: #ffffff; text-align: center;"></div>
+    <style>
+        .group-grid table button {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #000000;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .group-grid table button:hover {
+            background-color: #ffff24;
+            color: #000000;
+        }
+        .group-grid table td {
+            padding: 5px;
+        }
+    </style>
+    <script>
+        const studyOptions = {
+            'Sustentabilidade': ['Reciclagem', 'Energia Renovável', 'Mudanças Climáticas', 'Conservação', 'Economia Circular', 'Gestão Ambiental', 'Políticas Verdes', 'Educação Ambiental', 'Tecnologias Sustentáveis', 'Agricultura Sustentável'],
+            'Financeiro': ['Investimentos', 'Contabilidade', 'Gestão de Riscos', 'Mercado de Ações', 'Planejamento Financeiro', 'Economia', 'Finanças Pessoais', 'Criptomoedas', 'Análise de Crédito', 'Gestão de Dívidas'],
+            'Física': ['Mecânica', 'Termodinâmica', 'Eletromagnetismo', 'Óptica', 'Física Quântica', 'Relatividade', 'Acústica', 'Física Nuclear', 'Astrofísica', 'Física Experimental'],
+            'Tecnologia': ['Programação', 'Inteligência Artificial', 'Redes de Computadores', 'Segurança Cibernética', 'Banco de Dados', 'Desenvolvimento Web', 'IoT', 'Blockchain', 'Computação em Nuvem', 'Engenharia de Software'],
+            'Saúde': ['Nutrição', 'Exercícios Físicos', 'Doenças Crônicas', 'Saúde Mental', 'Primeiros Socorros', 'Medicina Preventiva', 'Farmacologia', 'Fisioterapia', 'Epidemiologia', 'Saúde Pública'],
+            'Administração': ['Gestão de Projetos', 'Liderança', 'Planejamento Estratégico', 'Marketing', 'Recursos Humanos', 'Gestão de Operações', 'Empreendedorismo', 'Finanças Corporativas', 'Análise de Dados', 'Gestão de Qualidade'],
+            'História': ['História Antiga', 'Idade Média', 'Renascimento', 'História Moderna', 'História Contemporânea', 'História do Brasil', 'Guerras Mundiais', 'Revoluções', 'História Cultural', 'História Econômica'],
+            'Geografia': ['Geografia Física', 'Geografia Humana', 'Cartografia', 'Climatologia', 'Biogeografia', 'Geopolítica', 'Recursos Naturais', 'Urbanização', 'Desenvolvimento Sustentável', 'Demografia'],
+            'Matemática': ['Álgebra', 'Geometria', 'Trigonometria', 'Cálculo', 'Estatística', 'Probabilidade', 'Matemática Discreta', 'Teoria dos Números', 'Matemática Financeira', 'Análise Numérica'],
+            'Química': ['Química Orgânica', 'Química Inorgânica', 'Físico-Química', 'Bioquímica', 'Química Analítica', 'Eletroquímica', 'Química Ambiental', 'Polímeros', 'Química Industrial', 'Química Medicinal'],
+            'Biologia': ['Genética', 'Ecologia', 'Zoologia', 'Botânica', 'Microbiologia', 'Biologia Celular', 'Evolução', 'Fisiologia', 'Biotecnologia', 'Imunologia'],
+            'Artes': ['Pintura', 'Escultura', 'Música', 'Teatro', 'Dança', 'Cinema', 'Fotografia', 'Design', 'História da Arte', 'Arte Contemporânea'],
+            'Literatura': ['Poesia', 'Romance', 'Conto', 'Crônica', 'Ensaios', 'Literatura Brasileira', 'Literatura Clássica', 'Literatura Contemporânea', 'Teoria Literária', 'Análise de Textos'],
+            'Psicologia': ['Psicanálise', 'Psicologia Cognitiva', 'Psicologia Comportamental', 'Psicologia Social', 'Psicologia do Desenvolvimento', 'Psicologia Clínica', 'Neuropsicologia', 'Psicologia Educacional', 'Psicologia Organizacional', 'Psicopatologia'],
+            'Engenharia': ['Engenharia Civil', 'Engenharia Mecânica', 'Engenharia Elétrica', 'Engenharia Química', 'Engenharia de Produção', 'Engenharia de Software', 'Engenharia Ambiental', 'Engenharia Biomédica', 'Engenharia Aeroespacial', 'Engenharia de Materiais'],
+            'Filosofia': ['Ética', 'Metafísica', 'Epistemologia', 'Lógica', 'Filosofia Política', 'Filosofia da Ciência', 'Filosofia Antiga', 'Filosofia Moderna', 'Filosofia Contemporânea', 'Estética'],
+            'Ciências Sociais': ['Sociologia', 'Antropologia', 'Ciência Política', 'Economia', 'Psicologia Social', 'Demografia', 'Estudos de Gênero', 'Estudos Culturais', 'Globalização', 'Movimentos Sociais'],
+            'Educação': ['Pedagogia', 'Didática', 'Psicologia Educacional', 'Tecnologias Educacionais', 'Educação Inclusiva', 'Educação Infantil', 'Educação de Jovens e Adultos', 'Políticas Educacionais', 'Gestão Escolar', 'Metodologias Ativas']
+        };
+
+        function showOptions(subject) {
+            const optionsDisplay = document.getElementById('options-display');
+            const options = studyOptions[subject] || [];
+            optionsDisplay.innerHTML = `<strong>${subject}:</strong><br>${options.join(', ')}`;
+        }
+    </script>
+
+    
     <script>
         function toggleMenu() {
             const nav = document.querySelector('nav');
