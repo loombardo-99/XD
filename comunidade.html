@@ -67,7 +67,7 @@
             border-radius: 10px;
             box-shadow: 0 2px 6px rgba(206, 233, 7, 0.56);
             max-width: 500px;
-            margin: 20px auto;
+            margin: 100px auto;
             color: #ffffff;
             text-align: center;
             font-family: 'Arial', sans-serif;
@@ -229,40 +229,69 @@
     <main>
         <section class="post-video">
             <h2>Postar Novo Vídeo</h2>
-            <form id="videoPostForm">
+            <form id="videoPostForm" onsubmit="postVideo(event)">
             <input type="file" id="videoUpload" accept="video/*" required>
             <textarea id="videoDescription" placeholder="Descrição do vídeo..." rows="3" required></textarea>
             <button type="submit">Postar</button>
             </form>
         </section>
+        <style>
+            .video-item video {
+                width: auto;
+                height: 100%;
+                max-height: 100vh;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            @media (max-width: 768px) {
+                .video-item video {
+                    height: auto;
+                    width: 100%;
+                }
+            }
+        </style>
+        <script>
+            function postVideo(event) {
+                event.preventDefault();
+
+                const videoUpload = document.getElementById('videoUpload');
+                const videoDescription = document.getElementById('videoDescription');
+                const videoFeed = document.getElementById('videoFeed');
+
+                if (videoUpload.files.length === 0) {
+                    alert('Por favor, selecione um vídeo para postar.');
+                    return;
+                }
+
+                const file = videoUpload.files[0];
+                const videoURL = URL.createObjectURL(file);
+
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item';
+
+                const videoElement = document.createElement('video');
+                videoElement.src = videoURL;
+                videoElement.controls = true;
+                videoElement.autoplay = true;
+                videoElement.loop = true;
+
+                const description = document.createElement('p');
+                description.textContent = videoDescription.value;
+                description.style.color = '#ffffff';
+                description.style.marginTop = '10px';
+
+                videoItem.appendChild(videoElement);
+                videoItem.appendChild(description);
+                videoFeed.prepend(videoItem);
+
+                // Reset form
+                videoPostForm.reset();
+            }
+        </script>
         <section class="video-feed" id="videoFeed">
-            <div class="video-item">
-                <video src="midia/332858029457199109.mp4" loop muted preload="metadata"></video>
-                <div class="video-actions">
-                    <button onclick="likeVideo(this)">Curtir</button>
-                    <button onclick="commentVideo()">Comentar</button>
-                    <button onclick="shareVideo()">Compartilhar</button>
-                    <button onclick="saveVideo()">Salvar</button>
-                </div>
-            </div>
-            <div class="video-item">
-                <video src="midia/332850590049579017.mp4" loop muted preload="metadata"></video>
-                <div class="video-actions">
-                    <button onclick="likeVideo(this)">Curtir</button>
-                    <button onclick="commentVideo()">Comentar</button>
-                    <button onclick="shareVideo()">Compartilhar</button>
-                    <button onclick="saveVideo()">Salvar</button>
-                </div>
-            </div>
-            <div class="video-item">
-                <video src="midia/Vídeo sem título ‐ Feito com o Clipchamp.mp4" loop muted preload="metadata"></video>
-                <div class="video-actions">
-                    <button onclick="likeVideo(this)">Curtir</button>
-                    <button onclick="commentVideo()">Comentar</button>
-                    <button onclick="shareVideo()">Compartilhar</button>
-                    <button onclick="saveVideo()">Salvar</button>
-                </div>
-            </div>
+           
         </section>
     </main>
     <script>
