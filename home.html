@@ -71,20 +71,25 @@
             font-size: 1.8rem;
         }
         .chat-messages {
-            height: 300px;
+            height: 375px;
             overflow-y: auto;
             border: 1px solid #ffffff;
             padding: 15px;
             border-radius: 12px;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-image: url(midia/xd-logo-2.jpg);
+            height: 350px; /* Adjusted height for chat messages */
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .chat-messages div {
-            background-color: #ffd700b5;
+            background-color: #ffffffb5;
             padding: 12px;
             margin-bottom: 10px;
             border-radius: 12px;
-            box-shadow: 0 2px 5px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 2px 5px rgba(112, 112, 112, 0.912);
             font-size: 1rem;
+            color: black;
         }
         .chat-input {
             display: flex;
@@ -151,7 +156,7 @@
             z-index: 1100;
             }
             .chat-messages {
-            height: 300px;
+            height: 375px;
             }
         }
 
@@ -163,10 +168,6 @@
             to {
             opacity: 1;
             transform: translateY(0);
-            }
-        }
-            .chat-messages {
-                height: 350px;
             }
         }
     </style>

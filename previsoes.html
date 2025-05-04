@@ -5,21 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XD</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+          body {
+            font-family: 'Roboto', sans-serif;
             background-image: url(midia/backgourd.jpg);
             background-size: cover;
             background-position: center;
-            background-color: rgb(93, 97, 22); 
-            background-blend-mode: overlay; 
-            background-attachment: fixed; /* Torna a imagem de fundo estática */
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             color: #ffffff;
         }
         .chat-container {
@@ -33,29 +30,33 @@
             color: #000000;
         }
         nav {
-            width: 80%;
-            background-color: rgb(0, 0, 0);
-            box-shadow: 0 2px 2px rgb(255, 255, 255);
-            border-radius: 8px;
-            margin-bottom: px;
-            margin-top: 15px;
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            margin-bottom: 20px;
             display: none;
         }
-        
         nav ul {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
-            padding: 0;
+            padding: 15px;
             margin: 0;
+            list-style: none;
         }
-        
+        nav ul li {
+            margin: 5px 0;
+        }
         nav ul li a {
             text-decoration: none;
             color: #ffffff;
+            font-weight: bold;
+            transition: color 0.3s ease;
         }
         nav ul li a:hover {
-            text-decoration: none;
-            color: #ffff24;
+            color: #ffd700;
         }
       
         
@@ -82,7 +83,7 @@
         background-color: #ffff24;
         color: #000000;
     }
-        .menu-icon {
+    .menu-icon {
             display: block;
             font-size: 30px;
             cursor: pointer;
@@ -90,30 +91,36 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            
+            transition: color 0.3s ease;
         }
-        .menu-icon:hover + nav ul,
-        nav ul:hover {
-            display: flex;
+        .menu-icon:hover {
+            color: #ffd700;
         }
         @media (max-width: 768px) {
             nav ul {
-                flex-direction: column;
-                width: 100%;
-                background-color: #000000;
-                position: absolute;
-                top: 50px;
-                left: 0;
-                padding: 0;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
             }
-            nav ul li {
-                text-align: center;
-                padding: 10px 0;
-                border-bottom: 1px solid #ffffff;
+            nav {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 0 0 12px 12px;
+            animation: slideDown 0.3s ease-in-out;
             }
-            nav ul li:last-child {
-                border-bottom: none;
+            .menu-icon {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1100;
             }
+
         }
     </style>
 </head>
@@ -121,10 +128,10 @@
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
     <nav>
         <ul>
-            <li><a href="index.html"><strong>Início</strong></a></li>
-            <li><a href="previsoes.html"><strong>Serviços</strong></a></li>
+            <li><a href="home.html"><strong>Assistente</strong></a></li>
+            <li><a href="previsoes.html"><strong>Pesquisas</strong></a></li>
             <li><a href="comunidade.html"><strong>Comunidade</strong></a></li>
-            <li><a href="#configuration"><strong>Configuração</strong></a></li>
+            <li><a href="#configuration"><strong>Perfil</strong></a></li>
             <li><a href="login.html"><strong>voltar login</strong></a></li>
         </ul>
     </nav>
@@ -132,14 +139,23 @@
 <div style="margin-top: 20px; text-align: center;">
     <input type="text" id="search-input" placeholder="Buscar estudo..." style="padding: 10px; width: 60%; border-radius: 8px; border: 2px solid #ffffff; background-color: #000000; color: #ffffff; font-size: 16px;">
     <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
-        <button onclick="searchStudy()" style="padding: 12px 25px; font-size: 16px; font-weight: bold; color: #ffffff; background: linear-gradient(90deg, #ff8c00, #ff0080); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
-            Buscar
-        </button>
-        <button onclick="createStudy()" style="padding: 12px 25px; font-size: 16px; font-weight: bold; color: #ffffff; background: linear-gradient(90deg, #00c6ff, #0072ff); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+        <button onclick="createStudy()" style="padding: 12px 25px; font-size: 16px; font-weight: bold; color: #ffffff; background: linear-gradient(90deg, #000000, #464642); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
             Criar Estudo
         </button>
+        <button onclick="searchStudy()" style="padding: 12px 25px; font-size: 16px; font-weight: bold; color: #f2ff00; background: linear-gradient(90deg, #000000, #414140); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+            Buscar
+        </button>
+      
     </div>
 </div>
+    
+        <div class="group-grid">
+            <button onclick="window.location.href='estudo1.html'">Estudo 1</button>
+            <button onclick="window.location.href='estudo2.html'">Estudo 2</button>
+            <button onclick="window.location.href='estudo3.html'">Estudo 3</button>
+            <button onclick="window.location.href='estudo4.html'">Estudo 4</button>
+            <button onclick="window.location.href='estudo5.html'">Estudo 5</button>
+        </div>
 <script>
     const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
@@ -152,83 +168,8 @@
             button.style.boxShadow = 'none';
         });
     });
-
-    function createStudy() {
-        const studyName = prompt('Digite o nome do novo estudo:');
-        if (studyName) {
-            alert(`Estudo "${studyName}" criado com sucesso!`);
-        } else {
-            alert('Nome do estudo não pode estar vazio.');
-        }
-    }
 </script>
 
-<script>
-    function searchStudy() {
-        const searchInput = document.getElementById('search-input').value.trim();
-        if (searchInput) {
-            alert(`Buscando por: ${searchInput}`);
-        } else {
-            alert('Por favor, insira um termo para buscar.');
-        }
-    }
-
-    function createStudy() {
-        alert('Função de criar estudo ainda não implementada.');
-    }
-</script>
-    <div id="options-display" style="margin-top: 20px; color: #ffffff; text-align: center;"></div>
-    <style>
-        .group-grid table button {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #ffffff;
-            background-color: #000000;
-            border: 2px solid #ffffff;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-        }
-        .group-grid table button:hover {
-            background-color: #ffff24;
-            color: #000000;
-        }
-        .group-grid table td {
-            padding: 5px;
-        }
-    </style>
-    <script>
-        const studyOptions = {
-            'Sustentabilidade': ['Reciclagem', 'Energia Renovável', 'Mudanças Climáticas', 'Conservação', 'Economia Circular', 'Gestão Ambiental', 'Políticas Verdes', 'Educação Ambiental', 'Tecnologias Sustentáveis', 'Agricultura Sustentável'],
-            'Financeiro': ['Investimentos', 'Contabilidade', 'Gestão de Riscos', 'Mercado de Ações', 'Planejamento Financeiro', 'Economia', 'Finanças Pessoais', 'Criptomoedas', 'Análise de Crédito', 'Gestão de Dívidas'],
-            'Física': ['Mecânica', 'Termodinâmica', 'Eletromagnetismo', 'Óptica', 'Física Quântica', 'Relatividade', 'Acústica', 'Física Nuclear', 'Astrofísica', 'Física Experimental'],
-            'Tecnologia': ['Programação', 'Inteligência Artificial', 'Redes de Computadores', 'Segurança Cibernética', 'Banco de Dados', 'Desenvolvimento Web', 'IoT', 'Blockchain', 'Computação em Nuvem', 'Engenharia de Software'],
-            'Saúde': ['Nutrição', 'Exercícios Físicos', 'Doenças Crônicas', 'Saúde Mental', 'Primeiros Socorros', 'Medicina Preventiva', 'Farmacologia', 'Fisioterapia', 'Epidemiologia', 'Saúde Pública'],
-            'Administração': ['Gestão de Projetos', 'Liderança', 'Planejamento Estratégico', 'Marketing', 'Recursos Humanos', 'Gestão de Operações', 'Empreendedorismo', 'Finanças Corporativas', 'Análise de Dados', 'Gestão de Qualidade'],
-            'História': ['História Antiga', 'Idade Média', 'Renascimento', 'História Moderna', 'História Contemporânea', 'História do Brasil', 'Guerras Mundiais', 'Revoluções', 'História Cultural', 'História Econômica'],
-            'Geografia': ['Geografia Física', 'Geografia Humana', 'Cartografia', 'Climatologia', 'Biogeografia', 'Geopolítica', 'Recursos Naturais', 'Urbanização', 'Desenvolvimento Sustentável', 'Demografia'],
-            'Matemática': ['Álgebra', 'Geometria', 'Trigonometria', 'Cálculo', 'Estatística', 'Probabilidade', 'Matemática Discreta', 'Teoria dos Números', 'Matemática Financeira', 'Análise Numérica'],
-            'Química': ['Química Orgânica', 'Química Inorgânica', 'Físico-Química', 'Bioquímica', 'Química Analítica', 'Eletroquímica', 'Química Ambiental', 'Polímeros', 'Química Industrial', 'Química Medicinal'],
-            'Biologia': ['Genética', 'Ecologia', 'Zoologia', 'Botânica', 'Microbiologia', 'Biologia Celular', 'Evolução', 'Fisiologia', 'Biotecnologia', 'Imunologia'],
-            'Artes': ['Pintura', 'Escultura', 'Música', 'Teatro', 'Dança', 'Cinema', 'Fotografia', 'Design', 'História da Arte', 'Arte Contemporânea'],
-            'Literatura': ['Poesia', 'Romance', 'Conto', 'Crônica', 'Ensaios', 'Literatura Brasileira', 'Literatura Clássica', 'Literatura Contemporânea', 'Teoria Literária', 'Análise de Textos'],
-            'Psicologia': ['Psicanálise', 'Psicologia Cognitiva', 'Psicologia Comportamental', 'Psicologia Social', 'Psicologia do Desenvolvimento', 'Psicologia Clínica', 'Neuropsicologia', 'Psicologia Educacional', 'Psicologia Organizacional', 'Psicopatologia'],
-            'Engenharia': ['Engenharia Civil', 'Engenharia Mecânica', 'Engenharia Elétrica', 'Engenharia Química', 'Engenharia de Produção', 'Engenharia de Software', 'Engenharia Ambiental', 'Engenharia Biomédica', 'Engenharia Aeroespacial', 'Engenharia de Materiais'],
-            'Filosofia': ['Ética', 'Metafísica', 'Epistemologia', 'Lógica', 'Filosofia Política', 'Filosofia da Ciência', 'Filosofia Antiga', 'Filosofia Moderna', 'Filosofia Contemporânea', 'Estética'],
-            'Ciências Sociais': ['Sociologia', 'Antropologia', 'Ciência Política', 'Economia', 'Psicologia Social', 'Demografia', 'Estudos de Gênero', 'Estudos Culturais', 'Globalização', 'Movimentos Sociais'],
-            'Educação': ['Pedagogia', 'Didática', 'Psicologia Educacional', 'Tecnologias Educacionais', 'Educação Inclusiva', 'Educação Infantil', 'Educação de Jovens e Adultos', 'Políticas Educacionais', 'Gestão Escolar', 'Metodologias Ativas']
-        };
-
-        function showOptions(subject) {
-            const optionsDisplay = document.getElementById('options-display');
-            const options = studyOptions[subject] || [];
-            optionsDisplay.innerHTML = `<strong>${subject}:</strong><br>${options.join(', ')}`;
-        }
-    </script>
-
-    
     <script>
         function toggleMenu() {
             const nav = document.querySelector('nav');
@@ -242,20 +183,6 @@
                 nav.style.display = 'none';
             }
         });
-
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const messages = document.getElementById('chat-messages');
-            const message = input.value.trim();
-
-            if (message) {
-                const messageElement = document.createElement('div');
-                messageElement.textContent = message;
-                messages.appendChild(messageElement);
-                input.value = '';
-                messages.scrollTop = messages.scrollHeight;
-            }
-        }
     </script>
 </body>
 </html>

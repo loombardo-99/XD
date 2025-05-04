@@ -4,58 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comunidade - XD</title>
-</head>
-<body>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-image: url(midia/backgourd.jpg);
+            background-size: cover;
+            background-position: center;
             margin: 0;
             padding: 0;
-            background-color: #121212;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
             color: #ffffff;
         }
-
         nav {
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 2px 2px rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
+            max-width: 800px;
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
             margin-bottom: 20px;
-            display: none; /* Mantém escondido inicialmente */
+            display: none;
         }
-
         nav.active {
-            display: block; /* Mostra o menu quando a classe 'active' é adicionada */
+            display: block;
         }
-
         nav ul {
-            list-style: none;
-            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 15px;
             margin: 0;
+            list-style: none;
         }
-
         nav ul li {
-            padding: 10px;
-            text-align: center;
+            margin: 5px 0;
         }
-
         nav ul li a {
             text-decoration: none;
             color: #ffffff;
-            display: block;
-        }
-
-        nav ul li a.active {
             font-weight: bold;
-            color: #eeff00;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ffd700;
         }
 
         .menu-icon {
-            font-size: 24px;
-            color: #ffffff;
-            cursor: pointer;
-            padding: 10px;
             display: block;
+            font-size: 30px;
+            cursor: pointer;
+            color: #ffffff;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            transition: color 0.3s ease;
+        }
+        .menu-icon:hover {
+            color: #ffd700;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 20px;
+            }
+            nav {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background-color: rgba(0, 0, 0, 0.95);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+                border-radius: 0 0 12px 12px;
+                animation: slideDown 0.3s ease-in-out;
+            }
+            .menu-icon {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1100;
+            }
+            .chat-messages {
+                height: 375px;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         main {
@@ -95,24 +142,19 @@
         }
 
         .video-feed video {
-            width: 100%;
+            width: 80%;
             border-radius: 8px;
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            nav ul li {
-                padding: 8px;
-            }
-
-            .menu-icon {
-                font-size: 20px;
-            }
-
             .post-video input,
             .post-video textarea,
             .post-video button {
                 font-size: 14px;
+            }
+            .video-feed video {
+                width: 100%;
             }
         }
     </style>
