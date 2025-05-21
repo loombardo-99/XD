@@ -4,183 +4,455 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Estilos globais para o corpo da página */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-image: url(midia/backgourd.jpg);
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            padding: 0;
+            font-family: 'Roboto', sans-serif; /* Define a fonte principal */
+            background-color: #000000; /* Fundo totalmente preto */
+            margin: 0; /* Remove margens padrão */
+            padding: 0; /* Remove preenchimento padrão */
+            display: flex; /* Usa flexbox para layout */
+            flex-direction: column; /* Coloca os itens em coluna */
+            align-items: center; /* Centraliza os itens horizontalmente */
+            justify-content: center; /* Centraliza os itens verticalmente */
+            min-height: 100vh; /* Altura mínima de 100% da viewport */
+            color: #ffffff; /* Cor do texto branco */
+            position: relative; /* Necessário para posicionamento absoluto do menu */
+            overflow-x: hidden; /* Evita rolagem horizontal */
+            transition: overflow 0.3s ease; /* Transição suave para overflow */
+        }
+
+        /* Estilos para o contêiner principal do chat */
+        .chat-container {
+            width: 90%; /* Largura de 90% */
+            max-width: 1000px; /* Largura máxima de 1000px */
+            margin: 20px; /* Margem externa */
+            padding: 20px; /* Preenchimento interno */
+            background-color: rgba(0, 0, 0, 0.9); /* Fundo preto mais opaco */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); /* Sombra mais pronunciada */
+            border-radius: 12px; /* Cantos arredondados */
+            backdrop-filter: blur(8px); /* Efeito de desfoque sutil no fundo */
+            display: flex; /* Usa flexbox para layout interno */
+            flex-direction: column; /* Itens em coluna */
+            overflow: hidden; /* Esconde conteúdo que transborda */
+            position: relative; /* Para posicionar o overlay */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+        }
+
+        /* Estilos para o menu de navegação */
+        nav {
+            width: 100%; /* Largura total */
+            height: 100vh; /* Altura total da viewport para mobile */
+            background-color: rgba(0, 0, 0, 0.98); /* Fundo preto quase opaco para o menu */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Sombra mais intensa */
+            position: fixed; /* Posição fixa na tela */
+            top: 0; /* Alinhado ao topo */
+            left: -100%; /* Começa fora da tela à esquerda para animação slide-in */
+            z-index: 1000; /* Acima de outros elementos */
+            transition: left 0.3s ease-in-out; /* Transição suave para o slide-in */
+            display: flex; /* Usa flexbox para centralizar conteúdo */
+            flex-direction: column; /* Itens em coluna */
+            justify-content: center; /* Centraliza verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+            padding-top: 60px; /* Espaço para o ícone do menu no topo */
+        }
+
+        nav.open {
+            left: 0; /* Desliza para dentro da tela */
+        }
+
+        nav ul {
+            display: flex; /* Usa flexbox para os itens da lista */
+            flex-direction: column; /* Itens em coluna para mobile */
+            gap: 25px; /* Mais espaço entre os itens do menu */
+            padding: 20px; /* Preenchimento interno */
+            margin: 0; /* Remove margens padrão */
+            list-style: none; /* Remove marcadores de lista */
+            width: 100%; /* Ocupa a largura total do nav */
+            align-items: center; /* Centraliza os itens */
+        }
+
+        nav ul li {
+            margin: 0; /* Remove margens padrão */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove sublinhado */
+            color: #ffffff; /* Cor do texto branco */
+            font-weight: 400; /* Peso da fonte normal */
+            font-size: 1.2rem; /* Tamanho da fonte maior para mobile */
+            transition: color 0.3s ease, transform 0.2s ease; /* Transição suave */
+            padding: 15px 20px; /* Adiciona preenchimento para área de clique */
+            border-radius: 8px; /* Cantos arredondados */
+            display: block; /* Torna o link um bloco para preencher o espaço */
+            text-align: center; /* Centraliza o texto do link */
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Cor amarela ao passar o mouse */
+            transform: translateY(-3px); /* Efeito de leve elevação */
+        }
+
+        /* Estilos para o cabeçalho do chat */
+        .chat-header {
+            text-align: center; /* Centraliza o texto */
+            margin-bottom: 20px; /* Margem inferior */
+            color: #ffffff; /* Cor do texto branco */
+        }
+
+        .chat-header h1 {
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borda branca muito sutil */
+            padding: 15px; /* Preenchimento interno */
+            border-radius: 12px; /* Cantos arredondados */
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo preto semi-transparente */
+            font-size: 1.8rem; /* Tamanho da fonte */
+            font-weight: 300; /* Fonte mais leve */
+        }
+
+        /* Estilos para a área de mensagens do chat */
+        .chat-messages {
+            height: 375px; /* Altura fixa */
+            overflow-y: auto; /* Adiciona scroll vertical se o conteúdo for maior */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Borda branca sutil */
+            padding: 15px; /* Preenchimento interno */
+            border-radius: 12px; /* Cantos arredondados */
+            background-color: #000000; /* Imagem de fundo */
+            background-size: cover; /* Cobre todo o espaço */
+            background-position: center; /* Centraliza a imagem */
+            background-color: rgba(0, 0, 0, 0.7); /* Cor de fundo para mesclar com a imagem */
+            background-blend-mode: overlay; /* Mescla a imagem com a cor de fundo */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Sombra */
+            display: flex; /* Usa flexbox */
+            flex-direction: column; /* Itens em coluna */
+            gap: 12px; /* Espaçamento entre as mensagens */
+            scroll-behavior: smooth; /* Rolagem suave */
+        }
+
+        /* Estilos da barra de rolagem (WebKit) */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px; /* Largura da barra de rolagem */
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05); /* Fundo da trilha da barra de rolagem */
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #ffd700; /* Cor do "polegar" da barra de rolagem */
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #ffcc00; /* Cor ao passar o mouse */
+        }
+
+        /* Estilos para as mensagens individuais no chat */
+        .chat-messages .message-wrapper {
             display: flex;
-            flex-direction: column;
+            align-items: flex-end; /* Alinha a base do avatar com a base da mensagem */
+            gap: 10px;
+            animation: fadeIn 0.5s ease-out; /* Animação de entrada */
+        }
+
+        .chat-messages .message-wrapper.user {
+            justify-content: flex-start; /* Mensagens do usuário à esquerda */
+        }
+
+        .chat-messages .message-wrapper.assistant {
+            justify-content: flex-end; /* Mensagens do assistente à direita */
+        }
+
+        .chat-messages .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ffffff; /* Fundo branco para avatar do usuário */
+            color: #000000;
+            display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            color: #ffffff;
+            font-weight: 700; /* Negrito para o texto do avatar */
+            font-size: 0.8rem;
+            flex-shrink: 0; /* Evita que o avatar encolha */
         }
-        .chat-container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 20px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.85);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
+
+        .chat-messages .assistant .avatar {
+            background-color: #ffd700; /* Fundo amarelo para avatar do assistente */
         }
-        nav {
-            width: 100%;
-            max-width: 800px;
-            background-color: rgba(0, 0, 0, 0.85);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: none;
+
+        .chat-messages .message-content {
+            padding: 12px; /* Preenchimento interno */
+            border-radius: 12px; /* Cantos arredondados */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Sombra mais sutil */
+            font-size: 1rem; /* Tamanho da fonte */
+            max-width: calc(80% - 40px); /* Largura máxima da mensagem, descontando o avatar e gap */
+            word-wrap: break-word; /* Quebra de linha para palavras longas */
+            position: relative;
         }
-        nav ul {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 15px;
-            margin: 0;
-            list-style: none;
+
+        .chat-messages .user .message-content {
+            background-color: rgba(255, 255, 255, 0.95); /* Fundo branco quase opaco */
+            color: #000000; /* Cor do texto preto */
         }
-        nav ul li {
-            margin: 5px 0;
+
+        .chat-messages .assistant .message-content {
+            background-color: #ffd700; /* Fundo amarelo */
+            color: #000000; /* Cor do texto preto */
         }
-        nav ul li a {
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: bold;
-            transition: color 0.3s ease;
+
+        .chat-messages .timestamp {
+            font-size: 0.7rem; /* Tamanho da fonte menor */
+            color: rgba(0, 0, 0, 0.5); /* Cor mais clara para o timestamp */
+            margin-top: 5px;
+            text-align: right; /* Alinha o timestamp à direita */
         }
-        nav ul li a:hover {
-            color: #ffd700;
+
+        .chat-messages .user .timestamp {
+            text-align: left; /* Alinha o timestamp do usuário à esquerda */
         }
-        .chat-header {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-        .chat-header h1 {
-            border: 1px solid #ffffff71;
-            padding: 15px;
-            border-radius: 12px;
-            background-color: rgba(0, 0, 0, 0.85);
-            font-size: 1.8rem;
-        }
-        .chat-messages {
-            height: 375px;
-            overflow-y: auto;
-            border: 1px solid #ffffff;
-            padding: 15px;
-            border-radius: 12px;
-            background-image: url(midia/xd-logo-2.jpg);
-            height: 350px; /* Adjusted height for chat messages */
-            background-size: cover;
-            background-position: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-        .chat-messages div {
-            background-color: #ffffffb5;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 12px;
-            box-shadow: 0 2px 5px rgba(112, 112, 112, 0.912);
-            font-size: 1rem;
-            color: black;
-        }
+
+        /* Estilos para a área de entrada do chat */
         .chat-input {
-            display: flex;
-            margin-top: 20px;
+            display: flex; /* Usa flexbox */
+            margin-top: 20px; /* Margem superior */
+            width: 100%; /* Ocupa a largura total */
         }
+
         .chat-input input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ffffff;
-            border-radius: 12px 0 0 12px;
-            outline: none;
-            font-size: 1rem;
+            flex: 1; /* Ocupa o espaço restante */
+            padding: 12px; /* Preenchimento interno */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca sutil */
+            border-radius: 12px 0 0 12px; /* Cantos arredondados na esquerda */
+            outline: none; /* Remove contorno ao focar */
+            font-size: 1rem; /* Tamanho da fonte */
+            background-color: rgba(255, 255, 255, 0.1); /* Fundo semi-transparente */
+            color: #ffffff; /* Cor do texto branco */
+            transition: border-color 0.3s ease, background-color 0.3s ease;
         }
+
+        .chat-input input::placeholder {
+            color: rgba(255, 255, 255, 0.6); /* Cor do placeholder */
+        }
+
+        .chat-input input:focus {
+            border-color: #ffd700; /* Borda amarela ao focar */
+            background-color: rgba(255, 255, 255, 0.05); /* Fundo mais escuro ao focar */
+        }
+
         .chat-input button {
-            padding: 12px 20px;
-            border: none;
+            padding: 12px 20px; /* Preenchimento interno */
+            border: none; /* Remove borda */
+            background-color: #ffd700; /* Fundo amarelo */
+            color: #000000; /* Cor do texto preto */
+            border-radius: 0 12px 12px 0; /* Cantos arredondados na direita */
+            cursor: pointer; /* Cursor de ponteiro */
+            font-weight: bold; /* Texto em negrito */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-input button:hover {
+            background-color: #ffcc00; /* Amarelo mais claro ao passar o mouse */
+            transform: translateY(-2px); /* Efeito de leve elevação */
+        }
+
+        /* Estilos para o ícone do menu */
+        .menu-icon {
+            display: block; /* Exibe como bloco */
+            font-size: 30px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de ponteiro */
+            color: #ffffff; /* Cor branca */
+            position: fixed; /* Posição fixa na tela */
+            top: 15px; /* 15px do topo */
+            left: 15px; /* 15px da esquerda */
+            z-index: 1100; /* Acima do menu */
+            transition: color 0.3s ease, transform 0.2s ease; /* Transição suave */
+        }
+
+        .menu-icon:hover {
+            color: #ffd700; /* Cor amarela ao passar o mouse */
+            transform: scale(1.1); /* Aumenta um pouco o tamanho */
+        }
+
+        /* Estilos para o select dentro do menu */
+        .menu-select {
+            background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+            color: #ffffff; /* Cor do texto branco */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca sutil */
+            border-radius: 12px; /* Cantos arredondados */
+            padding: 8px 15px; /* Preenchimento interno maior */
+            font-weight: 400; /* Peso da fonte normal */
+            font-size: 1rem;
+            cursor: pointer; /* Cursor de ponteiro */
+            appearance: none; /* Remove o estilo padrão do select */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Ícone de seta para baixo */
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px auto;
+            padding-right: 35px; /* Espaço para o ícone */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .menu-select:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffd700;
+        }
+
+        /* Overlay de fundo quando o menu está aberto */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+            z-index: 999; /* Abaixo do menu, mas acima do restante do conteúdo */
+            display: none; /* Escondido por padrão */
+            animation: fadeInOverlay 0.3s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Indicador de digitação do assistente */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             background-color: #ffd700;
             color: #000000;
-            border-radius: 0 12px 12px 0;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 12px;
+            align-self: flex-end; /* Alinha à direita */
+            max-width: 150px;
+            margin-top: 10px;
+            animation: fadeIn 0.5s ease-out;
+            font-size: 0.9rem;
         }
-        .chat-input button:hover {
-            background-color: #ffcc00;
-            color: #000000;
-            border: 1px solid #666666;
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background-color: #000000;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
         }
-        .menu-icon {
-            display: block;
-            font-size: 30px;
-            cursor: pointer;
-            color: #ffffff;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            transition: color 0.3s ease;
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
         }
-        .menu-icon:hover {
-            color: #ffd700;
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
         }
-        @media (max-width: 768px) {
-            nav ul {
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding: 20px;
-            }
+
+        /* Media queries para responsividade */
+        @media (min-width: 769px) {
+            /* Estilos para desktop: menu no topo e centralizado */
             nav {
-            position: absolute;
-            top: 60px;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: rgba(0, 0, 0, 0.95);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-            border-radius: 0 0 12px 12px;
-            animation: slideDown 0.3s ease-in-out;
+                height: auto; /* Altura automática para desktop */
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 0 0 12px 12px; /* Cantos arredondados na parte inferior */
+                padding-top: 0; /* Remove padding extra do topo */
+                display: block; /* Exibe o menu por padrão no desktop */
+                opacity: 1; /* Garante visibilidade */
+                animation: none; /* Remove animação de slide-in */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra mais leve para desktop */
             }
+
+            nav ul {
+                flex-direction: row; /* Itens em linha para desktop */
+                justify-content: space-around; /* Espaçamento uniforme */
+                padding: 15px;
+                gap: 0; /* Remove gap extra */
+            }
+
+            nav ul li a {
+                font-size: 1rem; /* Tamanho da fonte padrão para desktop */
+                padding: 5px 10px; /* Padding padrão para desktop */
+            }
+
             .menu-icon {
-            position: fixed;
-            top: 15px;
-            left: 15px;
-            z-index: 1100;
+                display: none; /* Esconde o ícone do menu no desktop */
             }
-            .chat-messages {
-            height: 375px;
+
+            .overlay {
+                display: none !important; /* Garante que o overlay não apareça no desktop */
             }
         }
 
+        /* Animações */
         @keyframes slideDown {
             from {
-            opacity: 0;
-            transform: translateY(-20px);
+                opacity: 0;
+                transform: translateY(-20px);
             }
             to {
-            opacity: 1;
-            transform: translateY(0);
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
             }
         }
     </style>
 </head>
 <body>
+    <div class="overlay" id="overlay"></div>
+
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
-    <nav>
+    <nav id="main-nav">
         <ul>
             <li><a href="home.html">Assistente</a></li>
             <li><a href="previsoes.html">Leitura</a></li>
             <li><a href="comunidade.html">Comunidade</a></li>
             <li><a href="editor.html">Editor</a></li>
-            <li><a href="login.html">Voltar Login</a></li>
+            <li>
+                <select onchange="handleMenuSelection(this.value)" class="menu-select">
+                    <option value="perfil.html" disabled selected>Perfil</option>
+                    <option value="configuracoes.html">Configurações</option>
+                    <option value="politicas.html">Políticas de Privacidade</option>
+                    <option value="index.html">Sair</option>
+                </select>
+            </li>
         </ul>
     </nav>
     <div class="chat-container">
@@ -188,38 +460,127 @@
             <h1>Assistente Virtual</h1>
         </div>
         <div class="chat-messages" id="chat-messages">
-            <!-- Mess</div>ages will appear here -->
+            <div class="message-wrapper user">
+                <div class="avatar">Você</div>
+                <div class="message-content">
+                    Olá! Como posso ajudar você hoje?
+                    <div class="timestamp">12:00 PM</div>
+                </div>
+            </div>
+            <div class="message-wrapper assistant">
+                <div class="avatar">XD</div>
+                <div class="message-content">
+                    Olá! Eu sou o assistente virtual.
+                    <div class="timestamp">12:01 PM</div>
+                </div>
+            </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Digite sua mensagem...">
-            <button onclick="sendMessage()">Enviar</button>
+            <input type="text" id="chat-input" placeholder="Digite sua mensagem..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
     <script>
+        // Função para alternar a visibilidade do menu
         function toggleMenu() {
-            const nav = document.querySelector('nav');
-            nav.style.display = nav.style.display === 'block' ? 'none' : 'block';
+            const nav = document.getElementById('main-nav');
+            const overlay = document.getElementById('overlay');
+            if (nav.classList.contains('open')) {
+                nav.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Reabilita a rolagem do corpo
+            } else {
+                nav.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Desabilita a rolagem do corpo quando o menu está aberto
+            }
         }
 
+        // Fecha o menu se clicar fora dele ou no overlay
         document.addEventListener('click', function(event) {
-            const nav = document.querySelector('nav');
+            const nav = document.getElementById('main-nav');
             const menuIcon = document.querySelector('.menu-icon');
-            if (!nav.contains(event.target) && !menuIcon.contains(event.target)) {
-                nav.style.display = 'none';
+            const overlay = document.getElementById('overlay');
+
+            // Verifica se o clique não foi no menu nem no ícone do menu
+            if (nav.classList.contains('open') && !nav.contains(event.target) && !menuIcon.contains(event.target)) {
+                nav.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Reabilita a rolagem do corpo
             }
         });
 
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const messages = document.getElementById('chat-messages');
-            const message = input.value.trim();
+        // Função para formatar a hora atual
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
 
-            if (message) {
-                const messageElement = document.createElement('div');
-                messageElement.textContent = message;
-                messages.appendChild(messageElement);
-                input.value = '';
-                messages.scrollTop = messages.scrollHeight;
+        // Função para enviar mensagens
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageText = input.value.trim();
+
+            if (messageText) {
+                // Cria um elemento de mensagem para o usuário
+                const userMessageWrapper = document.createElement('div');
+                userMessageWrapper.classList.add('message-wrapper', 'user');
+                userMessageWrapper.innerHTML = `
+                    <div class="avatar">Você</div>
+                    <div class="message-content">
+                        ${messageText}
+                        <div class="timestamp">${getCurrentTime()}</div>
+                    </div>
+                `;
+                messagesContainer.appendChild(userMessageWrapper);
+
+                input.value = ''; // Limpa o input
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+
+                // Adiciona o indicador de digitação do assistente
+                const typingIndicator = document.createElement('div');
+                typingIndicator.classList.add('typing-indicator', 'assistant');
+                typingIndicator.innerHTML = `
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                `;
+                messagesContainer.appendChild(typingIndicator);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+
+                // Simula uma resposta do assistente após um pequeno delay
+                await new Promise(resolve => setTimeout(resolve, 1500)); // Espera um pouco para simular processamento
+
+                messagesContainer.removeChild(typingIndicator); // Remove o indicador de digitação
+
+                const assistantMessageWrapper = document.createElement('div');
+                assistantMessageWrapper.classList.add('message-wrapper', 'assistant');
+                assistantMessageWrapper.innerHTML = `
+                    <div class="avatar">XD</div>
+                    <div class="message-content">
+                        Entendi. Como posso prosseguir?
+                        <div class="timestamp">${getCurrentTime()}</div>
+                    </div>
+                `;
+                messagesContainer.appendChild(assistantMessageWrapper);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+            }
+        }
+
+        // Permite enviar mensagem pressionando Enter
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Função para lidar com a seleção do menu (redirecionamento)
+        function handleMenuSelection(value) {
+            if (value) {
+                window.location.href = value;
             }
         }
     </script>

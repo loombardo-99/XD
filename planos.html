@@ -3,143 +3,682 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos e Assinaturas</title>
-    <!-- Link para o CSS do Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>XD - Planos e Assinaturas: Escolha Seu Futuro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para o corpo da página */
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url(midia/menino-galaxy2.jpg);
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            margin: 0;
-            background-color: rgb(93, 97, 22); 
-            background-blend-mode: overlay; 
-            background-attachment: fixed; /* Torna a imagem de fundo estática */
+        /* Variáveis CSS para cores */
+        :root {
+            --primary-yellow: #ffff24;
+            --dark-background: #000000;
+            --medium-dark-background: #333333;
+            --light-text: #ffffff;
+            --dark-text: #000000;
+            --hover-yellow: #e0e01e;
+            --card-bg: #1a1a1a;
+            --card-border: #222222;
+            --plan-silver: #A8A8A8; /* Cinza para Prata */
+            --plan-gold: #FFD700;   /* Dourado para Ouro */
+            --plan-diamond: #00CED1; /* Turquesa para Diamante */
         }
-        /* Estilos para os cards de planos */
+
+        /* Estilos globais */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-background), var(--medium-dark-background));
+            color: var(--light-text);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-yellow);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--hover-yellow);
+        }
+
+        h1, h2, h3, h5 {
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-5 { margin-top: 3rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: #e0e0e0;
+        }
+
+        /* Navbar (consistente com index.html e sobre-nos.html) */
+        .navbar {
+            background-color: var(--dark-background);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-brand {
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin-left: 1.5rem;
+            transition: text-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            text-shadow: 0 0 8px var(--primary-yellow), 0 0 15px var(--primary-yellow);
+            transform: scale(1.05);
+        }
+
+        .navbar-toggler {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: none;
+            margin-right: 1.5rem;
+        }
+
+        .navbar-toggler-icon {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: var(--primary-yellow);
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--light-text);
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 8px 0;
+            display: block;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--hover-yellow) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Navbar responsiva (mobile) */
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--dark-background);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+                align-items: flex-start;
+            }
+
+            .navbar-nav.show {
+                max-height: 300px;
+            }
+
+            .navbar-nav .nav-item {
+                margin: 10px 20px;
+                width: calc(100% - 40px);
+            }
+            .navbar-nav .nav-link {
+                color: var(--light-text);
+            }
+            .navbar-nav .nav-item:nth-child(2) .nav-link { /* 'Planos' ativo no mobile */
+                color: var(--primary-yellow);
+            }
+        }
+
+        /* Hero Section para Planos */
+        .plans-hero {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 60px 20px;
+            margin-bottom: 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+        .plans-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* Seção de Planos */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
         .plan-card {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 2px solid var(--card-border);
+            position: relative; /* Para o badge */
+            overflow: hidden; /* Para o efeito de brilho */
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Destaque para o plano recomendado */
+        .plan-card.recommended {
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 25px rgba(255, 255, 36, 0.6), 0 0 50px rgba(255, 255, 36, 0.4);
+            transform: scale(1.05);
+            z-index: 1; /* Garante que fique por cima */
+        }
+
+        .plan-card.recommended::before {
+            content: 'Mais Popular!';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background-color: var(--primary-yellow);
+            color: var(--dark-text);
+            padding: 5px 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+            transform-origin: 100% 0%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .plan-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .plan-card .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+        .plan-card .price span {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: #ccc;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .plan-card ul li {
+            margin-bottom: 10px;
+            color: #cccccc;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .plan-card ul li::before {
+            content: '✓';
+            color: var(--primary-yellow);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .plan-card .btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .plan-card .btn-primary-custom {
+            background-color: var(--primary-yellow);
+            color: var(--dark-text);
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .plan-card .btn-primary-custom:hover {
+            background-color: var(--hover-yellow);
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Cores específicas para cada plano */
+        .plan-card.silver h3 { color: var(--plan-silver); }
+        .plan-card.silver .btn-primary-custom { background-color: var(--plan-silver); }
+        .plan-card.silver .btn-primary-custom:hover { background-color: #909090; }
+        .plan-card.silver ul li::before { color: var(--plan-silver); }
+
+        .plan-card.gold h3 { color: var(--plan-gold); }
+        .plan-card.gold .btn-primary-custom { background-color: var(--plan-gold); }
+        .plan-card.gold .btn-primary-custom:hover { background-color: #E6B800; }
+        .plan-card.gold ul li::before { color: var(--plan-gold); }
+
+        .plan-card.diamond h3 { color: var(--plan-diamond); }
+        .plan-card.diamond .btn-primary-custom { background-color: var(--plan-diamond); }
+        .plan-card.diamond .btn-primary-custom:hover { background-color: #00B2B5; }
+        .plan-card.diamond ul li::before { color: var(--plan-diamond); }
+
+        /* Seção de Depoimentos (consistente com index.html) */
+        .testimonials-section {
+            background: linear-gradient(135deg, #222222, var(--dark-background));
+            color: var(--light-text);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 60px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--primary-yellow);
+        }
+        .testimonials-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .testimonial-item {
+            background-color: #333333;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .testimonial-item:hover {
+            transform: translateY(-5px);
+        }
+        .testimonial-item p {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #cccccc;
+        }
+        .testimonial-item .author {
+            font-weight: bold;
+            color: var(--primary-yellow);
+        }
+
+        /* Seção de FAQ */
+        .faq-section {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 60px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--card-border);
+        }
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #282828;
+            padding-bottom: 15px;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #282828;
+            padding: 15px 20px;
             border-radius: 8px;
-            margin-top: 120px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary-yellow);
+            transition: background-color 0.3s ease;
+        }
+        .faq-question:hover {
+            background-color: #3a3a3a;
+        }
+        .faq-question .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .faq-question.active .arrow {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+            color: #cccccc;
+        }
+        .faq-answer.show {
+            max-height: 200px; /* Ajuste conforme necessário para o conteúdo */
+            padding: 15px 20px;
+        }
+
+        /* Rodapé (consistente com index.html e sobre-nos.html) */
+        .footer {
+            background-color: var(--dark-background);
+            color: var(--light-text);
+            margin-top: 80px;
+            padding: 30px 0;
+            border-top: 1px solid #333333;
+        }
+
+        .footer .footer-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer h5 {
+            font-weight: bold;
+            color: var(--primary-yellow);
+            margin-bottom: 15px;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer li {
+            margin-bottom: 8px;
+        }
+
+        .footer a {
+            color: var(--primary-yellow);
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--hover-yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--card-border);
+            padding-top: 15px;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--primary-yellow);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .plans-hero h1 {
+                font-size: 2.2rem;
+            }
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            .plan-card.recommended {
+                transform: scale(1.02); /* Menor escala em mobile */
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonials-section h2, .faq-section h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Barra de navegação -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-        <a class="navbar-brand" href="index.html" style="color:#ffff24; font-weight: bold;">XD</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="color: white;"></span>
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html">XD</a>
+        <button class="navbar-toggler" id="navbarToggler">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="index.html" style="color: white; font-weight: bold;">Inicio</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="planos.html" style="color: #ffff24; font-weight: bold;">Planos</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="login.html" style="color: white; font-weight: bold;">Conta</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="sobre-nos.html" style="color: white; font-weight: bold;">Sobre Nós</a></li>
-            </ul>
-        </div>
-        </nav>
-            </ul>
-        </div>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Conta</a></li>
+            <li class="nav-item"><a class="nav-link" href="sobre-nos.html">Sobre Nós</a></li>
+        </ul>
     </nav>
 
-    <div class="container text-center">
-        <!-- Título da seção -->
-        <h1 class="mt-5 text-white font-weight-bold">Escolha o Plano Ideal para Você</h1>
-        <p class="text-white mb-4">Planos feitos sob medida para atender às suas necessidades</p>
-        
-        <!-- Seção de planos -->
-        <div class="row mt-5">
-            <!-- Plano Prata -->
-            <div class="col-md-4">
-                <div class="card plan-card shadow-lg border-0">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary font-weight-bold">Plano Prata</h5>
-                        <h6 class="card-subtitle mb-3 text-muted">R$ 29,90/mês</h6>
-                        <ul class="card-text text-left">
-                            <li>Acesso a funcionalidades básicas</li>
-                            <li>Suporte via email</li>
-                            <li>5 GB de armazenamento</li>
-                        </ul>
-                        <a href="#" class="btn btn-outline-primary btn-block font-weight-bold">Assinar Agora</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Plano Ouro -->
-            <div class="col-md-4">
-                <div class="card plan-card shadow-lg border-0">
-                    <div class="card-body">
-                        <h5 class="card-title text-warning font-weight-bold">Plano Ouro</h5>
-                        <h6 class="card-subtitle mb-3 text-muted">R$ 59,90/mês</h6>
-                        <ul class="card-text text-left">
-                            <li>Acesso a todas as funcionalidades</li>
-                            <li>Suporte via email e chat</li>
-                            <li>50 GB de armazenamento</li>
-                        </ul>
-                        <a href="#" class="btn btn-outline-warning btn-block font-weight-bold">Assinar Agora</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Plano Diamante -->
-            <div class="col-md-4">
-                <div class="card plan-card shadow-lg border-0">
-                    <div class="card-body">
-                        <h5 class="card-title text-success font-weight-bold">Plano Diamante</h5>
-                        <h6 class="card-subtitle mb-3 text-muted">R$ 99,90/mês</h6>
-                        <ul class="card-text text-left">
-                            <li>Acesso a todas as funcionalidades premium</li>
-                            <li>Suporte 24/7</li>
-                            <li>Armazenamento ilimitado</li>
-                        </ul>
-                        <a href="#" class="btn btn-outline-success btn-block font-weight-bold">Assinar Agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <header class="plans-hero container mt-5">
+        <h1>Escolha o Plano Ideal para Desbloquear Seu Potencial</h1>
+        <p class="lead">Na XD, cada plano é uma porta para um universo de possibilidades. Encontre a assinatura que se alinha perfeitamente aos seus objetivos e comece a transformar sua jornada hoje mesmo!</p>
+    </header>
 
-    <!-- Scripts do Bootstrap e dependências -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <main class="container">
+        <section class="plans-grid">
+            <div class="plan-card silver">
+                <h3>Plano Essencial</h3>
+                <p class="price">R$ 29,90<span>/mês</span></p>
+                <ul>
+                    <li>✓ Acesso ilimitado ao Chat Generativo Básico</li>
+                    <li>✓ 5 GB de armazenamento seguro</li>
+                    <li>✓ Participação em discussões da Comunidade</li>
+                    <li>✓ Suporte por e-mail (resposta em até 48h)</li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom">Começar Agora</a>
+            </div>
 
-    <!-- Rodapé -->
-    <footer style="background-color: black; color: white; margin-top: 50px; padding: 20px 0;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-            <!-- Sobre -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-            <h5 style="font-weight: bold; color: #ffff24;">Sobre Nós</h5>
-            <p>Somos uma plataforma inovadora, conectando pessoas e promovendo crescimento pessoal e profissional.</p>
+            <div class="plan-card gold recommended">
+                <h3>Plano Pro</h3>
+                <p class="price">R$ 59,90<span>/mês</span></p>
+                <ul>
+                    <li>✓ **Tudo do Plano Essencial +**</li>
+                    <li>✓ Acesso ilimitado ao Chat Generativo Avançado</li>
+                    <li>✓ 50 GB de armazenamento de alta velocidade</li>
+                    <li>✓ Acesso a eventos e workshops exclusivos</li>
+                    <li>✓ Suporte prioritário via chat e e-mail (resposta em até 24h)</li>
+                    <li>✓ Ferramentas de organização personalizáveis</li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom">Assinar Plano Pro</a>
             </div>
-            <!-- Links Rápidos -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-            <h5 style="font-weight: bold; color: #ffff24;">Links Rápidos</h5>
-            <ul style="list-style: none; padding: 0;">
-                <li><a href="index.html" style="color: white; text-decoration: none;">Início</a></li>
-                <li><a href="planos.html" style="color: white; text-decoration: none;">Planos</a></li>
-                <li><a href="login.html" style="color: white; text-decoration: none;">Conta</a></li>
-                <li><a href="sobre-nos.html" style="color: white; text-decoration: none;">Sobre Nós</a></li>
-            </ul>
+
+            <div class="plan-card diamond">
+                <h3>Plano Premium</h3>
+                <p class="price">R$ 99,90<span>/mês</span></p>
+                <ul>
+                    <li>✓ **Tudo do Plano Pro +**</li>
+                    <li>✓ Armazenamento ilimitado na nuvem</li>
+                    <li>✓ Consultoria personalizada com especialistas XD (1h/mês)</li>
+                    <li>✓ Acesso antecipado a novos recursos e funcionalidades</li>
+                    <li>✓ Suporte VIP 24/7 (telefone, chat, e-mail)</li>
+                    <li>✓ Integração com ferramentas de terceiros</li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom">Desbloquear Premium</a>
             </div>
-            <!-- Contato -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-            <h5 style="font-weight: bold; color: #ffff24;">Contato</h5>
-            <p>Email: contato@xd.com</p>
-            <p>Telefone: (11) 1234-5678</p>
-            <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+        </section>
+
+        <section class="testimonials-section container mt-5">
+            <h2>O Que Nossos Usuários Dizem Sobre Nossos Planos</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-item">
+                    <p>"O Plano Pro mudou a forma como gerencio meus projetos. O suporte é incrível e as ferramentas são essenciais!"</p>
+                    <div class="author">- Lucas M., Desenvolvedor Freelancer</div>
+                </div>
+                <div class="testimonial-item">
+                    <p>"Com o Plano Premium, minha produtividade disparou. A consultoria personalizada é um diferencial enorme!"</p>
+                    <div class="author">- Fernanda S., Empresária</div>
+                </div>
+                <div class="testimonial-item">
+                    <p>"Comecei com o Essencial e já sinto a diferença na minha organização. A XD é viciante de um jeito bom!"</p>
+                    <div class="author">- Gabriel P., Estudante Universitário</div>
+                </div>
             </div>
-        </div>
-        <div style="text-align: center; margin-top: 20px;"></div>
-            <p style="margin: 0; color: #ffff24;">&copy; 2023 XD. Todos os direitos reservados.</p>
-        </div>
+        </section>
+
+        <section class="faq-section container mt-5">
+            <h2>Perguntas Frequentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Qual é a diferença entre o Chat Generativo Básico e o Avançado?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O Chat Generativo Básico oferece funcionalidades essenciais para conversas e geração de ideias. O Avançado, disponível no Plano Pro e Premium, inclui personalização aprofundada, acesso a modelos de linguagem mais complexos e recursos de colaboração em tempo real, ideal para projetos mais exigentes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Posso mudar de plano a qualquer momento?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Você pode fazer upgrade ou downgrade do seu plano a qualquer momento diretamente na sua área de "Conta". A mudança é aplicada imediatamente, e os ajustes de cobrança são feitos proporcionalmente.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Como funciona o armazenamento de dados?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oferecemos armazenamento seguro na nuvem para todos os seus projetos, documentos e mídias. A capacidade varia de acordo com o plano escolhido, sendo ilimitada no Plano Premium. Seus dados são criptografados e protegidos.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Existe um período de teste gratuito?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Atualmente, não oferecemos um período de teste gratuito para os planos completos. No entanto, você pode explorar algumas funcionalidades básicas da XD ao criar uma conta gratuita, sem necessidade de cartão de crédito.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <div class="footer-column">
+                    <h5>Sobre Nós</h5>
+                    <p>Somos a XD, uma plataforma inovadora dedicada a conectar pessoas, impulsionar a criatividade e promover o crescimento pessoal e profissional através da tecnologia.</p>
+                </div>
+                <div class="footer-column">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="planos.html">Planos</a></li>
+                        <li><a href="login.html">Conta</a></li>
+                        <li><a href="sobre-nos.html">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Contato</h5>
+                    <p>Email: contato@xd.com</p>
+                    <p>Telefone: (11) 1234-5678</p>
+                    <p>Endereço: Rua da Inovação, 456 - São Paulo, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 XD. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 
+    <script>
+        // Funcionalidade do Navbar (Menu Hambúrguer)
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarNav = document.getElementById('navbarNav');
+
+        navbarToggler.addEventListener('click', () => {
+            navbarNav.classList.toggle('show');
+        });
+
+        // Adiciona um listener para fechar o menu ao clicar em um link (em mobile)
+        navbarNav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) { // Apenas para telas menores
+                    navbarNav.classList.remove('show');
+                }
+            });
+        });
+
+        // Funcionalidade do FAQ (Accordion)
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('.arrow');
+
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                answer.style.maxHeight = null; // Reseta a altura para a transição
+                element.classList.remove('active');
+            } else {
+                // Fecha todos os outros FAQs abertos
+                document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+                    openAnswer.style.maxHeight = null;
+                    openAnswer.classList.remove('show');
+                    openAnswer.previousElementSibling.classList.remove('active');
+                });
+
+                answer.classList.add('show');
+                answer.style.maxHeight = answer.scrollHeight + "px"; // Define a altura para a transição
+                element.classList.add('active');
+            }
+        }
+
+        // Script para verificar o carregamento e funcionalidade
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Página 'Planos e Assinaturas' carregada com CSS puro e JavaScript personalizado.");
+        });
+    </script>
 </body>
 </html>

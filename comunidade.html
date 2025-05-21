@@ -4,100 +4,630 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comunidade - XD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Estilos globais para o corpo da página */
         body {
-            font-family: 'Roboto', sans-serif;
-            background-image: url(midia/backgourd.jpg);
-            background-size: cover;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            color: #ffffff;
+            font-family: 'Roboto', sans-serif; /* Define a fonte principal */
+            background-color: #000000; /* Fundo totalmente preto */
+            margin: 0; /* Remove margens padrão */
+            padding: 0; /* Remove preenchimento padrão */
+            display: flex; /* Usa flexbox para layout */
+            flex-direction: column; /* Coloca os itens em coluna */
+            align-items: center; /* Centraliza os itens horizontalmente */
+            min-height: 100vh; /* Altura mínima de 100% da viewport */
+            color: #ffffff; /* Cor do texto branco */
+            position: relative; /* Necessário para posicionamento absoluto do menu */
+            overflow-x: hidden; /* Evita rolagem horizontal */
+            transition: overflow 0.3s ease; /* Transição suave para overflow */
         }
+
+        /* Contêiner principal da rede social */
+        .social-container {
+            width: 90%; /* Largura de 90% */
+            max-width: 1000px; /* Largura máxima */
+            margin: 20px auto; /* Margem externa e centraliza */
+            padding: 20px; /* Preenchimento interno */
+            background-color: rgba(0, 0, 0, 0.9); /* Fundo preto mais opaco */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); /* Sombra para profundidade */
+            border-radius: 12px; /* Cantos arredondados */
+            backdrop-filter: blur(8px); /* Efeito de desfoque sutil */
+            display: flex; /* Usa flexbox */
+            flex-direction: column; /* Itens em coluna */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+        }
+
+        /* Estilos para o menu de navegação */
         nav {
+            width: 100%; /* Largura total */
+            height: 100vh; /* Altura total da viewport para mobile */
+            background-color: rgba(0, 0, 0, 0.98); /* Fundo preto quase opaco para o menu */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Sombra mais intensa */
+            position: fixed; /* Posição fixa na tela */
+            top: 0; /* Alinhado ao topo */
+            left: -100%; /* Começa fora da tela à esquerda para animação slide-in */
+            z-index: 1000; /* Acima de outros elementos */
+            transition: left 0.3s ease-in-out; /* Transição suave para o slide-in */
+            display: flex; /* Usa flexbox para centralizar conteúdo */
+            flex-direction: column; /* Itens em coluna */
+            justify-content: center; /* Centraliza verticalmente */
+            align-items: center; /* Centraliza horizontalmente */
+            padding-top: 60px; /* Espaço para o ícone do menu no topo */
+        }
+
+        nav.open {
+            left: 0; /* Desliza para dentro da tela */
+        }
+
+        nav ul {
+            display: flex; /* Usa flexbox para os itens da lista */
+            flex-direction: column; /* Itens em coluna para mobile */
+            gap: 25px; /* Mais espaço entre os itens do menu */
+            padding: 20px; /* Preenchimento interno */
+            margin: 0; /* Remove margens padrão */
+            list-style: none; /* Remove marcadores de lista */
+            width: 100%; /* Ocupa a largura total do nav */
+            align-items: center; /* Centraliza os itens */
+        }
+
+        nav ul li {
+            margin: 0; /* Remove margens padrão */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Remove sublinhado */
+            color: #ffffff; /* Cor do texto branco */
+            font-weight: 400; /* Peso da fonte normal */
+            font-size: 1.2rem; /* Tamanho da fonte maior para mobile */
+            transition: color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Transição suave */
+            padding: 15px 20px; /* Adiciona preenchimento para área de clique */
+            border-radius: 8px; /* Cantos arredondados */
+            display: block; /* Torna o link um bloco para preencher o espaço */
+            text-align: center; /* Centraliza o texto do link */
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Cor amarela ao passar o mouse */
+            transform: translateY(-3px); /* Efeito de leve elevação */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Efeito de brilho amarelo */
+        }
+
+        /* Estilos para o ícone do menu */
+        .menu-icon {
+            display: block; /* Exibe como bloco */
+            font-size: 30px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de ponteiro */
+            color: #ffffff; /* Cor branca */
+            position: fixed; /* Posição fixa na tela */
+            top: 15px; /* 15px do topo */
+            left: 15px; /* 15px da esquerda */
+            z-index: 1100; /* Acima do menu */
+            transition: color 0.3s ease, transform 0.2s ease; /* Transição suave */
+        }
+
+        .menu-icon:hover {
+            color: #ffd700; /* Cor amarela ao passar o mouse */
+            transform: scale(1.1); /* Aumenta um pouco o tamanho */
+        }
+
+        /* Novo botão de grupos para mobile */
+        .groups-toggle-icon {
+            display: block; /* Exibe como bloco */
+            font-size: 30px; /* Tamanho da fonte */
+            cursor: pointer; /* Cursor de ponteiro */
+            color: #ffffff; /* Cor branca */
+            position: fixed; /* Posição fixa na tela */
+            top: 15px; /* 15px do topo */
+            right: 15px; /* 15px da direita */
+            z-index: 1100; /* Acima do menu */
+            transition: color 0.3s ease, transform 0.2s ease; /* Transição suave */
+        }
+
+        .groups-toggle-icon:hover {
+            color: #ffd700; /* Cor amarela ao passar o mouse */
+            transform: scale(1.1); /* Aumenta um pouco o tamanho */
+        }
+
+
+        /* Overlay de fundo quando o menu está aberto */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 800px;
-            background-color: rgba(0, 0, 0, 0.85);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente */
+            z-index: 999; /* Abaixo do menu, mas acima do restante do conteúdo */
+            display: none; /* Escondido por padrão */
+            animation: fadeInOverlay 0.3s ease-in-out forwards;
+            opacity: 0;
+        }
+
+        .overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Estilos para o select dentro do menu (reutilizado) */
+        .menu-select {
+            background-color: rgba(0, 0, 0, 0.85); /* Fundo preto semi-transparente */
+            color: #ffffff; /* Cor do texto branco */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Borda branca sutil */
+            border-radius: 12px; /* Cantos arredondados */
+            padding: 8px 15px; /* Preenchimento interno maior */
+            font-weight: 400; /* Peso da fonte normal */
+            font-size: 1rem;
+            cursor: pointer; /* Cursor de ponteiro */
+            appearance: none; /* Remove o estilo padrão do select */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Ícone de seta para baixo */
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px auto;
+            padding-right: 35px; /* Espaço para o ícone */
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-select:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); /* Brilho sutil no hover */
+        }
+
+        /* Cabeçalho da seção */
+        .section-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 300;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        /* Área de criação de posts */
+        .post-creation-area {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-creation-area textarea {
+            width: calc(100% - 24px); /* Ajusta para padding */
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            font-size: 1rem;
+            resize: vertical; /* Permite redimensionar verticalmente */
+            min-height: 80px;
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .post-creation-area textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .post-creation-area textarea:focus {
+            border-color: #ffd700;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .post-creation-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .post-creation-actions input[type="file"] {
+            display: none; /* Esconde o input de arquivo padrão */
+        }
+
+        .post-creation-actions .file-upload-label {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .post-creation-actions .file-upload-label:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .post-creation-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffd700;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .post-creation-actions button:hover {
+            background-color: #ffcc00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Feed de posts */
+        .feed-container {
+            flex: 1; /* Ocupa o espaço restante */
+            overflow-y: auto; /* Rolagem vertical */
+            padding-right: 10px; /* Espaço para a barra de rolagem */
+            scroll-behavior: smooth; /* Rolagem suave */
+        }
+
+        .feed-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .feed-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .feed-container::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
+        }
+
+        .feed-container::-webkit-scrollbar-thumb:hover {
+            background: #ffcc00;
+        }
+
+        .post-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
             border-radius: 12px;
             margin-bottom: 20px;
-            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.5s ease-out;
         }
-        nav.active {
-            display: block;
-        }
-        nav ul {
+
+        .post-header {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 15px;
-            margin: 0;
-            list-style: none;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-        nav ul li {
-            margin: 5px 0;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #ffffff;
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ffd700;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        nav ul li a:hover {
-            color: #ffd700;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        .menu-icon {
-            display: block;
-            font-size: 30px;
+        .post-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-info .username {
+            font-weight: bold;
+            color: #ffd700;
+            font-size: 1.1rem;
+        }
+
+        .post-info .timestamp {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .post-content img,
+        .post-content video {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: block; /* Garante que a imagem/vídeo ocupe a largura total */
+            height: auto; /* Mantém a proporção */
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .post-actions button {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
             cursor: pointer;
-            color: #ffffff;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 300;
         }
-        .menu-icon:hover {
+
+        .post-actions button:hover {
             color: #ffd700;
+            transform: translateY(-2px);
         }
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                padding: 20px;
-            }
+
+        .post-actions button i {
+            font-size: 1.1rem;
+        }
+
+        /* Seção de Grupos */
+        .groups-column {
+            background-color: rgba(0, 0, 0, 0.98); /* Fundo quase opaco para o menu */
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px; /* Margem superior para mobile */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Altura total da viewport para mobile */
+            width: 80%; /* Largura para o sidebar de grupos */
+            position: fixed; /* Posição fixa na tela */
+            top: 0; /* Alinhado ao topo */
+            right: -100%; /* Começa fora da tela à direita para animação slide-in */
+            z-index: 1000; /* Acima de outros elementos */
+            transition: right 0.3s ease-in-out; /* Transição suave para o slide-in */
+            overflow-y: auto; /* Rolagem para a lista de grupos */
+            padding-top: 60px; /* Espaço para o ícone do menu no topo */
+        }
+
+        .groups-column.open {
+            right: 0; /* Desliza para dentro da tela */
+        }
+
+        .groups-column::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .groups-column::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .groups-column::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
+        }
+
+        .groups-column::-webkit-scrollbar-thumb:hover {
+            background: #ffcc00;
+        }
+
+        .groups-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .group-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .group-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .group-item h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #ffd700;
+            font-size: 1.1rem;
+        }
+
+        .group-item p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .group-item .join-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffd700;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .group-item .join-button:hover {
+            background-color: #ffcc00;
+            transform: translateY(-1px);
+        }
+
+        .group-item .join-button.joined {
+            background-color: rgba(255, 255, 255, 0.2); /* Cor para botão "Entrou" */
+            color: rgba(255, 255, 255, 0.7);
+            cursor: default;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Indicador de carregamento/digitação (reutilizado) */
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #ffd700;
+            font-size: 1.2rem;
+            gap: 10px;
+            display: none; /* Escondido por padrão */
+        }
+
+        .loading-indicator.active {
+            display: flex;
+        }
+
+        .loading-indicator .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mensagem de feedback (custom alert) */
+        .feedback-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffd700;
+            color: #000000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            z-index: 1200; /* Acima de tudo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            text-align: center;
+        }
+
+        .feedback-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Media queries para responsividade */
+        @media (min-width: 769px) {
+            /* Estilos para desktop: menu no topo e centralizado */
             nav {
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                z-index: 1000;
-                background-color: rgba(0, 0, 0, 0.95);
-                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-                border-radius: 0 0 12px 12px;
-                animation: slideDown 0.3s ease-in-out;
+                height: auto; /* Altura automática para desktop */
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 0 0 12px 12px; /* Cantos arredondados na parte inferior */
+                padding-top: 0; /* Remove padding extra do topo */
+                display: block; /* Exibe o menu por padrão no desktop */
+                opacity: 1; /* Garante visibilidade */
+                animation: none; /* Remove animação de slide-in */
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra mais leve para desktop */
             }
+
+            nav ul {
+                flex-direction: row; /* Itens em linha para desktop */
+                justify-content: space-around; /* Espaçamento uniforme */
+                padding: 15px;
+                gap: 0; /* Remove gap extra */
+            }
+
+            nav ul li a {
+                font-size: 1rem; /* Tamanho da fonte padrão para desktop */
+                padding: 5px 10px; /* Padding padrão para desktop */
+            }
+
             .menu-icon {
-                position: fixed;
-                top: 15px;
-                left: 15px;
-                z-index: 1100;
+                display: none; /* Esconde o ícone do menu no desktop */
             }
-            .chat-messages {
-                height: 375px;
+
+            .groups-toggle-icon {
+                display: none; /* Esconde o ícone de grupos no desktop */
+            }
+
+            .overlay {
+                display: none !important; /* Garante que o overlay não apareça no desktop */
+            }
+
+            .social-container {
+                flex-direction: row; /* Layout em linha para desktop */
+                justify-content: space-between;
+                align-items: flex-start; /* Alinha itens ao topo */
+                gap: 30px; /* Espaçamento entre as colunas */
+            }
+
+            .feed-column {
+                flex: 2; /* Coluna do feed ocupa mais espaço */
+                display: flex;
+                flex-direction: column;
+            }
+
+            .groups-column {
+                flex: 1; /* Coluna de grupos ocupa menos espaço */
+                display: flex;
+                flex-direction: column;
+                height: 700px; /* Altura fixa para a lista de grupos em desktop */
+                margin-top: 0; /* Remove margem superior para desktop */
+                position: relative; /* Volta para posicionamento relativo em desktop */
+                right: auto; /* Remove o right fixo */
+                width: auto; /* Remove a largura fixa */
+                padding-top: 20px; /* Padding normal */
             }
         }
 
-        @keyframes slideDown {
+        /* Animações */
+        @keyframes fadeInOverlay {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -105,131 +635,368 @@
             }
         }
 
-        main {
-            padding: 20px;
-        }
-
-        .post-video {
-            margin-bottom: 20px;
-        }
-
-        .post-video h2 {
-            margin-bottom: 10px;
-        }
-
-        .post-video form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .post-video input,
-        .post-video textarea,
-        .post-video button {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .post-video button {
-            background-color: #f2fa0a;
-            color: #000000;
-            cursor: pointer;
-        }
-
-        .video-feed .video-item {
-            margin-bottom: 20px;
-        }
-
-        .video-feed video {
-            width: 80%;
-            border-radius: 8px;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .post-video input,
-            .post-video textarea,
-            .post-video button {
-                font-size: 14px;
-            }
-            .video-feed video {
-                width: 100%;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="feedback-message" id="feedback-message"></div>
+
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
-    <nav>
+    <span class="groups-toggle-icon" onclick="toggleGroups()"><i class="fas fa-users"></i></span>
+
+    <nav id="main-nav">
         <ul>
-            <li><a href="home.html" class="active">Início</a></li>
-            <li><a href="previsoes.html">Previsões</a></li>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="leitura.html">Leitura</a></li>
             <li><a href="comunidade.html">Comunidade</a></li>
-            <li><a href="#configuration">Configurações</a></li>
-            <li><a href="login.html">Sair</a></li>
+            <li><a href="editor.html">Editor</a></li>
+            <li>
+                <select onchange="handleMenuSelection(this.value)" class="menu-select">
+                    <option value="perfil.html" disabled selected>Perfil</option>
+                    <option value="configuracoes.html">Configurações</option>
+                    <option value="politicas.html">Políticas de Privacidade</option>
+                    <option value="index.html">Sair</option>
+                </select>
+            </li>
         </ul>
     </nav>
-    <main>
-        <section class="post-video">
-            <h2>Postar Novo Vídeo</h2>
-            <form id="videoPostForm" onsubmit="postVideo(event)">
-                <input type="file" id="videoUpload" accept="video/*" required>
-                <textarea id="videoDescription" placeholder="Descrição do vídeo..." rows="3" required></textarea>
-                <button type="submit">Postar</button>
-            </form>
-        </section>
-        <section class="video-feed" id="videoFeed"></section>
-    </main>
+
+    <div class="social-container">
+        <div class="feed-column">
+            <h2 class="section-header">Feed da Comunidade</h2>
+
+            <div class="post-creation-area">
+                <textarea id="post-text-input" placeholder="O que você está pensando?"></textarea>
+                <div class="post-creation-actions">
+                    <label for="post-image-upload" class="file-upload-label">
+                        <i class="fas fa-image"></i> Imagem
+                        <input type="file" id="post-image-upload" accept="image/*">
+                    </label>
+                    <label for="post-video-upload" class="file-upload-label">
+                        <i class="fas fa-video"></i> Vídeo
+                        <input type="file" id="post-video-upload" accept="video/*">
+                    </label>
+                    <button onclick="createPost()"><i class="fas fa-paper-plane"></i> Postar</button>
+                </div>
+            </div>
+
+            <div class="feed-container" id="feed-container">
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-avatar">U1</div>
+                        <div class="post-info">
+                            <span class="username">Usuário Exemplo 1</span>
+                            <span class="timestamp">há 5 minutos</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Olá comunidade! Animado para compartilhar minhas ideias com vocês.</p>
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="fas fa-heart"></i> Curtir</button>
+                        <button><i class="fas fa-comment"></i> Comentar</button>
+                        <button><i class="fas fa-share"></i> Compartilhar</button>
+                    </div>
+                </div>
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-avatar">U2</div>
+                        <div class="post-info">
+                            <span class="username">Usuário Exemplo 2</span>
+                            <span class="timestamp">há 15 minutos</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Confira essa paisagem incrível que capturei hoje!</p>
+                        <img src="https://placehold.co/600x400/000000/FFFFFF?text=Imagem+Exemplo" alt="Imagem de Exemplo">
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="fas fa-heart"></i> Curtir</button>
+                        <button><i class="fas fa-comment"></i> Comentar</button>
+                        <button><i class="fas fa-share"></i> Compartilhar</button>
+                    </div>
+                </div>
+                <div class="post-item">
+                    <div class="post-header">
+                        <div class="post-avatar">U3</div>
+                        <div class="post-info">
+                            <span class="username">Usuário Exemplo 3</span>
+                            <span class="timestamp">há 30 minutos</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Um pequeno vídeo da minha viagem!</p>
+                        <video controls src="https://www.w3schools.com/html/mov_bbb.mp4" onerror="this.src='https://placehold.co/600x300/000000/FFFFFF?text=Video+Indisponivel'" alt="Video de Exemplo"></video>
+                    </div>
+                    <div class="post-actions">
+                        <button><i class="fas fa-heart"></i> Curtir</button>
+                        <button><i class="fas fa-comment"></i> Comentar</button>
+                        <button><i class="fas fa-share"></i> Compartilhar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="loading-indicator" id="feed-loading-indicator">
+                <div class="spinner"></div>
+                <span>Carregando mais posts...</span>
+            </div>
+        </div>
+
+        <div class="groups-column" id="groups-column">
+            <h2 class="section-header">Grupos Diversos</h2>
+            <div class="groups-list" id="groups-list">
+                <div class="group-item">
+                    <h3><i class="fas fa-code"></i> Desenvolvedores XD</h3>
+                    <p>Discussões sobre programação, novas tecnologias e projetos.</p>
+                    <button class="join-button" onclick="joinGroup(this, 'Desenvolvedores XD')"><i class="fas fa-users"></i> Entrar</button>
+                </div>
+                <div class="group-item">
+                    <h3><i class="fas fa-book-open"></i> Clube do Livro</h3>
+                    <p>Compartilhe suas leituras, resenhas e descubra novos livros.</p>
+                    <button class="join-button" onclick="joinGroup(this, 'Clube do Livro')"><i class="fas fa-users"></i> Entrar</button>
+                </div>
+                <div class="group-item">
+                    <h3><i class="fas fa-camera"></i> Fotografia Amadora</h3>
+                    <p>Mostre suas fotos, peça feedback e aprenda novas técnicas.</p>
+                    <button class="join-button" onclick="joinGroup(this, 'Fotografia Amadora')"><i class="fas fa-users"></i> Entrar</button>
+                </div>
+                <div class="group-item">
+                    <h3><i class="fas fa-gamepad"></i> Gamers XD</h3>
+                    <p>Conecte-se com outros jogadores e discuta seus jogos favoritos.</p>
+                    <button class="join-button" onclick="joinGroup(this, 'Gamers XD')"><i class="fas fa-users"></i> Entrar</button>
+                </div>
+                <div class="group-item">
+                    <h3><i class="fas fa-utensils"></i> Culinária Criativa</h3>
+                    <p>Receitas, dicas de cozinha e paixão pela gastronomia.</p>
+                    <button class="join-button" onclick="joinGroup(this, 'Culinária Criativa')"><i class="fas fa-users"></i> Entrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Função para alternar a visibilidade do menu principal (hamburguer)
         function toggleMenu() {
-            const nav = document.querySelector('nav');
-            nav.classList.toggle('active');
+            const nav = document.getElementById('main-nav');
+            const overlay = document.getElementById('overlay');
+            const groupsColumn = document.getElementById('groups-column'); // Obter a coluna de grupos
+
+            if (nav.classList.contains('open')) {
+                nav.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Reabilita a rolagem do corpo
+            } else {
+                // Se o menu de grupos estiver aberto, feche-o primeiro
+                if (groupsColumn.classList.contains('open')) {
+                    groupsColumn.classList.remove('open');
+                }
+                nav.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Desabilita a rolagem do corpo
+            }
         }
 
+        // Função para alternar a visibilidade da coluna de grupos
+        function toggleGroups() {
+            const groupsColumn = document.getElementById('groups-column');
+            const overlay = document.getElementById('overlay');
+            const nav = document.getElementById('main-nav'); // Obter o menu principal
+
+            if (groupsColumn.classList.contains('open')) {
+                groupsColumn.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Reabilita a rolagem do corpo
+            } else {
+                // Se o menu principal estiver aberto, feche-o primeiro
+                if (nav.classList.contains('open')) {
+                    nav.classList.remove('open');
+                }
+                groupsColumn.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Desabilita a rolagem do corpo
+            }
+        }
+
+        // Fecha o menu ou grupos se clicar fora deles ou no overlay
         document.addEventListener('click', function(event) {
-            const nav = document.querySelector('nav');
+            const nav = document.getElementById('main-nav');
             const menuIcon = document.querySelector('.menu-icon');
-            if (!nav.contains(event.target) && !menuIcon.contains(event.target)) {
-                nav.classList.remove('active');
+            const groupsColumn = document.getElementById('groups-column');
+            const groupsToggleIcon = document.querySelector('.groups-toggle-icon');
+            const overlay = document.getElementById('overlay');
+
+            // Fecha o menu principal se estiver aberto e o clique não foi no menu nem no ícone
+            if (nav.classList.contains('open') && !nav.contains(event.target) && !menuIcon.contains(event.target)) {
+                nav.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            // Fecha a coluna de grupos se estiver aberta e o clique não foi na coluna nem no ícone
+            if (groupsColumn.classList.contains('open') && !groupsColumn.contains(event.target) && !groupsToggleIcon.contains(event.target)) {
+                groupsColumn.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
 
-        function postVideo(event) {
-            event.preventDefault();
+        // Função para lidar com a seleção do menu (redirecionamento)
+        function handleMenuSelection(value) {
+            if (value) {
+                window.location.href = value;
+            }
+        }
 
-            const videoUpload = document.getElementById('videoUpload');
-            const videoDescription = document.getElementById('videoDescription');
-            const videoFeed = document.getElementById('videoFeed');
+        // --- Funções do Feed de Posts ---
+        const postTextInput = document.getElementById('post-text-input');
+        const postImageUpload = document.getElementById('post-image-upload');
+        const postVideoUpload = document.getElementById('post-video-upload');
+        const feedContainer = document.getElementById('feed-container');
+        const feedLoadingIndicator = document.getElementById('feed-loading-indicator');
 
-            if (videoUpload.files.length === 0) {
-                alert('Por favor, selecione um vídeo para postar.');
+        function createPost() {
+            const textContent = postTextInput.value.trim();
+            const imageFile = postImageUpload.files[0];
+            const videoFile = postVideoUpload.files[0];
+
+            if (!textContent && !imageFile && !videoFile) {
+                showFeedbackMessage('Por favor, digite um texto ou selecione uma imagem/vídeo para postar.');
                 return;
             }
 
-            const file = videoUpload.files[0];
-            const videoURL = URL.createObjectURL(file);
+            const postItem = document.createElement('div');
+            postItem.classList.add('post-item');
 
-            const videoItem = document.createElement('div');
-            videoItem.className = 'video-item';
+            const timestamp = new Date().toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' });
 
-            const videoElement = document.createElement('video');
-            videoElement.src = videoURL;
-            videoElement.controls = true;
-            videoElement.autoplay = true;
-            videoElement.loop = true;
+            let mediaContent = '';
+            if (imageFile) {
+                const imageUrl = URL.createObjectURL(imageFile);
+                mediaContent = `<img src="${imageUrl}" alt="Post Image">`;
+            } else if (videoFile) {
+                const videoUrl = URL.createObjectURL(videoFile);
+                mediaContent = `<video controls src="${videoUrl}" onerror="this.src='https://placehold.co/600x300/000000/FFFFFF?text=Video+Indisponivel'" alt="Video de Exemplo"></video>`;
+            }
 
-            const description = document.createElement('p');
-            description.textContent = videoDescription.value;
-            description.style.color = '#ffffff';
-            description.style.marginTop = '10px';
+            postItem.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">Você</div>
+                    <div class="post-info">
+                        <span class="username">Seu Usuário</span>
+                        <span class="timestamp">${timestamp}</span>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p>${textContent}</p>
+                    ${mediaContent}
+                </div>
+                <div class="post-actions">
+                    <button><i class="fas fa-heart"></i> Curtir</button>
+                    <button><i class="fas fa-comment"></i> Comentar</button>
+                    <button><i class="fas fa-share"></i> Compartilhar</button>
+                </div>
+            `;
 
-            videoItem.appendChild(videoElement);
-            videoItem.appendChild(description);
-            videoFeed.appendChild(videoItem);
+            feedContainer.prepend(postItem); // Adiciona o novo post no topo do feed
 
-            // Reset form
-            videoPostForm.reset();
+            // Limpa os campos após a postagem
+            postTextInput.value = '';
+            postImageUpload.value = '';
+            postVideoUpload.value = '';
+            showFeedbackMessage('Post criado com sucesso!');
+        }
+
+        // Simulação de carregamento infinito de posts
+        let postCounter = 0;
+        function loadMorePosts() {
+            feedLoadingIndicator.classList.add('active'); // Mostra o indicador de carregamento
+            setTimeout(() => {
+                for (let i = 0; i < 3; i++) { // Adiciona 3 posts por vez
+                    postCounter++;
+                    const postItem = document.createElement('div');
+                    postItem.classList.add('post-item');
+                    const timestamp = new Date(Date.now() - (postCounter * 60 * 1000)).toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' });
+
+                    let content = '';
+                    let media = '';
+                    const postType = postCounter % 3; // Alterna entre tipos de post
+
+                    if (postType === 0) {
+                        content = `<p>Mais um dia incrível na programação! #devlife</p>`;
+                    } else if (postType === 1) {
+                        content = `<p>Adoro essa vista!</p>`;
+                        media = `<img src="https://placehold.co/600x400/000000/FFFFFF?text=Mais+Imagens" alt="Imagem Aleatória">`;
+                    } else {
+                        content = `<p>Momento relaxante com música.</p>`;
+                        media = `<video controls src="https://www.w3schools.com/html/mov_bbb.mp4" onerror="this.src='https://placehold.co/600x300/000000/FFFFFF?text=Video+Indisponivel'"></video>`;
+                    }
+
+                    postItem.innerHTML = `
+                        <div class="post-header">
+                            <div class="post-avatar">U${postCounter % 5 + 1}</div>
+                            <div class="post-info">
+                                <span class="username">Comunidade User ${postCounter}</span>
+                                <span class="timestamp">${timestamp}</span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            ${content}
+                            ${media}
+                        </div>
+                        <div class="post-actions">
+                            <button><i class="fas fa-heart"></i> Curtir</button>
+                            <button><i class="fas fa-comment"></i> Comentar</button>
+                            <button><i class="fas fa-share"></i> Compartilhar</button>
+                        </div>
+                    `;
+                    feedContainer.appendChild(postItem);
+                }
+                feedLoadingIndicator.classList.remove('active'); // Esconde o indicador
+            }, 1000); // Simula delay de carregamento
+        }
+
+        // Evento para carregamento infinito ao rolar
+        feedContainer.addEventListener('scroll', () => {
+            if (feedContainer.scrollTop + feedContainer.clientHeight >= feedContainer.scrollHeight - 50) {
+                // Carrega mais posts quando o usuário está a 50px do final
+                loadMorePosts();
+            }
+        });
+
+        // Carrega alguns posts iniciais ao carregar a página
+        window.addEventListener('load', () => {
+            loadMorePosts();
+        });
+
+
+        // --- Funções de Grupos ---
+        function joinGroup(buttonElement, groupName) {
+            if (buttonElement.classList.contains('joined')) {
+                showFeedbackMessage(`Você já está no grupo: ${groupName}`);
+                return;
+            }
+
+            // Simula a ação de entrar no grupo
+            setTimeout(() => {
+                buttonElement.classList.add('joined');
+                buttonElement.innerHTML = '<i class="fas fa-check"></i> Entrou';
+                buttonElement.disabled = true; // Desabilita o botão
+                showFeedbackMessage(`Você entrou no grupo: ${groupName}`);
+            }, 500); // Pequeno delay para simular o processamento
+        }
+
+        // Função para exibir mensagem de feedback (substitui alert())
+        function showFeedbackMessage(message) {
+            const feedbackMessage = document.getElementById('feedback-message');
+            feedbackMessage.textContent = message;
+            feedbackMessage.classList.add('show');
+
+            setTimeout(() => {
+                feedbackMessage.classList.remove('show');
+            }, 3000); // Mensagem desaparece após 3 segundos
         }
     </script>
 </body>

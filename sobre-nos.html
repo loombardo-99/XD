@@ -3,158 +3,727 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apresentação do Sistema</title>
-    <!-- Link para o CSS do Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>XD - Sobre Nós: Nossa Essência e Inovação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        /* Variáveis CSS para cores */
+        :root {
+            --primary-yellow: #ffff24;
+            --dark-background: #000000;
+            --medium-dark-background: #333333;
+            --light-text: #ffffff;
+            --dark-text: #000000;
+            --hover-yellow: #e0e01e;
+            --section-bg: #1a1a1a;
+            --border-color: #222222;
+        }
+
+        /* Estilos globais */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            background-image: linear-gradient(135deg, #1e1e1e, #282828);
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-background), var(--medium-dark-background));
+            color: var(--light-text);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        .section {
-            background-color: rgba(0, 0, 0, 0.823);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }  
-        
-        .section h2, .section h3 {
-            transition: transform 0.3s ease, color 0.3s ease;
+
+        a {
+            text-decoration: none;
+            color: var(--primary-yellow);
+            transition: color 0.3s ease;
         }
-        .section h2:hover, .section h3:hover {
-            transform: scale(1.1);
-            color: #ffc107;
+
+        a:hover {
+            color: var(--hover-yellow);
         }
-        .btn-primary {
-            transition: background-color 0.3s ease, transform 0.3s ease;
+
+        h1, h2, h3, h5 {
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
         }
-        .btn-primary:hover {
-            background-color: #0056b3;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-5 { margin-top: 3rem; }
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        /* Navbar (consistente com index.html) */
+        .navbar {
+            background-color: var(--dark-background);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-brand {
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin-left: 1.5rem;
+            transition: text-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            text-shadow: 0 0 8px var(--primary-yellow), 0 0 15px var(--primary-yellow);
             transform: scale(1.05);
         }
 
+        .navbar-toggler {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: none;
+            margin-right: 1.5rem;
+        }
+
+        .navbar-toggler-icon {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: var(--primary-yellow);
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--light-text);
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 8px 0;
+            display: block;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--hover-yellow) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Navbar responsiva (mobile) */
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--dark-background);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+                align-items: flex-start;
+            }
+
+            .navbar-nav.show {
+                max-height: 300px;
+            }
+
+            .navbar-nav .nav-item {
+                margin: 10px 20px;
+                width: calc(100% - 40px);
+            }
+            .navbar-nav .nav-link {
+                color: var(--light-text);
+            }
+            .navbar-nav .nav-item:last-child .nav-link { /* 'Sobre Nós' ativo no mobile */
+                color: var(--primary-yellow);
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 80px 20px;
+            margin-bottom: 0;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 36, 0.1) 0%, transparent 70%);
+            animation: pulse-gradient 5s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse-gradient {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--primary-yellow);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero-section p.lead {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #e0e0e0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Seções de Conteúdo (Geral) */
+        .content-section {
+            background-color: var(--section-bg);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .content-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        /* Seção "Nossa Essência" (Valores) */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .value-card {
+            background-color: #282828;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: 1px solid rgba(255, 255, 36, 0.2);
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            background-color: #3a3a3a;
+            border-color: var(--primary-yellow);
+        }
+
+        .value-card .icon {
+            font-size: 3rem;
+            color: var(--primary-yellow);
+            margin-bottom: 15px;
+            animation: bounceIn 0.8s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-yellow);
+        }
+
+        .value-card p {
+            color: #cccccc;
+            font-size: 1rem;
+        }
+
+        /* Seção "O Que Nos Move" (Pilares/Funcionalidades) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background-color: #282828;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            perspective: 1000px; /* Para o efeito de flip */
+            height: 250px; /* Altura fixa para o flip */
+            position: relative;
+        }
+
+        .feature-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card:hover .feature-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .feature-card-front, .feature-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 36, 0.2);
+        }
+
+        .feature-card-front {
+            background-color: #282828;
+            color: var(--light-text);
+        }
+
+        .feature-card-back {
+            background-color: var(--primary-yellow);
+            color: var(--dark-text);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-card-front .icon {
+            font-size: 3rem;
+            color: var(--primary-yellow);
+            margin-bottom: 10px;
+        }
+
+        .feature-card-front h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-yellow);
+        }
+
+        .feature-card-front p {
+            font-size: 0.95rem;
+            color: #cccccc;
+        }
+
+        .feature-card-back p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .feature-card-back a.btn {
+            background-color: var(--dark-background);
+            color: var(--primary-yellow);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .feature-card-back a.btn:hover {
+            background-color: #111111;
+            color: var(--hover-yellow);
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #222222, var(--dark-background));
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 60px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--primary-yellow);
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+        }
+
+        .newsletter-section p {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 30px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input[type="email"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 30px;
+            background-color: #1a1a1a;
+            color: var(--light-text);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .newsletter-form input[type="email"]:focus {
+            border-color: var(--hover-yellow);
+            box-shadow: 0 0 0 0.2rem rgba(255, 255, 36, 0.25);
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-yellow);
+            color: var(--dark-text);
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--hover-yellow);
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Rodapé (consistente com index.html) */
+        .footer {
+            background-color: var(--dark-background);
+            color: var(--light-text);
+            margin-top: 80px;
+            padding: 30px 0;
+            border-top: 1px solid #333333;
+        }
+
+        .footer .footer-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        .footer h5 {
+            font-weight: bold;
+            color: var(--primary-yellow);
+            margin-bottom: 15px;
+        }
+
+        .footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer li {
+            margin-bottom: 8px;
+        }
+
+        .footer a {
+            color: var(--primary-yellow);
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--hover-yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--primary-yellow);
+        }
+
+        /* Responsividade para seções de conteúdo */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p.lead {
+                font-size: 1.2rem;
+            }
+            .content-section {
+                padding: 25px;
+            }
+            .content-section h2 {
+                font-size: 2rem;
+            }
+            .values-grid, .features-grid {
+                grid-template-columns: 1fr; /* Uma coluna em mobile */
+            }
+            .feature-card {
+                height: auto; /* Altura automática para conteúdo no mobile */
+            }
+            .feature-card:hover .feature-card-inner {
+                transform: none; /* Desativa o flip em mobile para melhor usabilidade */
+            }
+            .feature-card-back {
+                position: static; /* Volta à posição normal */
+                transform: none; /* Remove a rotação */
+                margin-top: 15px; /* Espaçamento entre frente e verso */
+                border: none; /* Remove borda extra */
+                background-color: transparent; /* Fundo transparente */
+                color: var(--light-text); /* Volta para texto claro */
+            }
+            .feature-card-front {
+                border-bottom: 1px dashed rgba(255, 255, 36, 0.5); /* Separador visual */
+                padding-bottom: 15px;
+            }
+            .feature-card-back a.btn {
+                background-color: var(--primary-yellow); /* Botão visível em mobile */
+                color: var(--dark-text);
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Barra de navegação -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-        <a class="navbar-brand" href="index.html" style="color:#ffff24; font-weight: bold;">XD</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="color: white;"></span>
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html">XD</a>
+        <button class="navbar-toggler" id="navbarToggler">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="index.html" style="color: white; font-weight: bold;">Inicio</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="planos.html" style="color: white; font-weight: bold;">Planos</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="login.html" style="color: white; font-weight: bold;">Conta</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="sobre-nos.html" style="color: #ffff24; font-weight: bold;">Sobre Nós</a></li>
-            </ul>
-        </div>
-        </nav>
-            </ul>
-        </div>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Conta</a></li>
+            <li class="nav-item"><a class="nav-link" href="sobre-nos.html">Sobre Nós</a></li>
+        </ul>
     </nav>
-    <header>
-        <div class="jumbotron text-center text-white" style="background-color: rgba(0, 0, 0, 0.7); padding: 50px 20px; margin-bottom: 0;">
-            <h1 class="display-4" style="font-weight: bold; color: #ffff24;">Bem-vindo ao XD</h1>
-            <p class="lead">Explore, Conecte-se e Cresça com a Gente!</p>
-        </div>
+
+    <header class="hero-section container mt-5">
+        <h1>Desvende a XD: Nossa Jornada, Nossa Paixão!</h1>
+        <p class="lead">Mais do que uma plataforma, somos um movimento. Descubra quem somos, o que nos impulsiona e como estamos construindo o futuro da conexão e inovação, um passo de cada vez.</p>
     </header>
-    <div class="container">
-        <!-- Seção de informações sobre o sistema -->
-        <div class="section mt-5">
-            <h2 class="text-center">Sobre o Sistema</h2>
-            <p class="text-center">Nosso sistema é voltado para jovens e adultos de 24 a 40 anos que buscam informações para estudar e se conectar com eventos, mensagens, discussões e muito mais.</p>
-            <h3 class="text-center text-warning">Explore Seu Potencial Conosco!</h3>
-            <p class="text-center">Criamos este espaço pensando em você, jovem ou adulto (24-40 anos), que busca mais do que informação: busca conexão, aprendizado e crescimento. Mergulhe em um universo de eventos, debates e trocas valiosas!</p>
-        </div>
 
-        <!-- Seção de eventos -->
-        <div class="section mt-5">
-            <h2 class="text-center">Eventos</h2>
-            <p class="text-center">Fique por dentro dos eventos mais recentes e participe de discussões interativas.</p>
-            <h3 class="text-center text-warning">Agenda Exclusiva de Eventos</h3>
-            <p class="text-center">Não perca as melhores oportunidades! Fique por dentro de workshops, palestras e encontros que vão turbinar seu conhecimento e networking. Participe e conecte-se!</p>
-        </div>
-
-        <!-- Seção de mensagens -->
-        <div class="section mt-5">
-            <h2 class="text-center">Mensagens</h2>
-            <p class="text-center">Envie e receba mensagens de outros usuários e mantenha-se conectado.</p>
-            <h3 class="text-center text-warning">Conecte-se e Colabore</h3>
-            <p class="text-center">Aproxime-se de outros membros! Troque ideias, tire dúvidas e construa relacionamentos significativos através de mensagens diretas. A colaboração começa aqui.</p>
-        </div>
-
-        <!-- Seção de discussões -->
-        <div class="section mt-5">
-            <h2 class="text-center">Discussões</h2>
-            <p class="text-center">Participe de discussões sobre diversos temas e compartilhe suas opiniões.</p>
-            <h3 class="text-center text-warning">Debates que Inspiram</h3>
-            <p class="text-center">Sua opinião faz a diferença! Entre em fóruns vibrantes, compartilhe seu ponto de vista sobre temas atuais e aprenda com a diversidade de ideias da nossa comunidade.</p>
-        </div>
-
-        <!-- Seção de chat -->
-        <div class="section mt-5">
-            <h2 class="text-center">Chat</h2>
-            <p class="text-center">Tire suas dúvidas sobre o sistema e os assuntos de seu interesse através do nosso chat interativo.</p>
-            <h3 class="text-center text-warning">Ajuda Rápida e Interativa</h3>
-            <p class="text-center">Tem alguma dúvida ou só quer bater um papo sobre seus interesses? Nosso chat está sempre pronto para te ajudar a navegar pela plataforma e encontrar o que você precisa. Simples e direto!</p>
-        </div>
-
-        <!-- Seção de newsletter -->
-        <div class="chat mt-5">
-            <h2 class="text-center">Assine nossa Newsletter</h2>
-            <form>
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
+    <main class="container">
+        <section class="content-section mt-5">
+            <h2>Nossa Essência: Valores que nos Definem</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="icon">✨</div>
+                    <h3>Inovação Contínua</h3>
+                    <p>Estamos sempre à frente, buscando novas formas de impulsionar a criatividade e a produtividade.</p>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Assinar</button>
+                <div class="value-card">
+                    <div class="icon">🤝</div>
+                    <h3>Conexão Genuína</h3>
+                    <p>Acreditamos no poder das relações e na construção de uma comunidade forte e colaborativa.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🌱</div>
+                    <h3>Crescimento Mútuo</h3>
+                    <p>Nosso propósito é oferecer ferramentas e um ambiente que inspirem o desenvolvimento pessoal e profissional de todos.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">💡</div>
+                    <h3>Transparência e Confiança</h3>
+                    <p>Construímos relações baseadas na clareza e na segurança, garantindo um ambiente de respeito.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section mt-5">
+            <h2>O Que Nos Move: Pilares da Sua Experiência XD</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-card-front">
+                            <div class="icon">🗓️</div>
+                            <h3>Eventos Exclusivos</h3>
+                            <p>Fique por dentro dos workshops e palestras que vão turbinar seu conhecimento.</p>
+                        </div>
+                        <div class="feature-card-back">
+                            <p>Participe de encontros virtuais e presenciais, faça networking e aprenda com especialistas da sua área. Sua agenda de crescimento começa aqui!</p>
+                            <a href="planos.html" class="btn">Saiba Mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-card-front">
+                            <div class="icon">💬</div>
+                            <h3>Mensagens Inteligentes</h3>
+                            <p>Conecte-se e colabore com outros membros de forma rápida e eficiente.</p>
+                        </div>
+                        <div class="feature-card-back">
+                            <p>Troque ideias, tire dúvidas e construa relacionamentos significativos. A colaboração nunca foi tão fácil!</p>
+                            <a href="login.html" class="btn">Acessar Chat</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-card-front">
+                            <div class="icon">🗣️</div>
+                            <h3>Debates que Inspiram</h3>
+                            <p>Compartilhe sua visão e aprenda com a diversidade de ideias da nossa comunidade.</p>
+                        </div>
+                        <div class="feature-card-back">
+                            <p>Participe de fóruns vibrantes sobre temas atuais e relevantes. Sua opinião faz a diferença!</p>
+                            <a href="login.html" class="btn">Participar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-card-front">
+                            <div class="icon">🤖</div>
+                            <h3>Seu Assistente XD</h3>
+                            <p>Tire suas dúvidas e explore funcionalidades com nosso chat interativo.</p>
+                        </div>
+                        <div class="feature-card-back">
+                            <p>Nosso assistente está sempre pronto para te ajudar a navegar pela plataforma e encontrar o que você precisa. Simples e direto!</p>
+                            <a href="login.html" class="btn">Fale Conosco</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-section mt-5">
+            <h2>Não Fique de Fora!</h2>
+            <p>Assine nossa newsletter e receba as últimas novidades, insights e convites exclusivos diretamente na sua caixa de entrada. Junte-se à nossa comunidade de inovadores!</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Seu melhor e-mail" required>
+                <button type="submit">Assinar Agora</button>
             </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <div class="footer-column">
+                    <h5>Sobre Nós</h5>
+                    <p>Somos a XD, uma plataforma inovadora dedicada a conectar pessoas, impulsionar a criatividade e promover o crescimento pessoal e profissional através da tecnologia.</p>
+                </div>
+                <div class="footer-column">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="planos.html">Planos</a></li>
+                        <li><a href="login.html">Conta</a></li>
+                        <li><a href="sobre-nos.html">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Contato</h5>
+                    <p>Email: contato@xd.com</p>
+                    <p>Telefone: (11) 1234-5678</p>
+                    <p>Endereço: Rua da Inovação, 456 - São Paulo, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 XD. Todos os direitos reservados.</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- Scripts do Bootstrap e dependências -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Funcionalidade do Navbar (Menu Hambúrguer)
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarNav = document.getElementById('navbarNav');
 
-        <!-- Rodapé -->
-        <footer style="background-color: black; color: white; margin-top: 50px; padding: 20px 0;">
-            <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
-            <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-                <!-- Sobre -->
-                <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h5 style="font-weight: bold; color: #ffff24;">Sobre Nós</h5>
-                <p>Somos uma plataforma inovadora, conectando pessoas e promovendo crescimento pessoal e profissional.</p>
-                </div>
-                <!-- Links Rápidos -->
-                <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h5 style="font-weight: bold; color: #ffff24;">Links Rápidos</h5>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="index.html" style="color: white; text-decoration: none;">Início</a></li>
-                    <li><a href="planos.html" style="color: white; text-decoration: none;">Planos</a></li>
-                    <li><a href="login.html" style="color: white; text-decoration: none;">Conta</a></li>
-                    <li><a href="sobre-nos.html" style="color: white; text-decoration: none;">Sobre Nós</a></li>
-                </ul>
-                </div>
-                <!-- Contato -->
-                <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h5 style="font-weight: bold; color: #ffff24;">Contato</h5>
-                <p>Email: contato@xd.com</p>
-                <p>Telefone: (11) 1234-5678</p>
-                <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px;"></div>
-                <p style="margin: 0; color: #ffff24;">&copy; 2023 XD. Todos os direitos reservados.</p>
-            </div>
-            </div>
-        </footer>
+        navbarToggler.addEventListener('click', () => {
+            navbarNav.classList.toggle('show');
+        });
+
+        // Adiciona um listener para fechar o menu ao clicar em um link (em mobile)
+        navbarNav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) { // Apenas para telas menores
+                    navbarNav.classList.remove('show');
+                }
+            });
+        });
+
+        // Script para verificar o carregamento e funcionalidade
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Página 'Sobre Nós' carregada com CSS puro e JavaScript personalizado.");
+        });
+    </script>
 </body>
 </html>

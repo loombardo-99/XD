@@ -3,236 +3,874 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apresentação do Sistema</title>
-    <!-- Link para o CSS do Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>XD - Inovação e Conexão para o Seu Futuro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos para o corpo da página */
+        /* Variáveis CSS para cores */
+        :root {
+            --primary-yellow: #ffff24;
+            --dark-background: #000000;
+            --medium-dark-background: #333333;
+            --light-text: #ffffff;
+            --dark-text: #000000;
+            --hover-yellow: #e0e01e;
+            --red-button: #ff4d4d;
+            --red-button-hover: #cc0000;
+        }
+
+        /* Estilos globais */
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0000003f, #a6a5a5a9);
-            color: rgb(255, 255, 255);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-background), var(--medium-dark-background));
+            color: var(--light-text);
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        /* Estilos para os itens do carrossel */
-        .carousel-item img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            filter: brightness(0.9);
-        }
-        .testimonials {
-            background: linear-gradient(135deg, #ffffff, #daed08);
-            color: rgb(255, 255, 255);
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        /* Botões */
-        .btn-warning {
-            background-color: #ffc107;
-            border: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .btn-warning:hover {
-            background-color: #e0a800;
-            transform: scale(1.05);
-        }
-        /* Links do rodapé */
-        footer a {
+
+        a {
             text-decoration: none;
-            color: #ffc107;
+            color: var(--primary-yellow);
             transition: color 0.3s ease;
         }
-        footer a:hover {
-            color: #e0a800;
+
+        a:hover {
+            color: var(--hover-yellow);
         }
-        /* Títulos */
+
         h1, h2, h5 {
-            font-weight: bold;
+            font-weight: 700;
             text-transform: uppercase;
-            
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
         }
-        /* Inputs */
-        input[type="email"] {
-            border: 2px solid #ffc107;
-            border-radius: 5px;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-3 { margin-bottom: 1.5rem; }
+        .mb-4 { margin-bottom: 2rem; }
+        .mt-4 { margin-top: 2rem; }
+        .mt-5 { margin-top: 3rem; }
+        .pt-3 { padding-top: 1.5rem; }
+        .ml-3 { margin-left: 1.5rem; }
+        .mr-15 { margin-right: 15px; }
+        .mr-25 { margin-right: 25px; }
+        .lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--dark-background);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+        }
+
+        .navbar-brand {
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.8rem;
+            margin-left: 1.5rem;
+            transition: text-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            text-shadow: 0 0 8px var(--primary-yellow), 0 0 15px var(--primary-yellow);
+            transform: scale(1.05);
+        }
+
+        .navbar-toggler {
+            background: none;
+            border: none;
+            cursor: pointer;
             padding: 10px;
-            transition: border-color 0.3s ease;
+            display: none; /* Escondido por padrão, visível em mobile */
+            margin-right: 1.5rem;
         }
-        input[type="email"]:focus {
-            border-color: #e0a800;
-            outline: none;
+
+        .navbar-toggler-icon {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: var(--primary-yellow);
+            margin: 6px 0;
+            transition: 0.4s;
         }
-    /* Borda e sombra para as seções com classe row mb-5 align-items-center */
-    .row.mb-5.align-items-center {
-        border: 2px solid #ffc107;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-grow: 1; /* Permite que a lista ocupe espaço */
+            justify-content: flex-end; /* Alinha os itens à direita */
+            align-items: center;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 15px;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--light-text);
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.2s ease;
+            padding: 8px 0; /* Ajuste para melhor área de clique */
+            display: block; /* Para que o padding funcione */
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--hover-yellow) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Navbar responsiva (mobile) */
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block; /* Mostra o botão hambúrguer */
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--dark-background);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+                align-items: flex-start; /* Alinha itens à esquerda no menu aberto */
+            }
+
+            .navbar-nav.show {
+                max-height: 300px; /* Altura suficiente para mostrar os itens */
+            }
+
+            .navbar-nav .nav-item {
+                margin: 10px 20px;
+                width: calc(100% - 40px); /* Ajusta a largura para padding */
+            }
+            .navbar-nav .nav-link {
+                color: var(--light-text); /* Cor padrão para links no menu mobile */
+            }
+            .navbar-nav .nav-item:first-child .nav-link {
+                color: var(--primary-yellow); /* Mantém o "Início" amarelo */
+            }
+        }
+
+        /* Carousel */
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            filter: brightness(0.7);
+            border-radius: 12px;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .carousel-caption h5 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-caption p {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--light-text);
+            padding: 15px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-control-prev {
+            left: 20px;
+        }
+
+        .carousel-control-next {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .carousel-indicators li {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-indicators li.active {
+            background-color: var(--primary-yellow);
+        }
+
+        /* Botões */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary-yellow);
+            border: none;
+            color: var(--dark-text);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--hover-yellow);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            color: var(--dark-text);
+        }
+
+        .btn-primary-custom.glow {
+            box-shadow: 0 0 15px rgba(255, 255, 36, 0.8), 0 0 30px rgba(255, 255, 36, 0.6);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary-yellow);
+            color: var(--primary-yellow);
+            background-color: transparent;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline-custom:hover {
+            background-color: var(--primary-yellow);
+            color: var(--dark-text);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-outline-custom.pulse:hover {
+            animation: pulse 0.8s infinite alternate;
+        }
+
+        /* Seções de Funcionalidades (Feature Sections) */
+        .feature-section {
+            background-color: #1a1a1a;
+            border: 1px solid #333333;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Usando flexbox para layout */
+            align-items: center; /* Alinha itens verticalmente */
+            gap: 30px; /* Espaçamento entre colunas */
+        }
+
+        .feature-section:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+        }
+
+        .feature-section .col-content {
+            flex: 1; /* Ocupa o espaço restante */
+        }
+
+        .feature-section .col-image {
+            flex-shrink: 0; /* Não encolhe a imagem */
+            max-width: 50%; /* Limita a largura da imagem */
+        }
+
+        .feature-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-section:hover img {
+            transform: scale(1.03);
+        }
+
+        .feature-section h2 {
+            color: var(--primary-yellow);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-section p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Ordem das colunas para alternar imagem/texto */
+        .feature-section.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Seção de Depoimentos */
+        .testimonials {
+            background: linear-gradient(135deg, #222222, var(--dark-background));
+            color: var(--light-text);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--primary-yellow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Espaçamento entre os depoimentos */
+            justify-content: center;
+        }
+
+        .testimonial-item {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            flex: 1; /* Permite que os itens cresçam */
+            min-width: 280px; /* Largura mínima para itens em linha */
+            max-width: 350px; /* Largura máxima para itens em linha */
+        }
+
+        .testimonial-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-item p {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-item .author {
+            font-weight: bold;
+            color: var(--primary-yellow);
+        }
+
+        /* Modal de Vídeo */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-modal.show {
+            opacity: 1;
+            display: flex; /* Torna visível com flex */
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            padding: 20px;
+        }
+
+        .video-modal video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .video-modal .close-button {
+            background: var(--red-button);
+            color: var(--light-text);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+
+        .video-modal .close-button:hover {
+            background-color: var(--red-button-hover);
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: var(--dark-background);
+            color: var(--light-text);
+            margin-top: 80px;
+            padding: 30px 0;
+            border-top: 1px solid #333333;
+        }
+
+        footer .footer-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        footer .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+
+        footer h5 {
+            font-weight: bold;
+            color: var(--primary-yellow);
+            margin-bottom: 15px;
+        }
+
+        footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        footer li {
+            margin-bottom: 8px;
+        }
+
+        footer a {
+            color: var(--primary-yellow);
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--hover-yellow);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #222222;
+            padding-top: 15px;
+            margin-top: 20px;
+            text-align: center;
+            color: var(--primary-yellow);
+        }
+
+        /* Responsividade geral */
+        @media (max-width: 768px) {
+            .carousel-item img {
+                height: 300px;
+            }
+            .carousel-caption h5 {
+                font-size: 1.8rem;
+            }
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+            .feature-section {
+                flex-direction: column; /* Empilha as colunas em telas menores */
+                padding: 20px;
+                gap: 20px;
+            }
+            .feature-section.reverse {
+                flex-direction: column; /* Mantém a ordem empilhada */
+            }
+            .feature-section .col-image,
+            .feature-section .col-content {
+                max-width: 100%; /* Ocupa a largura total */
+            }
+            .feature-section h2 {
+                font-size: 1.5rem;
+            }
+            .feature-section p {
+                font-size: 1rem;
+            }
+            .testimonials {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .testimonial-item {
+                min-width: unset;
+                max-width: 100%;
+            }
+            footer .footer-column {
+                min-width: 100%;
+                text-align: center;
+            }
+            footer .footer-column ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Keyframes para animações */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 255, 36, 0.5), 0 0 10px rgba(255, 255, 36, 0.3); }
+            100% { box-shadow: 0 0 15px rgba(255, 255, 36, 0.8), 0 0 30px rgba(255, 255, 36, 0.6); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); border-color: var(--hover-yellow); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
-    <!-- Barra de navegação -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
-        <a class="navbar-brand" href="index.html" style="color:#ffff24; font-weight: bold;">XD</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style="color: white;"></span>
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html">XD</a>
+        <button class="navbar-toggler" id="navbarToggler">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="index.html" style="color: #ffff24; font-weight: bold;">Inicio</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="planos.html" style="color: white; font-weight: bold;">Planos</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="login.html" style="color: white; font-weight: bold;">Conta</a></li>
-            <li class="nav-item" style="overflow: hidden;"><a class="nav-link" href="sobre-nos.html" style="color: white; font-weight: bold;">Sobre Nós</a></li>
-            </ul>
-        </div>
-        </nav>
-            </ul>
-        </div>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Conta</a></li>
+            <li class="nav-item"><a class="nav-link" href="sobre-nos.html">Sobre Nós</a></li>
+        </ul>
     </nav>
 
-    <!-- Carrossel de imagens -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div class="carousel" id="mainCarousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="midia/robo-ai-2.jpg" class="d-block w-100 img-fluid" alt="Slide 1">
+                <img src="https://placehold.co/1200x550/000000/FFFFFF?text=Inteligência+que+Transforma" alt="Inteligência Artificial">
+                <div class="carousel-caption">
+                    <h5>Inteligência que Transforma</h5>
+                    <p>Descubra como a XD impulsiona sua criatividade e produtividade com IA de ponta.</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="midia/pagina-1.jpg" class="d-block w-100 img-fluid" alt="Slide 2">
+                <img src="https://placehold.co/1200x550/000000/FFFFFF?text=Sua+Comunidade+Conectada" alt="Comunidade Conectada">
+                <div class="carousel-caption">
+                    <h5>Sua Comunidade Conectada</h5>
+                    <p>Crie, colabore e inove em um ambiente feito para você. O futuro é colaborativo.</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="midia/mundial-3.jpg" class="d-block w-100 img-fluid" alt="Slide 3">
+                <img src="https://placehold.co/1200x550/000000/FFFFFF?text=Descomplique+o+Seu+Dia" alt="Organização e Produtividade">
+                <div class="carousel-caption">
+                    <h5>Descomplique o Seu Dia</h5>
+                    <p>Ferramentas intuitivas para gerenciar suas tarefas, ideias e projetos com facilidade.</p>
+                </div>
             </div>
             <div class="carousel-item">
-                <img src="midia/aviao-papel.jpg" class="d-block w-100 img-fluid" alt="Slide 3">
+                <img src="https://placehold.co/1200x550/000000/FFFFFF?text=Liberte+Seu+Potencial" alt="Potencial Ilimitado">
+                <div class="carousel-caption">
+                    <h5>Liberte Seu Potencial</h5>
+                    <p>A XD é a ponte para suas maiores conquistas, com recursos que se adaptam a você.</p>
+                </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" style="border: none; background: none;">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" style="border: none; background: none;">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <div class="carousel-control carousel-control-prev" id="carouselPrev">&#10094;</div>
+        <div class="carousel-control carousel-control-next" id="carouselNext">&#10095;</div>
+        <ol class="carousel-indicators" id="carouselIndicators">
+            <li class="active" data-slide-to="0"></li>
+            <li data-slide-to="1"></li>
+            <li data-slide-to="2"></li>
+            <li data-slide-to="3"></li>
+        </ol>
     </div>
 
-    <!-- Seção de Apresentação -->
     <div class="container mt-5 text-center">
-        <h1 class="text-dark">Apresentação do Sistema</h1>
-        <p class="text-dark">Descubra as funcionalidades e benefícios do nosso sistema, projetado para atender suas necessidades.</p>
+        <h1 class="mb-3">Bem-vindo à XD: Onde Suas Ideias Ganham Vida!</h1>
+        <p class="lead">Descubra um universo de possibilidades com a XD, a plataforma que redefine a maneira como você se conecta, cria e inova. Prepare-se para uma experiência sem precedentes!</p>
+        <a href="planos.html" class="btn btn-primary-custom mt-4 glow">Comece Sua Jornada Agora</a>
     </div>
 
-    <!-- Seção de Apresentação Detalhada -->
     <div class="container mt-5">
-        <!-- Apresentação do Chat Generativo -->
-        <div class="row mb-5 align-items-center">
-            <div class="col-md-6">
-                <img src="midia/Captura-chat.png" class="img-fluid rounded shadow" alt="Chat Generativo Frente">
+        <div class="feature-section">
+            <div class="col-image">
+                <img src="midia/Captura-chat.png" alt="Chat Generativo">
             </div>
-            <div class="col-md-6">
-                <h2 class="text-dark">Chat Generativo</h2>
-                <p class="text-dark">Explore um ambiente interativo com o Chat Generativo, permitindo a criação de um chat personalizado com base nos seus interesses e necessidades.</p>
-                <a href="#" class="btn btn-warning btn-lg shadow" onclick="showVideo('midia/Gravação de Tela 2025-03-11 231232.mp4')">Saiba Mais</a>
-            </div>
-        </div>
-
-        <!-- Apresentação da Comunidade -->
-        <div class="row mb-5 align-items-center">
-            <div class="col-md-6">
-                <img src="midia/ceupintura.jpg" class="img-fluid rounded shadow" alt="Comunidade">
-            </div>
-            <div class="col-md-6">
-                <h2 class="text-dark">Comunidade</h2>
-                <p class="text-dark">Participe de um espaço colaborativo onde ideias para um mundo melhor ganham vida, conectando pessoas e promovendo realizações através da tecnologia.</p>
-                <a href="#" class="btn btn-warning btn-lg shadow" onclick="showVideo('midia/video-comunidade.mp4')">Saiba Mais</a>
+            <div class="col-content">
+                <h2>Chat Generativo: Sua Mente Criativa Expandida</h2>
+                <p>Imagine ter um parceiro de ideias que se adapta a você. Nosso Chat Generativo não é apenas um chatbot; é um ambiente dinâmico onde você pode personalizar conversas, gerar conteúdo inovador e explorar conceitos ilimitados. Seja para brainstorming, escrita criativa ou simplesmente para aprender algo novo, o XD Chat está pronto para surpreender você.</p>
+                <a href="#" class="btn btn-outline-custom mt-3 pulse" onclick="showVideo('midia/Gravação de Tela 2025-03-11 231232.mp4')">Veja em Ação</a>
             </div>
         </div>
 
-        <!-- Apresentação da Funcionalidade -->
-        <div class="row mb-5 align-items-center">
-            <div class="col-md-6">
-                <img src="midia/backgourd.jpg" class="img-fluid rounded shadow" alt="Funcionalidade">
+        <div class="feature-section reverse">
+            <div class="col-image">
+                <img src="midia/ceupintura.jpg" alt="Comunidade XD">
             </div>
-            <div class="col-md-6">
-                <h2 class="text-dark">Funcionalidade</h2>
-                <p class="text-dark">Descubra uma variedade de funcionalidades, como anotações, agenda e galeria, projetadas para atender diferentes tipos de usos e necessidades.</p>
-                <a href="#" class="btn btn-warning btn-lg shadow" onclick="showVideo('midia/video-funcionalidade.mp4')">Saiba Mais</a>
-            </div>
-        </div>
-
-        <!-- Modal de Vídeo -->
-        <div id="videoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center;">
-            <div style="position: relative; width: 80%; max-width: 800px;">
-                <video id="videoContent" autoplay loop style="width: 100%; border-radius: 10px;"></video>
-                <button onclick="closeVideo()" style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Fechar</button>
+            <div class="col-content">
+                <h2>Comunidade XD: Conecte-se, Colabore, Conquiste</h2>
+                <p>Acreditamos no poder da colaboração. Na Comunidade XD, você se conecta com mentes brilhantes, compartilha projetos e transforma ideias em realidade. É o lugar perfeito para encontrar inspiração, receber feedback valioso e construir um futuro mais inovador, juntos. Sua próxima grande ideia pode nascer aqui!</p>
+                <a href="#" class="btn btn-outline-custom mt-3 pulse" onclick="showVideo('midia/video-comunidade.mp4')">Explore a Comunidade</a>
             </div>
         </div>
 
-        <script>
-            let scrollPosition = 0;
+        <div class="feature-section">
+            <div class="col-image">
+                <img src="midia/backgourd.jpg" alt="Ferramentas Essenciais">
+            </div>
+            <div class="col-content">
+                <h2>Ferramentas Essenciais: Produtividade ao Seu Alcance</h2>
+                <p>Organize sua vida e seus projetos como nunca antes. Com funcionalidades como anotações inteligentes, uma agenda personalizável e uma galeria para suas inspirações, a XD oferece um conjunto completo de ferramentas para otimizar seu dia a dia. Tudo o que você precisa para ser mais eficiente e criativo, em um só lugar.</p>
+                <a href="#" class="btn btn-outline-custom mt-3 pulse" onclick="showVideo('midia/video-funcionalidade.mp4')">Descubra as Ferramentas</a>
+            </div>
+        </div>
+    </div>
 
-            function showVideo(videoSrc) {
-                scrollPosition = window.scrollY; // Save the current scroll position
-                document.body.style.position = 'fixed';
-                document.body.style.top = `-${scrollPosition}px`;
-                const videoElement = document.getElementById('videoContent');
-                videoElement.src = videoSrc;
-                document.getElementById('videoModal').style.display = 'flex';
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">O Que Nossos Usuários Dizem</h2>
+        <div class="testimonials">
+            <div class="testimonial-item">
+                <p>"A XD revolucionou minha forma de trabalhar. O Chat Generativo é incrível para desenvolver novas ideias!"</p>
+                <div class="author">- Ana Clara, Designer Gráfica</div>
+            </div>
+            <div class="testimonial-item">
+                <p>"A comunidade é um espaço de troca sem igual. Consegui parcerias e insights que jamais imaginei."</p>
+                <div class="author">- João Pedro, Empreendedor</div>
+            </div>
+            <div class="testimonial-item">
+                <p>"As ferramentas de organização da XD me ajudaram a ser muito mais produtivo. Essencial para o dia a dia!"</p>
+                <div class="author">- Mariana Silva, Estudante e Desenvolvedora</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 text-center">
+        <h2 class="mb-3">Pronto para Transformar Sua Experiência?</h2>
+        <p class="lead">Junte-se à crescente comunidade XD e comece a construir o futuro hoje mesmo. Não perca mais tempo, seu potencial ilimitado espera por você!</p>
+        <a href="planos.html" class="btn btn-primary-custom mt-4 glow">Escolha Seu Plano XD</a>
+    </div>
+
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <video id="videoContent" autoplay loop muted controls></video>
+            <button class="close-button" onclick="closeVideo()">Fechar</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <div class="footer-column">
+                    <h5>Sobre Nós</h5>
+                    <p>Somos a XD, uma plataforma inovadora dedicada a conectar pessoas, impulsionar a criatividade e promover o crescimento pessoal e profissional através da tecnologia.</p>
+                </div>
+                <div class="footer-column">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="planos.html">Planos</a></li>
+                        <li><a href="login.html">Conta</a></li>
+                        <li><a href="sobre-nos.html">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Contato</h5>
+                    <p>Email: contato@xd.com</p>
+                    <p>Telefone: (11) 1234-5678</p>
+                    <p>Endereço: Rua da Inovação, 456 - São Paulo, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 XD. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidade do Navbar (Menu Hambúrguer)
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarNav = document.getElementById('navbarNav');
+
+        navbarToggler.addEventListener('click', () => {
+            navbarNav.classList.toggle('show');
+        });
+
+        // Funcionalidade do Carrossel
+        const carouselInner = document.querySelector('.carousel-inner');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const carouselPrev = document.getElementById('carouselPrev');
+        const carouselNext = document.getElementById('carouselNext');
+        const carouselIndicators = document.getElementById('carouselIndicators');
+        let currentIndex = 0;
+        let slideInterval; // Variável para armazenar o intervalo do slide
+
+        function updateCarousel() {
+            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateIndicators();
+        }
+
+        function updateIndicators() {
+            const indicators = carouselIndicators.querySelectorAll('li');
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+            resetSlideInterval(); // Reinicia o intervalo ao navegar manualmente
+        }
+
+        carouselPrev.addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : carouselItems.length - 1;
+            updateCarousel();
+            resetSlideInterval();
+        });
+
+        carouselNext.addEventListener('click', () => {
+            currentIndex = (currentIndex < carouselItems.length - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+            resetSlideInterval();
+        });
+
+        carouselIndicators.addEventListener('click', (event) => {
+            if (event.target.tagName === 'LI') {
+                const slideToIndex = parseInt(event.target.dataset.slideTo);
+                goToSlide(slideToIndex);
             }
+        });
 
-            function closeVideo() {
-                const videoElement = document.getElementById('videoContent');
-                videoElement.pause();
-                videoElement.src = '';
-                document.getElementById('videoModal').style.display = 'none';
+        // Autoplay do Carrossel
+        function startSlideInterval() {
+            slideInterval = setInterval(() => {
+                currentIndex = (currentIndex < carouselItems.length - 1) ? currentIndex + 1 : 0;
+                updateCarousel();
+            }, 5000); // Muda de slide a cada 5 segundos
+        }
+
+        function resetSlideInterval() {
+            clearInterval(slideInterval);
+            startSlideInterval();
+        }
+
+        // Inicia o carrossel ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCarousel(); // Garante que o primeiro slide esteja visível e o indicador ativo
+            startSlideInterval();
+        });
+
+        // Funcionalidade do Modal de Vídeo
+        let scrollPosition = 0;
+
+        function showVideo(videoSrc) {
+            scrollPosition = window.scrollY;
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollPosition}px`;
+            
+            const videoElement = document.getElementById('videoContent');
+            videoElement.src = videoSrc;
+            videoElement.load();
+            videoElement.muted = true; // Garante que o vídeo esteja mudo para autoplay
+
+            const videoModal = document.getElementById('videoModal');
+            videoModal.classList.add('show');
+
+            videoElement.play().then(() => {
+                // Vídeo começou a ser reproduzido com sucesso
+            }).catch(error => {
+                console.error("Erro ao tentar reproduzir o vídeo:", error);
+                // Substituindo alert() por uma mensagem no console, pois alert() não é permitido em imersivos.
+                console.warn("Não foi possível reproduzir o vídeo. Isso pode ser devido a políticas de reprodução automática do navegador ou o arquivo de vídeo não foi encontrado. Verifique o caminho do arquivo e as permissões do navegador.");
+                closeVideo();
+            });
+        }
+
+        function closeVideo() {
+            const videoElement = document.getElementById('videoContent');
+            videoElement.pause();
+            videoElement.src = '';
+            const videoModal = document.getElementById('videoModal');
+            videoModal.classList.remove('show');
+            setTimeout(() => {
+                document.body.style.overflow = '';
                 document.body.style.position = '';
                 document.body.style.top = '';
-                window.scrollTo(0, scrollPosition); // Restore the scroll position
-            }
-        </script>
-    </div>
+                window.scrollTo(0, scrollPosition);
+            }, 300);
+        }
 
-    <!-- Scripts do Bootstrap e dependências -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <!-- Rodapé -->
-  <footer style="background-color: black; color: white; margin-top: 50px; padding: 20px 0;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 15px;">
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-        <!-- Sobre -->
-        <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-        <h5 style="font-weight: bold; color: #ffff24;">Sobre Nós</h5>
-        <p>Somos uma plataforma inovadora, conectando pessoas e promovendo crescimento pessoal e profissional.</p>
-        </div>
-        <!-- Links Rápidos -->
-        <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-        <h5 style="font-weight: bold; color: #ffff24;">Links Rápidos</h5>
-        <ul style="list-style: none; padding: 0;">
-            <li><a href="index.html" style="color: white; text-decoration: none;">Início</a></li>
-            <li><a href="planos.html" style="color: white; text-decoration: none;">Planos</a></li>
-            <li><a href="login.html" style="color: white; text-decoration: none;">Conta</a></li>
-            <li><a href="sobre-nos.html" style="color: white; text-decoration: none;">Sobre Nós</a></li>
-        </ul>
-        </div>
-        <!-- Contato -->
-        <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-        <h5 style="font-weight: bold; color: #ffff24;">Contato</h5>
-        <p>Email: contato@xd.com</p>
-        <p>Telefone: (11) 1234-5678</p>
-        <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
-        </div>
-    </div>
-    <div style="text-align: center; margin-top: 20px;"></div>
-        <p style="margin: 0; color: #ffff24;">&copy; 2023 XD. Todos os direitos reservados.</p>
-    </div>
-    </div>
-</footer>
+        // Script para verificar o carregamento e funcionalidade
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Página carregada com CSS puro e JavaScript personalizado.");
+            // Você pode adicionar mais verificações aqui se necessário
+        });
+    </script>
 </body>
 </html>
