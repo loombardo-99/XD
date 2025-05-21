@@ -118,10 +118,9 @@
             border: 1px solid rgba(255, 255, 255, 0.2); /* Borda branca sutil */
             padding: 15px; /* Preenchimento interno */
             border-radius: 12px; /* Cantos arredondados */
-            background-color: #000000; /* Imagem de fundo */
+            background-color: #000000; /* Cor de fundo para mesclar com a imagem */
             background-size: cover; /* Cobre todo o espaço */
             background-position: center; /* Centraliza a imagem */
-            background-color: rgba(0, 0, 0, 0.7); /* Cor de fundo para mesclar com a imagem */
             background-blend-mode: overlay; /* Mescla a imagem com a cor de fundo */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Sombra */
             display: flex; /* Usa flexbox */
@@ -518,6 +517,34 @@
             return `${hours}:${minutes}`;
         }
 
+        // Função para limpar o texto de caracteres especiais e formatar
+        function cleanText(text) {
+            // Decodifica entidades HTML (ex: &amp; para &) - útil se a API retornar HTML entities
+            const doc = new DOMParser().parseFromString(text, 'text/html');
+            let cleaned = doc.documentElement.textContent;
+
+            // Remove quebras de linha e retornos de carro
+            cleaned = cleaned.replace(/[\n\r]/g, ' ');
+
+            // Remove caracteres que não são letras (a-z, A-Z), números (0-9), espaços ou pontuação básica (.,!?-).
+            // Adapte esta regex se precisar manter outros caracteres especiais específicos.
+            cleaned = cleaned.replace(/[^a-zA-Z0-9\s.,!?-]/g, '');
+
+            // Substitui múltiplos espaços por um único espaço
+            cleaned = cleaned.replace(/\s+/g, ' ');
+
+            // Remove espaços no início e no final
+            cleaned = cleaned.trim();
+
+            return cleaned;
+        }
+
+        // Histórico do chat para a API Gemini
+        let chatHistory = [
+            { role: "user", parts: [{ text: "Olá! Como posso ajudar você hoje?" }] },
+            { role: "model", parts: [{ text: "Olá! Eu sou o assistente virtual." }] }
+        ];
+
         // Função para enviar mensagens
         async function sendMessage() {
             const input = document.getElementById('chat-input');
@@ -525,7 +552,7 @@
             const messageText = input.value.trim();
 
             if (messageText) {
-                // Cria um elemento de mensagem para o usuário
+                // Adiciona a mensagem do usuário ao histórico e exibe
                 const userMessageWrapper = document.createElement('div');
                 userMessageWrapper.classList.add('message-wrapper', 'user');
                 userMessageWrapper.innerHTML = `
@@ -536,6 +563,7 @@
                     </div>
                 `;
                 messagesContainer.appendChild(userMessageWrapper);
+                chatHistory.push({ role: "user", parts: [{ text: messageText }] });
 
                 input.value = ''; // Limpa o input
                 messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
@@ -551,22 +579,61 @@
                 messagesContainer.appendChild(typingIndicator);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
 
-                // Simula uma resposta do assistente após um pequeno delay
-                await new Promise(resolve => setTimeout(resolve, 1500)); // Espera um pouco para simular processamento
+                try {
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Deixe como está, a Canvas fornecerá a chave em tempo de execução
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-                messagesContainer.removeChild(typingIndicator); // Remove o indicador de digitação
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
 
-                const assistantMessageWrapper = document.createElement('div');
-                assistantMessageWrapper.classList.add('message-wrapper', 'assistant');
-                assistantMessageWrapper.innerHTML = `
-                    <div class="avatar">XD</div>
-                    <div class="message-content">
-                        Entendi. Como posso prosseguir?
-                        <div class="timestamp">${getCurrentTime()}</div>
-                    </div>
-                `;
-                messagesContainer.appendChild(assistantMessageWrapper);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+                    const result = await response.json();
+
+                    messagesContainer.removeChild(typingIndicator); // Remove o indicador de digitação
+
+                    let assistantResponseText = "Desculpe, não consegui gerar uma resposta no momento.";
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        // Limpa o texto da resposta antes de exibir
+                        assistantResponseText = cleanText(result.candidates[0].content.parts[0].text);
+                    } else {
+                        console.error('Resposta da API Gemini inesperada:', result);
+                    }
+
+                    // Adiciona a resposta do assistente ao histórico e exibe
+                    const assistantMessageWrapper = document.createElement('div');
+                    assistantMessageWrapper.classList.add('message-wrapper', 'assistant');
+                    assistantMessageWrapper.innerHTML = `
+                        <div class="avatar">XD</div>
+                        <div class="message-content">
+                            ${assistantResponseText}
+                            <div class="timestamp">${getCurrentTime()}</div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(assistantMessageWrapper);
+                    chatHistory.push({ role: "model", parts: [{ text: assistantResponseText }] });
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+
+                } catch (error) {
+                    console.error('Erro ao conectar à API Gemini:', error);
+                    messagesContainer.removeChild(typingIndicator); // Remove o indicador de digitação
+
+                    const errorMessageWrapper = document.createElement('div');
+                    errorMessageWrapper.classList.add('message-wrapper', 'assistant');
+                    errorMessageWrapper.innerHTML = `
+                        <div class="avatar">XD</div>
+                        <div class="message-content">
+                            Desculpe, houve um erro ao conectar com o assistente. Por favor, tente novamente mais tarde.
+                            <div class="timestamp">${getCurrentTime()}</div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(errorMessageWrapper);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
             }
         }
 
