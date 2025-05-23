@@ -150,15 +150,20 @@
         /* Controles de navegação e configurações */
         .ebook-controls {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Centraliza os itens quando eles quebram a linha */
             align-items: center;
             margin-top: 20px;
-            gap: 15px;
+            gap: 15px; /* Espaçamento consistente entre os itens */
             flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
         }
 
         .ebook-controls button,
         .ebook-controls select {
+            flex-grow: 1; /* Permite que os itens cresçam para preencher o espaço */
+            flex-shrink: 1; /* Permite que os itens encolham */
+            flex-basis: auto; /* Base flexível, será ajustada por max-width em telas menores */
+            min-width: 150px; /* Largura mínima antes de quebrar a linha */
+            max-width: 220px; /* Largura máxima para telas maiores */
             padding: 10px 18px;
             border: none;
             border-radius: 8px;
@@ -168,7 +173,9 @@
             font-size: 0.95rem;
             display: flex;
             align-items: center;
+            justify-content: center; /* Centraliza o conteúdo dentro dos botões/seletores */
             gap: 8px;
+            text-align: center; /* Garante que o texto esteja centralizado */
         }
 
         .ebook-controls button {
@@ -269,14 +276,18 @@
         /* Estilos para a área de pesquisa */
         .search-area {
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+            gap: 10px; /* Espaçamento entre os itens */
             margin-bottom: 20px;
-            width: 100%;
+            width: 100%; /* Ocupa a largura total do container pai */
             max-width: 600px; /* Largura máxima para a barra de pesquisa */
+            justify-content: center; /* Centraliza os itens horizontalmente */
+            align-items: center; /* Alinha os itens verticalmente */
         }
 
         .search-area input {
-            flex: 1;
+            flex-grow: 1; /* Permite que o input cresça para preencher o espaço */
+            flex-basis: 200px; /* Largura base para o input antes de quebrar a linha */
             padding: 12px;
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
@@ -297,6 +308,8 @@
         }
 
         .search-area button {
+            flex-grow: 0; /* Não permite que o botão cresça excessivamente */
+            flex-shrink: 0; /* Não permite que o botão encolha excessivamente */
             padding: 12px 20px;
             border: none;
             border-radius: 8px;
@@ -307,6 +320,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center; /* Centraliza o conteúdo do botão */
             gap: 8px;
         }
 
@@ -317,7 +331,7 @@
         }
 
         /* Estilos para os resultados da pesquisa */
-        .search-results {
+        .search-results, .summary-results { /* Aplica estilos comuns para resultados de pesquisa e resumo */
             background-color: rgba(0, 0, 0, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
@@ -332,7 +346,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .search-results.active {
+        .search-results.active, .summary-results.active {
             display: flex; /* Exibe quando há resultados */
         }
 
@@ -409,6 +423,20 @@
         }
 
         /* Media queries para responsividade */
+        @media (max-width: 600px) {
+            .ebook-controls button,
+            .ebook-controls select {
+                flex-basis: 100%; /* Ocupa a largura total em telas pequenas */
+                max-width: 100%; /* Garante que não exceda a largura do contêiner */
+            }
+
+            .search-area input,
+            .search-area button {
+                flex-basis: 100%; /* Faz com que o input e o botão ocupem a largura total em telas pequenas */
+                max-width: 100%; /* Garante que não exceda a largura do contêiner */
+            }
+        }
+
         @media (min-width: 769px) {
             /* Estilos para desktop: menu no topo e centralizado */
             nav {
@@ -509,7 +537,7 @@
                 <option value="sepia">Sépia</option>
             </select>
             <button onclick="nextPage()">Próxima Página <i class="fas fa-arrow-right"></i></button>
-        </div>
+            <button onclick="summarizePage()">✨ Resumir Página</button> </div>
 
         <div class="search-results" id="search-results">
             </div>
@@ -517,6 +545,13 @@
         <div class="loading-indicator" id="loading-indicator">
             <div class="spinner"></div>
             <span>Buscando livros...</span>
+        </div>
+
+        <div class="summary-results" id="summary-results">
+            </div>
+        <div class="loading-indicator" id="summary-loading-indicator">
+            <div class="spinner"></div>
+            <span>Gerando resumo...</span>
         </div>
     </div>
     <script>
@@ -767,6 +802,56 @@
         function handleSearchKeyPress(event) {
             if (event.key === 'Enter') {
                 searchBooks();
+            }
+        }
+
+        // --- Nova função para resumir a página com a API Gemini ---
+        const summaryResultsContainer = document.getElementById('summary-results');
+        const summaryLoadingIndicator = document.getElementById('summary-loading-indicator');
+
+        async function summarizePage() {
+            const pageText = ebookContent.textContent;
+            if (!pageText.trim()) {
+                summaryResultsContainer.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.7);">Não há conteúdo para resumir nesta página.</p>';
+                summaryResultsContainer.classList.add('active');
+                return;
+            }
+
+            summaryResultsContainer.innerHTML = ''; // Limpa resultados anteriores
+            summaryResultsContainer.classList.remove('active');
+            summaryLoadingIndicator.classList.add('active'); // Mostra o indicador de carregamento
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: `Resuma o seguinte texto de um livro de forma concisa e clara em português:\n\n${pageText}` }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "AIzaSyA__uvaQCm1NUNi60DJ8QZIrk44hz3yBG8"; // Se quiser usar modelos diferentes de gemini-2.0-flash ou imagen-3.0-generate-002, forneça uma chave de API aqui. Caso contrário, deixe como está.
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const summaryText = result.candidates[0].content.parts[0].text;
+                    summaryResultsContainer.innerHTML = `<h3>Resumo da Página</h3><p>${summaryText}</p>`;
+                    summaryResultsContainer.classList.add('active');
+                } else {
+                    summaryResultsContainer.innerHTML = '<p style="text-align: center; color: #ff6347;">Não foi possível gerar o resumo. Tente novamente.</p>';
+                    summaryResultsContainer.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Erro ao gerar resumo:', error);
+                summaryResultsContainer.innerHTML = '<p style="text-align: center; color: #ff6347;">Ocorreu um erro ao gerar o resumo. Verifique sua conexão ou tente novamente.</p>';
+                summaryResultsContainer.classList.add('active');
+            } finally {
+                summaryLoadingIndicator.classList.remove('active'); // Esconde o indicador de carregamento
             }
         }
 
