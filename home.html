@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Agente de IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+    <nav id="main-nav">
+        <ul>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Leitura</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="editor.html">Editor</a></li>
+            <li>
+                <select onchange="handleMenuSelection(this.value)" class="menu-select">
+                    <option value="perfil.html" disabled selected>Perfil</option>
+                    <option value="configuracoes.html">Configurações</option>
+                    <option value="politicas.html">Políticas de Privacidade</option>
+                    <option value="index.html">Sair</option>
+                </select>
+            </li>
+        </ul>
+    </nav>
+    <div class="main-container">
+        <div class="header">
+            <h1>Criar Agente de IA</h1>
+        </div>
+
+        <div class="agent-config" id="agent-config-section">
+            <label for="agent-instructions" onclick="toggleAgentConfig()">
+                Instruções para o Agente:
+                <i class="fas fa-chevron-down" id="chevron-icon"></i> </label>
+            <textarea id="agent-instructions" placeholder="Descreva como o seu agente de IA deve se comportar, qual é a sua personalidade, quais são os seus objetivos, etc."></textarea>
+            <button onclick="saveAgentInstructions()">Salvar Configuração do Agente</button>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            <div class="message-wrapper assistant">
+                <div class="avatar">XD</div>
+                <div class="message-content">
+                    Olá! Eu sou o assistente virtual. Configure-me acima!
+                    <div class="timestamp">12:01 PM</div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Digite sua mensagem..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script>
+        // Função para alternar a visibilidade do menu
+        function toggleMenu() {
+            const nav = document.getElementById('main-nav');
+            const overlay = document.getElementById('overlay');
+            if (nav.classList.contains('open')) {
+                nav.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Reabilita a rolagem do corpo
+            } else {
+                nav.classList.add('open');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Desabilita a rolagem do corpo quando o menu está aberto
+            }
+        }
+
+        // Fecha o menu se clicar fora dele ou no overlay
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('main-nav');
+            const menuIcon = document.querySelector('.menu-icon');
+            const overlay = document.getElementById('overlay');
+
+            // Verifica se o clique não foi no menu nem no ícone do menu
+            if (nav.classList.contains('open') && !nav.contains(event.target) && !menuIcon.contains(event.target)) {
+                nav.classList.remove('open');
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Reabilita a rolagem do corpo
+            }
+        });
+
+        // Função para formatar a hora atual
+        function getCurrentTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // Função para limpar o texto de caracteres especiais e formatar
+        function cleanText(text) {
+            const doc = new DOMParser().parseFromString(text, 'text/html');
+            let cleaned = doc.documentElement.textContent;
+            cleaned = cleaned.replace(/[\n\r]/g, ' ');
+            cleaned = cleaned.replace(/[^a-zA-Z0-9\s.,!?-]/g, '');
+            cleaned = cleaned.replace(/\s+/g, ' ');
+            cleaned = cleaned.trim();
+            return cleaned;
+        }
+
+        // Variável para armazenar as instruções do agente
+        let agentInstructions = localStorage.getItem('agentInstructions') || '';
+
+        // Inicializa o chatHistory com as instruções do agente
+        let chatHistory = [];
+
+        // Função para inicializar o histórico do chat com as instruções do agente
+        function initializeChatHistory() {
+            chatHistory = []; // Limpa o histórico existente
+            if (agentInstructions) {
+                chatHistory.push({ role: "model", parts: [{ text: `Você é um assistente de IA com as seguintes instruções: ${agentInstructions}.` }] });
+            }
+            // Adiciona a mensagem de boas-vindas inicial se não houver instruções do agente
+            if (!agentInstructions || chatHistory.length === 0) {
+                chatHistory.push({ role: "model", parts: [{ text: "Olá! Eu sou o assistente virtual. Configure-me acima!" }] });
+            }
+        }
+
+        // Carrega as instruções salvas e inicializa o chat ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const agentInstructionsTextarea = document.getElementById('agent-instructions');
+            if (agentInstructions) {
+                agentInstructionsTextarea.value = agentInstructions;
+                // Se houver instruções salvas, minimiza a seção de configuração ao carregar
+                document.getElementById('agent-config-section').classList.add('minimized');
+            }
+            initializeChatHistory();
+        });
+
+        // Função para salvar as instruções do agente
+        function saveAgentInstructions() {
+            const agentInstructionsTextarea = document.getElementById('agent-instructions');
+            agentInstructions = agentInstructionsTextarea.value.trim();
+            localStorage.setItem('agentInstructions', agentInstructions); // Salva no localStorage
+
+            // Re-inicializa o chatHistory com as novas instruções
+            initializeChatHistory();
+
+            // Limpa as mensagens antigas do chat e adiciona uma mensagem de confirmação
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.innerHTML = `
+                <div class="message-wrapper assistant">
+                    <div class="avatar">XD</div>
+                    <div class="message-content">
+                        Instruções do agente salvas! O assistente agora seguirá estas diretrizes.
+                        <div class="timestamp">${getCurrentTime()}</div>
+                    </div>
+                </div>
+            `;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Minimiza a seção de configuração após salvar
+            document.getElementById('agent-config-section').classList.add('minimized');
+
+            console.log("Instruções do agente salvas:", agentInstructions);
+        }
+
+        // Nova função para alternar a visibilidade da seção de configuração
+        function toggleAgentConfig() {
+            const agentConfigSection = document.getElementById('agent-config-section');
+            agentConfigSection.classList.toggle('minimized');
+        }
+
+        // Função para enviar mensagens
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageText = input.value.trim();
+
+            if (messageText) {
+                // Adiciona a mensagem do usuário ao histórico e exibe
+                const userMessageWrapper = document.createElement('div');
+                userMessageWrapper.classList.add('message-wrapper', 'user');
+                userMessageWrapper.innerHTML = `
+                    <div class="avatar">Você</div>
+                    <div class="message-content">
+                        ${messageText}
+                        <div class="timestamp">${getCurrentTime()}</div>
+                    </div>
+                `;
+                messagesContainer.appendChild(userMessageWrapper);
+                chatHistory.push({ role: "user", parts: [{ text: messageText }] });
+
+                input.value = ''; // Limpa o input
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+
+                // Adiciona o indicador de digitação do assistente
+                const typingIndicator = document.createElement('div');
+                typingIndicator.classList.add('typing-indicator', 'assistant');
+                typingIndicator.innerHTML = `
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                `;
+                messagesContainer.appendChild(typingIndicator);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+
+                try {
+                    const payload = { contents: chatHistory };
+                    const apiKey = "AIzaSyA__uvaQCm1NUNi60DJ8QZIrk44hz3yBG8"; // Deixe como está, a Canvas fornecerá a chave em tempo de execução
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    messagesContainer.removeChild(typingIndicator); // Remove o indicador de digitação
+
+                    let assistantResponseText = "Desculpe, não consegui gerar uma resposta no momento.";
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        // Limpa o texto da resposta antes de exibir
+                        assistantResponseText = cleanText(result.candidates[0].content.parts[0].text);
+                    } else {
+                        console.error('Resposta da API Gemini inesperada:', result);
+                    }
+
+                    // Adiciona a resposta do assistente ao histórico e exibe
+                    const assistantMessageWrapper = document.createElement('div');
+                    assistantMessageWrapper.classList.add('message-wrapper', 'assistant');
+                    assistantMessageWrapper.innerHTML = `
+                        <div class="avatar">XD</div>
+                        <div class="message-content">
+                            ${assistantResponseText}
+                            <div class="timestamp">${getCurrentTime()}</div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(assistantMessageWrapper);
+                    chatHistory.push({ role: "model", parts: [{ text: assistantResponseText }] });
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Rola para o final
+
+                } catch (error) {
+                    console.error('Erro ao conectar à API Gemini:', error);
+                    messagesContainer.removeChild(typingIndicator); // Remove o indicador de digitação
+
+                    const errorMessageWrapper = document.createElement('div');
+                    errorMessageWrapper.classList.add('message-wrapper', 'assistant');
+                    errorMessageWrapper.innerHTML = `
+                        <div class="avatar">XD</div>
+                        <div class="message-content">
+                            Desculpe, houve um erro ao conectar com o assistente. Por favor, tente novamente mais tarde.
+                            <div class="timestamp">${getCurrentTime()}</div>
+                        </div>
+                    `;
+                    messagesContainer.appendChild(errorMessageWrapper);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+        }
+
+        // Permite enviar mensagem pressionando Enter
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Função para lidar com a seleção do menu (redirecionamento)
+        function handleMenuSelection(value) {
+            if (value) {
+                window.location.href = value;
+            }
+        }
+    </script>
+</body>
+</html>
