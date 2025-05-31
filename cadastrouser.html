@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XD - Crie Sua Conta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cadastrouser.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html">XD</a>
+        <button class="navbar-toggler" id="navbarToggler">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            <li class="nav-item"><a class="nav-link active" href="login.html">Conta</a></li>
+            <li class="nav-item"><a class="nav-link" href="sobre-nos.html">Sobre Nós</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero-invite">
+        <h1>Desbloqueie o Futuro. Acesse o Universo XD.</h1>
+        <p>Crie sua conta XD e desbloqueie um universo de inovação, conexão e possibilidades ilimitadas.</p>
+    </header>
+
+    <div class="cadastro-portal">
+        <h2>Crie Sua Conta XD</h2>
+        <form id="cadastroForm">
+            <input type="text" placeholder="Nome Completo" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="text" placeholder="Nome de Usuário" required>
+            <input type="password" placeholder="Senha Secreta" required>
+            <input type="password" placeholder="Confirme a Senha" required>
+            <button type="submit"><strong>Cadastrar no Universo XD</strong></button>
+            
+            <div class="links">
+                <a href="login.html">Já possui conta? Faça login</a>
+            </div>
+
+            <a href="#" class="google-cadastro-btn">
+                <span class="google-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M22.675 12.001c0-.78-.068-1.535-.198-2.262H12v4.265h6.418c-.277 1.387-1.077 2.56-2.228 3.344l.001.001 3.523 2.723.027.027c2.067-1.905 3.267-4.66 3.267-7.902z" fill="#4285F4"/>
+                        <path d="M12 23c3.272 0 6.012-1.08 8.016-2.91l-3.524-2.723c-.972.673-2.222 1.066-3.892 1.066-2.998 0-5.534-2.008-6.43-4.707l-.001-.001-3.642 2.81c1.99 3.948 5.862 6.666 10.497 6.666z" fill="#34A853"/>
+                        <path d="M5.57 14.07c-.201-.58-.316-1.2-.316-1.87s.115-1.29.316-1.87L2.007 7.352c-.675 1.34-.997 2.85-.997 4.479s.322 3.139.997 4.479l3.563-2.74z" fill="#FBBC05"/>
+                        <path d="M12 4.908c1.77 0 3.34.61 4.59 1.79l3.14-3.14C18.012 1.08 15.272 0 12 0 7.365 0 3.493 2.718 1.503 6.666l3.642 2.81c.9-2.699 3.432-4.707 6.43-4.707z" fill="#EA4335"/>
+                    </svg>
+                </span>
+                <span class="google-text">Cadastrar com <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span></span>
+            </a>
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-section">
+            <div class="footer-column">
+                <h5>Sobre Nós</h5>
+                <p>Somos a XD, uma plataforma inovadora dedicada a conectar pessoas, impulsionar a criatividade e promover o crescimento pessoal e profissional através da tecnologia.</p>
+            </div>
+            <div class="footer-column">
+                <h5>Links Rápidos</h5>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="planos.html">Planos</a></li>
+                    <li><a href="login.html">Conta</a></li>
+                    <li><a href="sobre-nos.html">Sobre Nós</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Contato</h5>
+                <p>Email: contato@xd.com</p>
+                <p>Telefone: (11) 1234-5678</p>
+                <p>Endereço: Rua da Inovação, 456 - São Paulo, SP</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 XD. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Script para a navegação responsiva (toggle do menu)
+        document.getElementById('navbarToggler').addEventListener('click', function() {
+            var navbarNav = document.getElementById('navbarNav');
+            navbarNav.classList.toggle('show');
+        });
+
+        // Script para redirecionar o formulário de cadastro
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+            // Aqui você pode adicionar a lógica de cadastro real.
+            // Por enquanto, apenas redireciona para 'home.html'
+            window.location.href = 'home.html'; 
+        });
+    </script>
+</body>
+</html>
