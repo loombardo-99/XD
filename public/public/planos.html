@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XD - Planos e Assinaturas: Escolha Seu Futuro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/planos.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="index.html">XD</a>
+        <button class="navbar-toggler" id="navbarToggler">
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav" id="navbarNav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="planos.html">Planos</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html">Conta</a></li>
+            <li class="nav-item"><a class="nav-link" href="sobre-nos.html">Sobre Nós</a></li>
+        </ul>
+    </nav>
+
+    <header class="plans-hero container mt-5">
+        <h1>Escolha o Plano Ideal para Desbloquear Seu Potencial</h1>
+        <p class="lead">Na XD, cada plano é uma porta para um universo de possibilidades. Encontre a assinatura que se alinha perfeitamente aos seus objetivos e comece a transformar sua jornada hoje mesmo!</p>
+    </header>
+
+    <main class="container">
+        <section class="plans-grid">
+            <div class="plan-card silver">
+                <h3>Plano Essencial</h3>
+                <p class="price">R$ 29,90<span>/mês</span></p>
+                <ul>
+                    <li>✓ Acesso ilimitado ao Chat Generativo Básico</li>
+                    <li>✓ 5 GB de armazenamento seguro</li>
+                    <li>✓ Participação em discussões da Comunidade</li>
+                    <li>✓ Suporte por e-mail (resposta em até 48h)</li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom">Começar Agora</a>
+            </div>
+
+            <div class="plan-card gold recommended">
+                <h3>Plano Pro</h3>
+                <p class="price">R$ 59,90<span>/mês</span></p>
+                <ul>
+                    <li>✓ **Tudo do Plano Essencial +**</li>
+                    <li>✓ Acesso ilimitado ao Chat Generativo Avançado</li>
+                    <li>✓ 50 GB de armazenamento de alta velocidade</li>
+                    <li>✓ Acesso a eventos e workshops exclusivos</li>
+                    <li>✓ Suporte prioritário via chat e e-mail (resposta em até 24h)</li>
+                    <li>✓ Ferramentas de organização personalizáveis</li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom">Assinar Plano Pro</a>
+            </div>
+
+            <div class="plan-card diamond">
+                <h3>Plano Premium</h3>
+                <p class="price">R$ 99,90<span>/mês</span></p>
+                <ul>
+                    <li>✓ **Tudo do Plano Pro +**</li>
+                    <li>✓ Armazenamento ilimitado na nuvem</li>
+                    <li>✓ Consultoria personalizada com especialistas XD (1h/mês)</li>
+                    <li>✓ Acesso antecipado a novos recursos e funcionalidades</li>
+                    <li>✓ Suporte VIP 24/7 (telefone, chat, e-mail)</li>
+                    <li>✓ Integração com ferramentas de terceiros</li>
+                </ul>
+                <a href="#" class="btn btn-primary-custom">Desbloquear Premium</a>
+            </div>
+        </section>
+
+        <section class="testimonials-section container mt-5">
+            <h2>O Que Nossos Usuários Dizem Sobre Nossos Planos</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-item">
+                    <p>"O Plano Pro mudou a forma como gerencio meus projetos. O suporte é incrível e as ferramentas são essenciais!"</p>
+                    <div class="author">- Lucas M., Desenvolvedor Freelancer</div>
+                </div>
+                <div class="testimonial-item">
+                    <p>"Com o Plano Premium, minha produtividade disparou. A consultoria personalizada é um diferencial enorme!"</p>
+                    <div class="author">- Fernanda S., Empresária</div>
+                </div>
+                <div class="testimonial-item">
+                    <p>"Comecei com o Essencial e já sinto a diferença na minha organização. A XD é viciante de um jeito bom!"</p>
+                    <div class="author">- Gabriel P., Estudante Universitário</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section container mt-5">
+            <h2>Perguntas Frequentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Qual é a diferença entre o Chat Generativo Básico e o Avançado?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O Chat Generativo Básico oferece funcionalidades essenciais para conversas e geração de ideias. O Avançado, disponível no Plano Pro e Premium, inclui personalização aprofundada, acesso a modelos de linguagem mais complexos e recursos de colaboração em tempo real, ideal para projetos mais exigentes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Posso mudar de plano a qualquer momento?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Você pode fazer upgrade ou downgrade do seu plano a qualquer momento diretamente na sua área de "Conta". A mudança é aplicada imediatamente, e os ajustes de cobrança são feitos proporcionalmente.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Como funciona o armazenamento de dados?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Oferecemos armazenamento seguro na nuvem para todos os seus projetos, documentos e mídias. A capacidade varia de acordo com o plano escolhido, sendo ilimitada no Plano Premium. Seus dados são criptografados e protegidos.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Existe um período de teste gratuito?
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Atualmente, não oferecemos um período de teste gratuito para os planos completos. No entanto, você pode explorar algumas funcionalidades básicas da XD ao criar uma conta gratuita, sem necessidade de cartão de crédito.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-section">
+                <div class="footer-column">
+                    <h5>Sobre Nós</h5>
+                    <p>Somos a XD, uma plataforma inovadora dedicada a conectar pessoas, impulsionar a criatividade e promover o crescimento pessoal e profissional através da tecnologia.</p>
+                </div>
+                <div class="footer-column">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="planos.html">Planos</a></li>
+                        <li><a href="login.html">Conta</a></li>
+                        <li><a href="sobre-nos.html">Sobre Nós</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h5>Contato</h5>
+                    <p>Email: contato@xd.com</p>
+                    <p>Telefone: (11) 1234-5678</p>
+                    <p>Endereço: Rua da Inovação, 456 - São Paulo, SP</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 XD. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funcionalidade do Navbar (Menu Hambúrguer)
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarNav = document.getElementById('navbarNav');
+
+        navbarToggler.addEventListener('click', () => {
+            navbarNav.classList.toggle('show');
+        });
+
+        // Adiciona um listener para fechar o menu ao clicar em um link (em mobile)
+        navbarNav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) { // Apenas para telas menores
+                    navbarNav.classList.remove('show');
+                }
+            });
+        });
+
+        // Funcionalidade do FAQ (Accordion)
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const arrow = element.querySelector('.arrow');
+
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                answer.style.maxHeight = null; // Reseta a altura para a transição
+                element.classList.remove('active');
+            } else {
+                // Fecha todos os outros FAQs abertos
+                document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+                    openAnswer.style.maxHeight = null;
+                    openAnswer.classList.remove('show');
+                    openAnswer.previousElementSibling.classList.remove('active');
+                });
+
+                answer.classList.add('show');
+                answer.style.maxHeight = answer.scrollHeight + "px"; // Define a altura para a transição
+                element.classList.add('active');
+            }
+        }
+
+        // Script para verificar o carregamento e funcionalidade
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Página 'Planos e Assinaturas' carregada com CSS puro e JavaScript personalizado.");
+        });
+    </script>
+</body>
+</html>
