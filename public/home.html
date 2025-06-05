@@ -203,7 +203,7 @@
 
                 try {
                     const payload = { contents: chatHistory };
-                    const apiKey = "AIzaSyA__uvaQCm1NUNi60DJ8QZIrk44hz3yBG8"; // Deixe como está, a Canvas fornecerá a chave em tempo de execução
+                    const apiKey = ""; // Deixe como está, a Canvas fornecerá a chave em tempo de execução
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     const response = await fetch(apiUrl, {
