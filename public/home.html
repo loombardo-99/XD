@@ -9,21 +9,33 @@
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+    <script>
+        // Verifica o status de login ao carregar a página
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Função de logout
+        function logout() {
+            localStorage.removeItem('loggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
     <div class="overlay" id="overlay"></div>
 
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
     <nav id="main-nav">
         <ul>
-            <li><a href="public/home.html">Assistente</a></li>
-            <li><a href="public/previsoes.html">Leitura</a></li>
-            <li><a href="public/comunidade.html">Comunidade</a></li>
-            <li><a href="public/editor.html">Editor</a></li>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Leitura</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="editor.html">Editor</a></li>
             <li>
                 <select onchange="handleMenuSelection(this.value)" class="menu-select">
                     <option value="perfil.html" disabled selected>Perfil</option>
                     <option value="configuracoes.html">Configurações</option>
                     <option value="politicas.html">Políticas de Privacidade</option>
-                    <option value="index.html">Sair</option>
+                    <option value="#" onclick="logout()">Sair</option> <!-- Adicionado botão de logout -->
                 </select>
             </li>
         </ul>
@@ -55,6 +67,7 @@
             <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
+    <script src="JS/auth.js"></script> <!-- Incluído auth.js -->
     <script>
         // Função para alternar a visibilidade do menu
         function toggleMenu() {
@@ -203,8 +216,7 @@
 
                 try {
                     const payload = { contents: chatHistory };
-                    const apiKey = ""; // Deixe como está, a Canvas fornecerá a chave em tempo de execução
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    const apiUrl = `http://localhost:5000/generateContent`;
 
                     const response = await fetch(apiUrl, {
                         method: 'POST',

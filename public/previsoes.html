@@ -14,16 +14,16 @@
     <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
     <nav id="main-nav">
         <ul>
-            <li><a href="public/home.html">Assistente</a></li>
-            <li><a href="public/leitura.html">Leitura</a></li>
-            <li><a href="public/comunidade.html">Comunidade</a></li>
-            <li><a href="public/editor.html">Editor</a></li>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Leitura</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="editor.html">Editor</a></li>
             <li>
                 <select onchange="handleMenuSelection(this.value)" class="menu-select">
                     <option value="perfil.html" disabled selected>Perfil</option>
                     <option value="configuracoes.html">Configurações</option>
                     <option value="politicas.html">Políticas de Privacidade</option>
-                    <option value="index.html">Sair</option>
+                    <option value="#" onclick="logout()">Sair</option> <!-- Adicionado botão de logout -->
                 </select>
             </li>
         </ul>
@@ -78,6 +78,7 @@
             <span>Gerando resumo...</span>
         </div>
     </div>
+    <script src="JS/auth.js"></script> <!-- Incluído auth.js -->
     <script>
         // Função para alternar a visibilidade do menu
         function toggleMenu() {
@@ -125,17 +126,7 @@
         function loadEbookContent() {
             // Para este exemplo, o conteúdo é estático.
             // Em uma aplicação real, você carregaria o texto de um arquivo ou API.
-            const initialText = `Este é um parágrafo de exemplo para o seu ebook. Você pode carregar o conteúdo real do seu ebook aqui. O design é minimalista e focado na legibilidade, com um fundo escuro para reduzir o cansaço visual, especialmente em ambientes com pouca luz.
-
-            A navegação entre as páginas pode ser feita pelos botões abaixo. Os controles de fonte e tema permitem personalizar sua experiência de leitura. Nosso objetivo é proporcionar um ambiente limpo e sem distrações para que você possa se concentrar totalmente na sua leitura.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-            Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus auctor iaculis. Mauris vel nisl. Cras a nunc. Donec adipiscing mollis scelerisque. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam nulla, at volutpat sem arcu sed ipsum. Donec non dolor. In hac habitasse platea dictumst. Aliquam eu elit. Nunc sed elit. Donec at odio sit amet nibh vulputate cursus. Nulla facilisi. Fusce at massa sed arcu egestas.
-
-            Praesent dapibus, neque id cursus faucibus, tortor neque egestas augu, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis vitae, aliquam et, ultrices in, mauris. Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, adipiscing non, dolor. Sed in justo. Phasellus at dolor in nisl iaculis egestas. Nulla facilisi. Etiam id elit, et ac facilisis turpis.
-
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Mauris non ligula. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam.`;
+            const initialText = `Este é um parágrafo de exemplo para o seu ebook. Você pode carregar o conteúdo real do seu ebook aqui. O design é minimalista e focado na legibilidade, com um fundo escuro para reduzir o cansaço visual, especialmente em ambientes com pouca luz.\n\n            A navegação entre as páginas pode ser feita pelos botões abaixo. Os controles de fonte e tema permitem personalizar sua experiência de leitura. Nosso objetivo é proporcionar um ambiente limpo e sem distrações para que você possa se concentrar totalmente na sua leitura.\n\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n            Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus auctor iaculis. Mauris vel nisl. Cras a nunc. Donec adipiscing mollis scelerisque. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam nulla, at volutpat sem arcu sed ipsum. Donec non dolor. In hac habitasse platea dictumst. Aliquam eu elit. Nunc sed elit. Donec at odio sit amet nibh vulputate cursus. Nulla facilisi. Fusce at massa sed arcu egestas.\n\n            Praesent dapibus, neque id cursus faucibus, tortor neque egestas augu, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi. Pellentesque fermentum dolor. Aliquam quam lectus, facilisis vitae, aliquam et, ultrices in, mauris. Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, adipiscing non, dolor. Sed in justo. Phasellus at dolor in nisl iaculis egestas. Nulla facilisi. Etiam id elit, et ac facilisis turpis.\n\n            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Mauris non ligula. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam. Sed quis diam.`
 
             ebookContent.innerHTML = ''; // Limpa o conteúdo para recarregar paginado
             pages.length = 0; // Limpa o array de páginas
@@ -271,7 +262,7 @@
                     ],
                     "default": [
                         {
-                            title: `Livro sobre "${searchTerm}"`,
+                            title: `Livro sobre "${searchTerm}"`, 
                             author: "Autor Desconhecido",
                             description: `Nenhum resumo específico encontrado para "${searchTerm}", mas aqui está um exemplo de resultado. Em uma aplicação real, você integraria uma API de pesquisa de livros.`
                         }

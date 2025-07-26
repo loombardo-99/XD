@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor - XD</title>
+    <!-- Adicione seus links CSS aqui -->
+</head>
+<body>
+    <!-- Conteúdo do editor aqui -->
 
+    <nav id="main-nav">
+        <ul>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Leitura</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="editor.html">Editor</a></li>
+            <li>
+                <select onchange="handleMenuSelection(this.value)" class="menu-select">
+                    <option value="perfil.html" disabled selected>Perfil</option>
+                    <option value="configuracoes.html">Configurações</option>
+                    <option value="politicas.html">Políticas de Privacidade</option>
+                    <option value="#" onclick="logout()">Sair</option> <!-- Adicionado botão de logout -->
+                </select>
+            </li>
+        </ul>
+    </nav>
+
+    <script src="JS/auth.js"></script> <!-- Incluído auth.js -->
+    <script>
+        // Função para lidar com a seleção do menu (redirecionamento)
+        function handleMenuSelection(value) {
+            if (value) {
+                window.location.href = value;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -18,16 +18,16 @@
 
     <nav id="main-nav">
         <ul>
-            <li><a href="public/home.html">Assistente</a></li>
-            <li><a href="public/leitura.html">Leitura</a></li>
-            <li><a href="public/comunidade.html">Comunidade</a></li>
-            <li><a href="public/editor.html">Editor</a></li>
+            <li><a href="home.html">Assistente</a></li>
+            <li><a href="previsoes.html">Leitura</a></li>
+            <li><a href="comunidade.html">Comunidade</a></li>
+            <li><a href="editor.html">Editor</a></li>
             <li>
                 <select onchange="handleMenuSelection(this.value)" class="menu-select">
                     <option value="perfil.html" disabled selected>Perfil</option>
                     <option value="configuracoes.html">Configurações</option>
                     <option value="politicas.html">Políticas de Privacidade</option>
-                    <option value="index.html">Sair</option>
+                    <option value="#" onclick="logout()">Sair</option> <!-- Adicionado botão de logout -->
                 </select>
             </li>
         </ul>
@@ -145,6 +145,7 @@
         </div>
     </div>
 
-    <script src="js/comunidade.js"></script>
+    <script src="JS/comunidade.js"></script>
+    <script src="JS/auth.js"></script> <!-- Incluído auth.js -->
 </body>
 </html>
